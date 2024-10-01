@@ -1,0 +1,21 @@
+# User-specific files
+*.user
+
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+build/
+
+
+# Visual Studio Code cache/options directory
+.vscode/
+
+
+# Pico Pio project specific, auto generated
+*.pio.h
+
+
+# personal documentation
+Documents/
+Pico SDK v1.5.1/
