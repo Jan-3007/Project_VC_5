@@ -335,11 +335,30 @@
           "label": "DNP",
           "name": "${DNP}",
           "show": true
+<<<<<<< Updated upstream
+=======
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
+>>>>>>> Stashed changes
         }
       ],
       "filter_string": "",
       "group_symbols": true,
+<<<<<<< Updated upstream
       "name": "Grouped By Value",
+=======
+      "name": "",
+>>>>>>> Stashed changes
       "sort_asc": true,
       "sort_field": "Reference"
     },

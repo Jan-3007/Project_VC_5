@@ -19,3 +19,7 @@ build/
 # personal documentation
 Documents/
 Pico SDK v1.5.1/
+
+
+# KiCad
+VC5_schematic-backups/
