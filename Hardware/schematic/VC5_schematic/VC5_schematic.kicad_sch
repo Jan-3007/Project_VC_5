@@ -5,7 +5,7 @@
 	(uuid "236c86f4-0879-4356-88b2-65461f963bd6")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Connector:Conn_01x01_Pin"
+		(symbol "Connector:Conn_01x02_Socket"
 			(pin_names
 				(offset 1.016) hide)
 			(exclude_from_sim no)
@@ -19,126 +19,7 @@
 					)
 				)
 			)
-			(property "Value" "Conn_01x01_Pin"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Generic connector, single row, 01x01, script generated"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "connector"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x01_Pin_1_1"
-				(polyline
-					(pts
-						(xy 1.27 0) (xy 0.8636 0)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Connector:Conn_01x02_Pin"
-			(pin_names
-				(offset 1.016) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Conn_01x02_Pin"
+			(property "Value" "Conn_01x02_Socket"
 				(at 0 -5.08 0)
 				(effects
 					(font
@@ -199,10 +80,22 @@
 					(hide yes)
 				)
 			)
-			(symbol "Conn_01x02_Pin_1_1"
+			(symbol "Conn_01x02_Socket_1_1"
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(polyline
 					(pts
-						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
 					)
 					(stroke
 						(width 0.1524)
@@ -214,7 +107,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 0) (xy 0.8636 0)
+						(xy -1.27 0) (xy -0.508 0)
 					)
 					(stroke
 						(width 0.1524)
@@ -224,30 +117,20 @@
 						(type none)
 					)
 				)
-				(rectangle
-					(start 0.8636 -2.413)
-					(end 0 -2.667)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
 					(stroke
 						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
+						(type none)
 					)
 				)
 				(pin passive line
-					(at 5.08 0 180)
+					(at -5.08 0 0)
 					(length 3.81)
 					(name "Pin_1"
 						(effects
@@ -265,7 +148,7 @@
 					)
 				)
 				(pin passive line
-					(at 5.08 -2.54 180)
+					(at -5.08 -2.54 0)
 					(length 3.81)
 					(name "Pin_2"
 						(effects
@@ -1469,12 +1352,6 @@
 		)
 	)
 	(junction
-		(at 193.04 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6f96ab3c-f6d0-4d5c-954e-94e1bcf4c114")
-	)
-	(junction
 		(at 177.8 71.12)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1553,10 +1430,6 @@
 		(uuid "b28e53c1-fa75-45da-8630-a474e799998c")
 	)
 	(no_connect
-		(at 173.99 71.12)
-		(uuid "d3b48a4d-6d5b-4009-85d0-13f801ef4803")
-	)
-	(no_connect
 		(at 138.43 86.36)
 		(uuid "d62f28d3-3c7b-4681-8315-48bb2e3a83ea")
 	)
@@ -1609,16 +1482,6 @@
 			(type default)
 		)
 		(uuid "11def2f0-494f-4796-a699-e5fcb05f743b")
-	)
-	(wire
-		(pts
-			(xy 193.04 71.12) (xy 193.04 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "20ada640-76da-4cb5-997c-a6923f74ac7e")
 	)
 	(wire
 		(pts
@@ -1682,16 +1545,6 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 71.12) (xy 182.88 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6da8e340-b01d-4964-bd73-28db78e12bdf")
-	)
-	(wire
-		(pts
 			(xy 193.04 77.47) (xy 193.04 76.2)
 		)
 		(stroke
@@ -1739,6 +1592,16 @@
 			(type default)
 		)
 		(uuid "90d245b7-d252-4cbc-aa15-bdaa79aed264")
+	)
+	(wire
+		(pts
+			(xy 173.99 71.12) (xy 177.8 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90fc30fc-9852-4f93-8576-c7d6e1443b71")
 	)
 	(wire
 		(pts
@@ -1870,7 +1733,47 @@
 		)
 		(uuid "ffca7704-029a-4ab7-b432-d6b25a360a05")
 	)
-	(label "reset_displays"
+	(text "Projekt \"VC 5\""
+		(exclude_from_sim no)
+		(at 200.66 189.738 0)
+		(effects
+			(font
+				(size 2.5 2.5)
+			)
+		)
+		(uuid "1df88372-70b1-4f16-90f2-196556f190ec")
+	)
+	(text "1.0"
+		(exclude_from_sim no)
+		(at 270.51 193.294 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "259e4026-4774-4fae-b5eb-2aa5e8b74805")
+	)
+	(text "Designed by Jan Eberhardt"
+		(exclude_from_sim no)
+		(at 193.548 168.402 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "b941ef27-3384-475a-a5d8-340ef72c0952")
+	)
+	(text "07.10.2024"
+		(exclude_from_sim no)
+		(at 213.36 193.294 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "dfe41840-270b-450f-bb30-f3ffa430d602")
+	)
+	(label "DISP_RESET"
 		(at 111.76 133.35 270)
 		(fields_autoplaced yes)
 		(effects
@@ -2057,7 +1960,7 @@
 			)
 		)
 	)
-	(global_label "I²C-SCL"
+	(global_label "I2C_SCL"
 		(shape output)
 		(at 121.92 93.98 180)
 		(fields_autoplaced yes)
@@ -2069,7 +1972,7 @@
 		)
 		(uuid "75f1ddfd-1fa9-49cb-a0b8-bdabf504b84f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 111.0124 93.98 0)
+			(at 112.0295 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2079,7 +1982,7 @@
 			)
 		)
 	)
-	(global_label "I²C-SDA"
+	(global_label "I2C_SDA"
 		(shape output)
 		(at 121.92 91.44 180)
 		(fields_autoplaced yes)
@@ -2091,7 +1994,7 @@
 		)
 		(uuid "77575bc3-a43d-42b8-ae6d-55cbf566e6a3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 110.9519 91.44 0)
+			(at 111.969 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2123,7 +2026,7 @@
 			)
 		)
 	)
-	(global_label "reset_MCP"
+	(global_label "MCP_RESET"
 		(shape output)
 		(at 121.92 78.74 180)
 		(fields_autoplaced yes)
@@ -2135,7 +2038,7 @@
 		)
 		(uuid "aa8c6aa1-ad07-4992-8ec1-98af42282c6a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 109.2586 78.74 0)
+			(at 108.8849 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2189,7 +2092,7 @@
 			)
 		)
 	)
-	(global_label "reset_displays"
+	(global_label "DISP_RESET"
 		(shape output)
 		(at 111.76 148.59 270)
 		(fields_autoplaced yes)
@@ -2201,7 +2104,7 @@
 		)
 		(uuid "d4fbf987-66d6-4bf0-8289-128c24207f6a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 111.76 165.0008 90)
+			(at 111.76 161.988 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2252,76 +2155,6 @@
 				)
 				(justify right)
 				(hide yes)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Pin")
-		(at 140.97 53.34 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "09ce7abe-a913-45bd-b288-5b37f75b0db1")
-		(property "Reference" "J1"
-			(at 142.24 52.7049 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Debug_output"
-			(at 142.24 55.2449 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 140.97 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 140.97 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 140.97 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "bce9a692-14c4-4bc0-8d44-fd4838cb5a21")
-		)
-		(pin "1"
-			(uuid "096f078c-961f-4db2-9b6a-9abc0008a1c2")
-		)
-		(instances
-			(project "VC5_schematic"
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
-					(reference "J1")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -2391,6 +2224,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 138.43 53.34 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1a3ac973-e038-4b03-9bab-e82d64601191")
+		(property "Reference" "J2"
+			(at 142.24 52.7049 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Debug_output"
+			(at 142.24 55.2449 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 138.43 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 138.43 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 138.43 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "14cc82ef-d1d8-4e27-b849-1b80b55ce62c")
+		)
+		(pin "1"
+			(uuid "c461557b-0045-4f9b-9d5c-31e47bf84cdb")
+		)
+		(instances
+			(project ""
+				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
+					(reference "J2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 138.43 114.3 270)
 		(unit 1)
@@ -2450,73 +2353,6 @@
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
 					(reference "#PWR04")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x01_Pin")
-		(at 182.88 66.04 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "30e584d1-d25c-478d-81f2-97139101a37b")
-		(property "Reference" "J2"
-			(at 184.15 65.4049 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "+5V"
-			(at 184.15 67.9449 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 182.88 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 182.88 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 182.88 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1d33c933-631f-4a8e-9b51-297859638ca0")
-		)
-		(instances
-			(project "VC5_schematic"
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
-					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -2903,73 +2739,6 @@
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
 					(reference "#PWR06")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x01_Pin")
-		(at 193.04 66.04 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "689311cc-d280-4314-bb52-640b9e05efec")
-		(property "Reference" "J3"
-			(at 194.31 65.4049 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "GND"
-			(at 194.31 67.9449 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 193.04 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 193.04 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 193.04 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "07576b18-3946-48a4-86ee-c7092e79a0ba")
-		)
-		(instances
-			(project "VC5_schematic"
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
-					(reference "J3")
 					(unit 1)
 				)
 			)

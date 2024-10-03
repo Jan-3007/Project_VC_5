@@ -2368,7 +2368,47 @@
 		)
 		(uuid "ff4a6acf-47bc-4db5-80fe-158ab7a61b49")
 	)
-	(global_label "reset_MCP"
+	(text "Designed by Jan Eberhardt"
+		(exclude_from_sim no)
+		(at 193.802 168.402 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "4793804a-57ae-4f0d-9b5e-52a10443e014")
+	)
+	(text "07.10.2024"
+		(exclude_from_sim no)
+		(at 213.614 193.294 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "4c3e7c7d-15d6-4c81-ab51-c8038d902631")
+	)
+	(text "1.0"
+		(exclude_from_sim no)
+		(at 270.764 193.294 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "584dd9d6-8203-4e53-9e01-0dcb39a9172d")
+	)
+	(text "Projekt \"VC 5\""
+		(exclude_from_sim no)
+		(at 200.914 189.738 0)
+		(effects
+			(font
+				(size 2.5 2.5)
+			)
+		)
+		(uuid "ef807010-02ec-4c6e-8fa1-2685407aa766")
+	)
+	(global_label "MCP_RESET"
 		(shape input)
 		(at 34.29 107.95 180)
 		(fields_autoplaced yes)
@@ -2380,7 +2420,7 @@
 		)
 		(uuid "0dc91fc8-a794-4143-9daf-347fd6b22cf7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 21.6286 107.95 0)
+			(at 21.2549 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2390,7 +2430,7 @@
 			)
 		)
 	)
-	(global_label "I²C-SCL"
+	(global_label "I2C_SCL"
 		(shape input)
 		(at 35.56 87.63 180)
 		(fields_autoplaced yes)
@@ -2402,7 +2442,7 @@
 		)
 		(uuid "2506bcfc-2a62-41f7-83ec-29ce7a3880e3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 24.6524 87.63 0)
+			(at 25.6695 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2412,7 +2452,7 @@
 			)
 		)
 	)
-	(global_label "I²C-SDA"
+	(global_label "I2C_SDA"
 		(shape input)
 		(at 35.56 85.09 180)
 		(fields_autoplaced yes)
@@ -2424,7 +2464,7 @@
 		)
 		(uuid "b9b93d4b-dc70-4adb-921d-0c5eae1585e1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 24.5919 85.09 0)
+			(at 25.609 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2452,7 +2492,7 @@
 				)
 			)
 		)
-		(property "Value" "RotaryEncoder_Switch"
+		(property "Value" "PEC11R-4220F-S0024"
 			(at 220.98 62.23 0)
 			(effects
 				(font
@@ -2937,7 +2977,7 @@
 				)
 			)
 		)
-		(property "Value" "RotaryEncoder_Switch"
+		(property "Value" "PEC11R-4220F-S0024"
 			(at 115.57 62.23 0)
 			(effects
 				(font
@@ -3014,7 +3054,7 @@
 				)
 			)
 		)
-		(property "Value" "RotaryEncoder_Switch"
+		(property "Value" "PEC11R-4220F-S0024"
 			(at 185.42 62.23 0)
 			(effects
 				(font
@@ -3091,7 +3131,7 @@
 				)
 			)
 		)
-		(property "Value" "RotaryEncoder_Switch"
+		(property "Value" "PEC11R-4220F-S0024"
 			(at 255.27 62.23 0)
 			(effects
 				(font
@@ -3387,7 +3427,7 @@
 				)
 			)
 		)
-		(property "Value" "RotaryEncoder_Switch"
+		(property "Value" "PEC11R-4220F-S0024"
 			(at 151.13 62.23 0)
 			(effects
 				(font

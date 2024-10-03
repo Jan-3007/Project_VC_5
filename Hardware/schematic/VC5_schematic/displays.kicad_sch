@@ -1460,6 +1460,46 @@
 		)
 		(uuid "fce97f8b-cfb2-496e-af56-713a5501d88f")
 	)
+	(text "Designed by Jan Eberhardt"
+		(exclude_from_sim no)
+		(at 193.802 168.402 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "16d2c452-e391-42aa-8563-6e0bacb87972")
+	)
+	(text "07.10.2024"
+		(exclude_from_sim no)
+		(at 213.614 193.294 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "1e8ec529-a230-4f58-bbc3-20b708e7694c")
+	)
+	(text "Projekt \"VC 5\""
+		(exclude_from_sim no)
+		(at 200.914 189.738 0)
+		(effects
+			(font
+				(size 2.5 2.5)
+			)
+		)
+		(uuid "3fd764bb-12b9-4b44-85ef-d82053fc4ccc")
+	)
+	(text "1.0"
+		(exclude_from_sim no)
+		(at 270.764 193.294 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "623fb705-72e6-41a4-8ad4-3322f8bdf0c2")
+	)
 	(label "CLK"
 		(at 58.42 105.41 270)
 		(fields_autoplaced yes)
@@ -1504,7 +1544,7 @@
 		)
 		(uuid "894498d2-7f10-4204-ba1e-3b22b0e8a75a")
 	)
-	(label "reset_displays"
+	(label "DISP_RESET"
 		(at 66.04 105.41 270)
 		(fields_autoplaced yes)
 		(effects
@@ -1713,7 +1753,7 @@
 			)
 		)
 	)
-	(global_label "reset_displays"
+	(global_label "DISP_RESET"
 		(shape input)
 		(at 66.04 127 270)
 		(fields_autoplaced yes)
@@ -1725,7 +1765,7 @@
 		)
 		(uuid "caa6b3f3-a352-4831-8eb9-6fc29a21736d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.04 143.4108 90)
+			(at 66.04 140.398 90)
 			(effects
 				(font
 					(size 1.27 1.27)
