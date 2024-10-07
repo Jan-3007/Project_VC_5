@@ -1,4 +1,4 @@
-23638167949742990
+23638168017334528
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -64461,7 +64461,7 @@ MCP23017_IO_expander
 
 0
 30
-27
+28
 Module
 A20_OLINUXINO_LIME2
 A20 Olinuxino LIME2, 1.2GHz, 512-1024MB RAM, Micro-SD, NAND or eMMC, 1000Mbit Ethernet
@@ -86548,7 +86548,7 @@ WiFi IEEE802.11 b/g/n
 44
 44
 RPI_Pico_THT
-RPi_Pico_SMD_TH
+RPi_Pico_THT
 Through hole straight pin header, 2x20, 2.54mm pitch, double rows
 Through hole pin header THT 2x20 2.54mm double row
 0
@@ -96543,6 +96543,13 @@ Varistor VF
 0
 2
 2
+WS2812_LED_THT
+LED_D5.0mm-4_RGB
+LED, diameter 5.0mm, 4 pins, WP154A4, https://www.kingbright.com/attachments/file/psearch/000/00/00/L-154A4SUREQBFZGEW(Ver.11A).pdf
+LED diameter 5.0mm 2 pins diameter 5.0mm 3 pins diameter 5.0mm 4 pins RGB RGBLED
+0
+4
+4
 Waveshare_displays
 WaveShare_1in3_OLED_SH1106
 
@@ -96564,10 +96571,3 @@ RotaryEncoder_Bourns_Vertical_PEC11R-4220K-S0024
 0
 7
 6
-personal_kicad_footprints
-WaveShare_1in3_OLED_SH1106
-
-
-0
-8
-8

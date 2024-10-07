@@ -1,4 +1,4 @@
-(footprint "RPi_Pico_SMD_TH"
+(footprint "RPi_Pico_THT"
 	(version 20240108)
 	(generator "pcbnew")
 	(generator_version "8.0")
@@ -1417,9 +1417,20 @@
 		(remove_unused_layers no)
 		(uuid "0ba17a9b-d889-426c-b4fe-048bed6b6be8")
 	)
-	(model "C:/Users/ncara/OneDrive/IoT/Tools/KiCad/RP-Pico Libraries/Pico.wrl"
+	(model "${KIPRJMOD}/Pico_PinHeader_1x20_P2.54mm_Vertical.step"
 		(offset
+			(xyz 9 24 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
 			(xyz 0 0 0)
+		)
+	)
+	(model "${KIPRJMOD}/Pico_PinHeader_1x20_P2.54mm_Vertical.step"
+		(offset
+			(xyz -9 24 0)
 		)
 		(scale
 			(xyz 1 1 1)

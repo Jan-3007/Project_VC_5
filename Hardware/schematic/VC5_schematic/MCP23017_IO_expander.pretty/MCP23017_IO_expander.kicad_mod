@@ -432,22 +432,6 @@
 			)
 		)
 	)
-	(pad "0" thru_hole oval
-		(at -8.404 -1.282)
-		(size 1.7 1.7)
-		(drill 1)
-		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
-		(uuid "73cc821a-2484-4399-9465-bcb4070757b4")
-	)
-	(pad "0" thru_hole oval
-		(at -8.404 1.258)
-		(size 1.7 1.7)
-		(drill 1)
-		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
-		(uuid "089a079b-c500-4463-9aff-a37cfa7ddf40")
-	)
 	(pad "1" thru_hole oval
 		(at 7.588 3.798)
 		(size 1.7 1.7)
@@ -512,6 +496,14 @@
 		(remove_unused_layers no)
 		(uuid "24f6a993-80fa-4e70-88cb-654e8a3e79db")
 	)
+	(pad "7" thru_hole oval
+		(at -8.404 -1.282)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "73cc821a-2484-4399-9465-bcb4070757b4")
+	)
 	(pad "8" thru_hole oval
 		(at -8.404 6.338)
 		(size 1.7 1.7)
@@ -527,6 +519,14 @@
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(uuid "f306cb6a-6b03-4664-aec8-92ffd525f5af")
+	)
+	(pad "10" thru_hole oval
+		(at -8.404 1.258)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "089a079b-c500-4463-9aff-a37cfa7ddf40")
 	)
 	(pad "11" thru_hole oval
 		(at -8.404 -6.362)
@@ -671,5 +671,27 @@
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(uuid "1ac78eec-9d34-487f-a840-192cf5393e21")
+	)
+	(model "${KIPRJMOD}/MCP23017_PinHeader_1x10_P2.54mm_Vertical.step"
+		(offset
+			(xyz -8.5 11.5 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(model "${KIPRJMOD}/MCP23017_PinHeader_2x10_P2.54mm_Vertical.step"
+		(offset
+			(xyz 7.5 11.5 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
 	)
 )

@@ -167,7 +167,7 @@
 				)
 			)
 		)
-		(symbol "MCU_RaspberryPi_Pico_and_Boards:Pico"
+		(symbol "RPI_Pico:Pico"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -187,7 +187,7 @@
 					)
 				)
 			)
-			(property "Footprint" "RPi_Pico:RPi_Pico_SMD_TH"
+			(property "Footprint" "RPi_Pico:RPi_Pico_THT"
 				(at 0 0 90)
 				(effects
 					(font
@@ -868,60 +868,6 @@
 						)
 					)
 				)
-				(pin input line
-					(at -2.54 -29.21 90)
-					(length 2.54)
-					(name "SWCLK"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "41"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -29.21 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "42"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 2.54 -29.21 90)
-					(length 2.54)
-					(name "SWDIO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "43"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin bidirectional line
 					(at -17.78 13.97 0)
 					(length 2.54)
@@ -1390,14 +1336,6 @@
 		(uuid "69953970-2030-4dac-8ec5-fc0b74e1d106")
 	)
 	(no_connect
-		(at 158.75 124.46)
-		(uuid "6ac827ca-cbc5-441a-b05b-c966b3bbbaa4")
-	)
-	(no_connect
-		(at 156.21 124.46)
-		(uuid "75d50f76-cd03-4bc9-a906-a4822fb62382")
-	)
-	(no_connect
 		(at 173.99 104.14)
 		(uuid "7f4a118b-60fa-45dd-965f-4a375cdc7caa")
 	)
@@ -1416,10 +1354,6 @@
 	(no_connect
 		(at 173.99 91.44)
 		(uuid "a41e738f-ebbc-4f1d-bda1-41bfcc152006")
-	)
-	(no_connect
-		(at 153.67 124.46)
-		(uuid "a9982bbe-98ed-4cbc-9445-1606a3e800ff")
 	)
 	(no_connect
 		(at 138.43 96.52)
@@ -1442,6 +1376,16 @@
 			(type default)
 		)
 		(uuid "01d80974-5fef-4020-b0f3-bb2e1df33ab5")
+	)
+	(wire
+		(pts
+			(xy 133.35 119.38) (xy 133.35 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "061cf3d0-cb9e-4dd4-a0cb-4f87d20c6cf1")
 	)
 	(wire
 		(pts
@@ -1475,13 +1419,13 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 119.38) (xy 133.35 148.59)
+			(xy 180.34 116.84) (xy 180.34 153.67)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "11def2f0-494f-4796-a699-e5fcb05f743b")
+		(uuid "2a0eeef3-8f97-4c0f-972a-5252a14d341d")
 	)
 	(wire
 		(pts
@@ -1635,6 +1579,16 @@
 	)
 	(wire
 		(pts
+			(xy 125.73 111.76) (xy 125.73 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab692c2b-5b83-44d8-a595-29f7a1207b03")
+	)
+	(wire
+		(pts
 			(xy 173.99 109.22) (xy 204.47 109.22)
 		)
 		(stroke
@@ -1662,16 +1616,6 @@
 			(type default)
 		)
 		(uuid "bdff1b42-5961-4d2e-a868-17a8b00654fc")
-	)
-	(wire
-		(pts
-			(xy 121.92 109.22) (xy 121.92 148.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cdf9847d-f49a-4ce0-b363-7e60e51ddf6d")
 	)
 	(wire
 		(pts
@@ -1705,23 +1649,13 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 116.84) (xy 180.34 148.59)
+			(xy 121.92 109.22) (xy 121.92 148.59)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "fc617a75-7b18-41f5-b120-b24f5ae5063a")
-	)
-	(wire
-		(pts
-			(xy 125.73 111.76) (xy 125.73 148.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ff9cc3eb-d14d-4a0a-915b-cfdf19191fd1")
+		(uuid "fb421495-933c-41d3-bc89-976f1c583c6b")
 	)
 	(wire
 		(pts
@@ -1773,6 +1707,17 @@
 		)
 		(uuid "dfe41840-270b-450f-bb30-f3ffa430d602")
 	)
+	(label "CS4"
+		(at 133.35 133.35 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "007bf7b1-9ced-4dbf-b104-6790907b7bf3")
+	)
 	(label "DISP_RESET"
 		(at 111.76 133.35 270)
 		(fields_autoplaced yes)
@@ -1795,8 +1740,19 @@
 		)
 		(uuid "4b42b231-24d1-431d-b913-d970fae67a88")
 	)
+	(label "CS1"
+		(at 125.73 133.35 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "57fef19f-3769-4f9f-a480-c33197f7aa79")
+	)
 	(label "CS0"
-		(at 180.34 137.16 90)
+		(at 121.92 137.16 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1804,7 +1760,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "52778427-8a57-4b01-b40e-393c9dab10e3")
+		(uuid "67760e05-035a-453e-9126-41084bbb5c9a")
 	)
 	(label "DIN"
 		(at 204.47 133.35 270)
@@ -1828,8 +1784,8 @@
 		)
 		(uuid "87c32823-30fc-4e82-8407-05c56e138671")
 	)
-	(label "CS1"
-		(at 133.35 133.35 270)
+	(label "CS3"
+		(at 180.34 133.35 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1837,7 +1793,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "c7a99de2-a4cb-45d9-a39e-96f2e71586bd")
+		(uuid "a692b131-9a4e-4a09-b160-4c069e524837")
 	)
 	(label "CS2"
 		(at 129.54 133.35 270)
@@ -1849,28 +1805,6 @@
 			(justify right bottom)
 		)
 		(uuid "d4dde652-fced-4fbb-b697-cb7056ad0342")
-	)
-	(label "CS3"
-		(at 125.73 133.35 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "e5125ea3-fa08-4786-be30-25b471345d94")
-	)
-	(label "CS4"
-		(at 121.92 133.35 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "eaa0634a-28cc-4152-92dc-7f94062a9cdb")
 	)
 	(global_label "D{slash}C"
 		(shape output)
@@ -1916,6 +1850,28 @@
 			)
 		)
 	)
+	(global_label "CS4"
+		(shape output)
+		(at 133.35 148.59 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2f523d48-5327-4a2c-a2c1-118bdff430cc")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 133.35 155.2642 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "CS2"
 		(shape output)
 		(at 129.54 148.59 270)
@@ -1929,28 +1885,6 @@
 		(uuid "55bd366d-8625-4107-84a2-8ed3476463f7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 129.54 155.2642 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "CS3"
-		(shape output)
-		(at 125.73 148.59 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "63ac4f5e-ac09-4301-8c81-11374b11d7ca")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 125.73 155.2642 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2004,9 +1938,9 @@
 			)
 		)
 	)
-	(global_label "CS1"
+	(global_label "CS0"
 		(shape output)
-		(at 133.35 148.59 270)
+		(at 121.92 148.59 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2014,9 +1948,9 @@
 			)
 			(justify right)
 		)
-		(uuid "855ea9e7-4402-454b-9302-29a43a2519e4")
+		(uuid "7813d294-35ea-4536-ba0a-e97076217ba3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 133.35 155.2642 90)
+			(at 121.92 155.2642 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2048,9 +1982,9 @@
 			)
 		)
 	)
-	(global_label "CS4"
+	(global_label "CS1"
 		(shape output)
-		(at 121.92 148.59 270)
+		(at 125.73 148.59 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2058,9 +1992,9 @@
 			)
 			(justify right)
 		)
-		(uuid "c4b9cbc3-5263-4f0e-b21a-6b499440a61c")
+		(uuid "bffa6faf-0a32-4cfe-b552-168831281a0e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 121.92 155.2642 90)
+			(at 125.73 155.2642 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2070,7 +2004,7 @@
 			)
 		)
 	)
-	(global_label "CS0"
+	(global_label "CS3"
 		(shape output)
 		(at 180.34 148.59 270)
 		(fields_autoplaced yes)
@@ -2080,7 +2014,7 @@
 			)
 			(justify right)
 		)
-		(uuid "c95d27f2-fc81-49b9-aab3-554e8027ea1d")
+		(uuid "c7f44d6b-fafa-4786-9a64-c6ef9f5d7f23")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 180.34 155.2642 90)
 			(effects
@@ -2424,197 +2358,6 @@
 		)
 	)
 	(symbol
-		(lib_id "MCU_RaspberryPi_Pico_and_Boards:Pico")
-		(at 156.21 95.25 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4c4edd19-8a13-4374-a7ca-ccbf4694ca13")
-		(property "Reference" "U1"
-			(at 156.21 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Pico"
-			(at 156.21 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "RPI_Pico_THT:RPi_Pico_SMD_TH"
-			(at 156.21 95.25 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf"
-			(at 156.21 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 156.21 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "40"
-			(uuid "4f99d72a-0a6a-43e7-9c8b-1ac4c29c0df1")
-		)
-		(pin "30"
-			(uuid "e9bc5c10-9b72-49bd-9aff-df8760a2d850")
-		)
-		(pin "13"
-			(uuid "4dbe9603-bcec-4132-99f6-3a7b579ad2eb")
-		)
-		(pin "20"
-			(uuid "af36b2b6-6b4c-43dc-a048-ddb05dc034ac")
-		)
-		(pin "16"
-			(uuid "ce18d362-0fb0-460b-befe-13975647750e")
-		)
-		(pin "10"
-			(uuid "0856fb1c-d66d-4732-9ddb-f9e0da8725fc")
-		)
-		(pin "18"
-			(uuid "d7a1fe4d-ed18-43c6-a1ef-a1c811eda446")
-		)
-		(pin "22"
-			(uuid "a9f49bae-6e1f-4126-8301-545ae7edcd7f")
-		)
-		(pin "33"
-			(uuid "9cc447f6-131f-402e-8675-1d72c750f3f6")
-		)
-		(pin "26"
-			(uuid "d25dec01-28d6-4719-a0c1-90d76ff036bd")
-		)
-		(pin "34"
-			(uuid "f8379daa-93aa-47a5-830e-fc5ab057241a")
-		)
-		(pin "32"
-			(uuid "9ecee290-58f3-4b45-a9b2-461c30860523")
-		)
-		(pin "14"
-			(uuid "2a416767-7e71-410b-a26f-fffe72020364")
-		)
-		(pin "2"
-			(uuid "594ac642-4c40-4b4f-966b-51f68233e53c")
-		)
-		(pin "21"
-			(uuid "0ddc6c0a-8c13-4215-b6b5-51e1a3d874fc")
-		)
-		(pin "25"
-			(uuid "f89b65fa-76c3-4855-8c65-33cfa5f269e7")
-		)
-		(pin "28"
-			(uuid "a804f5e7-121b-4b64-91e0-b565235e8df0")
-		)
-		(pin "36"
-			(uuid "3802cc7f-056b-477f-8372-b14b66cc4ae7")
-		)
-		(pin "38"
-			(uuid "360939b7-271e-4f1d-9631-788cf0fc49ae")
-		)
-		(pin "19"
-			(uuid "251f2dd7-043f-4388-8764-9264094faa6b")
-		)
-		(pin "4"
-			(uuid "64a6fbc4-b84e-4a11-9ecb-ed554e947c56")
-		)
-		(pin "41"
-			(uuid "1237d472-39f3-42c8-a208-b27bef3d3c46")
-		)
-		(pin "43"
-			(uuid "6d90d0d4-6ddb-4d54-8c28-09981c0b81fd")
-		)
-		(pin "37"
-			(uuid "a064e8c2-d102-44f1-bdba-7e6ef9052da9")
-		)
-		(pin "5"
-			(uuid "0ea3d0be-3881-47bd-ad8e-2878d630a361")
-		)
-		(pin "6"
-			(uuid "36a76612-f317-4a09-956a-c31c7472fcda")
-		)
-		(pin "15"
-			(uuid "a9f3efec-4ed0-4f18-96db-6c4071761f92")
-		)
-		(pin "8"
-			(uuid "e374e567-e644-4407-b940-c8d695cafcd8")
-		)
-		(pin "17"
-			(uuid "d2393e60-2570-4507-b722-cb32bb4d1c13")
-		)
-		(pin "23"
-			(uuid "93898340-db9c-4250-b716-f8d8eb55252b")
-		)
-		(pin "7"
-			(uuid "5000d65c-1a3a-4802-8941-25f63f5fbcfa")
-		)
-		(pin "42"
-			(uuid "8b883f90-667d-44d6-b7ae-78507d4a8779")
-		)
-		(pin "11"
-			(uuid "1ae2ce9e-ae44-4c7c-a64e-3f03c527abdc")
-		)
-		(pin "35"
-			(uuid "855a26c4-9d61-4853-9fd7-7a1f500c8d20")
-		)
-		(pin "9"
-			(uuid "e9cfdae4-0666-4658-9b22-98163de94e81")
-		)
-		(pin "12"
-			(uuid "4af5ff17-b4ec-4a29-8774-bc86230a9510")
-		)
-		(pin "24"
-			(uuid "3d6a23e5-9ced-490e-ad36-0b08494e019d")
-		)
-		(pin "1"
-			(uuid "92c2f140-0e90-4084-8511-fb26343bef5c")
-		)
-		(pin "27"
-			(uuid "a4b003e3-336f-4542-9fb0-e1c9525a5ffc")
-		)
-		(pin "29"
-			(uuid "5d1bccd7-10e3-4ab9-b5b0-b08e785fd881")
-		)
-		(pin "3"
-			(uuid "e9197b58-aa8e-469f-85c9-dafb3b2ab1d0")
-		)
-		(pin "31"
-			(uuid "e3153c6f-eced-4c20-bd1c-58885d64e99b")
-		)
-		(pin "39"
-			(uuid "06d70c33-fc52-4855-955d-ec06d7e5accc")
-		)
-		(instances
-			(project "VC5_schematic"
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
-					(reference "U1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 138.43 88.9 270)
 		(unit 1)
@@ -2804,6 +2547,188 @@
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
 					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RPI_Pico:Pico")
+		(at 156.21 95.25 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a87afd76-1c3f-456e-ad70-1ec46f35bc91")
+		(property "Reference" "U1"
+			(at 156.21 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Pico"
+			(at 156.21 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "RPI_Pico_THT:RPi_Pico_THT"
+			(at 156.21 95.25 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 156.21 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 156.21 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "27"
+			(uuid "bf436bf6-6e23-4359-b6b9-964d081cecd6")
+		)
+		(pin "2"
+			(uuid "436b5ab4-5de2-49ef-bd18-e595ce6d7e1a")
+		)
+		(pin "21"
+			(uuid "15a50834-c2bd-413a-b435-8300dcace56d")
+		)
+		(pin "10"
+			(uuid "ff7bbaf7-5855-4f17-90a5-f67e1bc77539")
+		)
+		(pin "19"
+			(uuid "edd4e998-75af-45f9-aa6e-6985d8f16ae5")
+		)
+		(pin "6"
+			(uuid "475d91c1-7cec-4a9d-ab79-21abbb57b0d5")
+		)
+		(pin "17"
+			(uuid "175f2a00-fb68-444e-a424-4337101699f4")
+		)
+		(pin "36"
+			(uuid "13e88bee-9559-47e5-b3d4-99b332596304")
+		)
+		(pin "24"
+			(uuid "00e3a9e6-6e37-44db-92df-1daefd680bfe")
+		)
+		(pin "31"
+			(uuid "f7f1044e-404a-4953-942f-0d421abab0aa")
+		)
+		(pin "11"
+			(uuid "4ed57f6f-5862-484f-a2b5-4336f8fc0996")
+		)
+		(pin "14"
+			(uuid "0baed9ca-218d-4d21-97a6-ca5c78e96f22")
+		)
+		(pin "18"
+			(uuid "968cfdc7-3015-4df0-838e-35f794c5eaa5")
+		)
+		(pin "20"
+			(uuid "3cb9d383-ae6e-4271-a35f-5032a6449339")
+		)
+		(pin "23"
+			(uuid "36dd48a6-6b73-48b3-8f3a-92d27acb3e7c")
+		)
+		(pin "13"
+			(uuid "225a324a-1c82-4647-ad89-15c755dc8b0a")
+		)
+		(pin "30"
+			(uuid "941f3dd5-cde6-4f9c-b933-30233aa061cc")
+		)
+		(pin "37"
+			(uuid "221204d6-4eed-4a76-b7b2-0b576a507315")
+		)
+		(pin "38"
+			(uuid "0f1d28f6-40fa-4374-aab5-709b32a1847d")
+		)
+		(pin "39"
+			(uuid "1bdab0ee-b176-451a-a7b0-9afdde988660")
+		)
+		(pin "9"
+			(uuid "df19a32e-84c2-4bc6-927a-e8ec0342bd68")
+		)
+		(pin "12"
+			(uuid "aa9249fb-6995-4c12-8cb6-0471aff91dcb")
+		)
+		(pin "29"
+			(uuid "dedf46e6-ab92-4af3-9045-cb8be3814e55")
+		)
+		(pin "28"
+			(uuid "d00bfa0d-76e1-4ac1-bfc3-eb7bbc9ebc3e")
+		)
+		(pin "40"
+			(uuid "ac9e0740-2cdd-4a38-80e6-68b4db6fbc38")
+		)
+		(pin "35"
+			(uuid "7817bf33-0f52-46d8-9e98-64b4dd6c3b16")
+		)
+		(pin "8"
+			(uuid "3b6d94ae-1418-4fa6-90b1-162dd332d2a6")
+		)
+		(pin "5"
+			(uuid "1435a67e-1d89-4cbb-887b-7e3b8e2ae0f1")
+		)
+		(pin "4"
+			(uuid "9a389809-dc78-49b7-ad32-be4df0720825")
+		)
+		(pin "1"
+			(uuid "34f0d894-7f90-4d81-b534-749d931a3a1c")
+		)
+		(pin "34"
+			(uuid "aaa268ab-b218-476d-a9bd-2200f98e04f6")
+		)
+		(pin "16"
+			(uuid "a6f0a3da-3ab3-4fd7-8288-8713e3ecbdc4")
+		)
+		(pin "15"
+			(uuid "71481aa4-bf78-4431-86e5-9bc2ba098295")
+		)
+		(pin "25"
+			(uuid "864e521a-e489-45ab-acd5-23119262b460")
+		)
+		(pin "32"
+			(uuid "8fe24ad9-3c5a-4249-9388-ff60b1cc9708")
+		)
+		(pin "33"
+			(uuid "af56c078-5bbb-4f8e-9375-f4b8b02f2cf0")
+		)
+		(pin "26"
+			(uuid "a16d0216-e54c-447f-a0de-7f65145c1eca")
+		)
+		(pin "3"
+			(uuid "8dace68c-67d2-4e93-9785-4e6fc263df20")
+		)
+		(pin "7"
+			(uuid "e88907bf-1d60-41a4-b973-cefcd0716242")
+		)
+		(pin "22"
+			(uuid "d0f36ace-db99-4837-9a6e-15e703622553")
+		)
+		(instances
+			(project ""
+				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
+					(reference "U1")
 					(unit 1)
 				)
 			)

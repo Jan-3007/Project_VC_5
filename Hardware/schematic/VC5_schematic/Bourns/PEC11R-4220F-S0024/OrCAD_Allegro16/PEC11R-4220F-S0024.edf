@@ -6,7 +6,7 @@
   (keywordMap (keywordLevel 0))
   (status
     (written
-      (timestamp 2024 10 03 09 54 34)
+      (timestamp 2024 10 03 11 44 55)
       (dataOrigin "960978/1501446/2.50/7/4/Variable Resistor")
       (program "SamacSys ECAD Model PEC11R_4220F_S0024"
         (version "1.5"))))

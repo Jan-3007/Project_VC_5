@@ -3,4 +3,6 @@
   (lib (name "VC5_display")(type "KiCad")(uri "${KIPRJMOD}/VC5_display.kicad_sym")(options "")(descr ""))
   (lib (name "MCU_RaspberryPi_Pico_and_Boards")(type "KiCad")(uri "${KIPRJMOD}/MCU_RaspberryPi_Pico_and_Boards.kicad_sym")(options "")(descr ""))
   (lib (name "PEC11R-4220F-S0024")(type "KiCad")(uri "${KIPRJMOD}/PEC11R-4220F-S0024.kicad_sym")(options "")(descr ""))
+  (lib (name "MCP2307_IO_expander")(type "KiCad")(uri "${KIPRJMOD}/MCP2307_IO_expander.kicad_sym")(options "")(descr ""))
+  (lib (name "RPI_Pico")(type "KiCad")(uri "${KIPRJMOD}/RPI_Pico.kicad_sym")(options "")(descr ""))
 )
