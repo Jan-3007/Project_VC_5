@@ -5,7 +5,7 @@
 	(uuid "9ea06c6a-eb9b-4c32-8d72-1419468b7e0c")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Device:C"
+		(symbol "Device:C_Polarized"
 			(pin_numbers hide)
 			(pin_names
 				(offset 0.254)
@@ -22,7 +22,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "C"
+			(property "Value" "C_Polarized"
 				(at 0.635 -2.54 0)
 				(effects
 					(font
@@ -49,7 +49,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Unpolarized capacitor"
+			(property "Description" "Polarized capacitor"
 				(at 0 0 0)
 				(effects
 					(font
@@ -67,7 +67,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "C_*"
+			(property "ki_fp_filters" "CP_*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -76,13 +76,12 @@
 					(hide yes)
 				)
 			)
-			(symbol "C_0_1"
-				(polyline
-					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
-					)
+			(symbol "C_Polarized_0_1"
+				(rectangle
+					(start -2.286 0.508)
+					(end 2.286 1.016)
 					(stroke
-						(width 0.508)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -91,18 +90,41 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+						(xy -1.778 2.286) (xy -0.762 2.286)
 					)
 					(stroke
-						(width 0.508)
+						(width 0)
 						(type default)
 					)
 					(fill
 						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.794) (xy -1.27 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 2.286 -0.508)
+					(end -2.286 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
 					)
 				)
 			)
-			(symbol "C_1_1"
+			(symbol "C_Polarized_1_1"
 				(pin passive line
 					(at 0 3.81 270)
 					(length 2.794)
@@ -1706,6 +1728,46 @@
 		)
 		(uuid "fdbcb5c6-671d-4584-b065-8266dc8b5d22")
 	)
+	(text "Designed by Jan Eberhardt"
+		(exclude_from_sim no)
+		(at 193.548 168.402 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "10ad9c3e-403e-4b5a-a575-74120fdde5b7")
+	)
+	(text "Projekt \"VC 5\""
+		(exclude_from_sim no)
+		(at 200.66 189.738 0)
+		(effects
+			(font
+				(size 2.5 2.5)
+			)
+		)
+		(uuid "6f1357a8-de8f-4be4-bce1-f10689d7c572")
+	)
+	(text "07.10.2024"
+		(exclude_from_sim no)
+		(at 213.36 193.294 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "dd413b29-10fb-4e0a-9fd5-f47f197b485f")
+	)
+	(text "1.0"
+		(exclude_from_sim no)
+		(at 270.51 193.294 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+		)
+		(uuid "f5e1b54a-346d-4d05-a796-81a76e1e7d97")
+	)
 	(global_label "LED"
 		(shape input)
 		(at 41.91 85.09 180)
@@ -1725,142 +1787,6 @@
 				)
 				(justify right)
 				(hide yes)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 170.18 72.39 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "13636b3a-12f7-4fb7-9ea3-23a03e25a1c9")
-		(property "Reference" "C3"
-			(at 170.18 64.77 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1u"
-			(at 170.18 67.31 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 173.99 71.4248 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 170.18 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 170.18 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "fe9e7810-5cb7-4965-80ec-43c31af9b1c0")
-		)
-		(pin "1"
-			(uuid "8e0a61a4-1449-4cf2-9344-2f129cbcef7b")
-		)
-		(instances
-			(project "VC5_schematic"
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
-					(reference "C3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 203.2 72.39 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "1651b945-683d-4e42-b238-9305131b1225")
-		(property "Reference" "C4"
-			(at 203.2 64.77 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1u"
-			(at 203.2 67.31 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 207.01 71.4248 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 203.2 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 203.2 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "26858465-366d-4966-9d3a-ae394f1e39c8")
-		)
-		(pin "1"
-			(uuid "7dae1b15-ceb1-4000-894d-1314c7bd58a7")
-		)
-		(instances
-			(project "VC5_schematic"
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
-					(reference "C4")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -1890,7 +1816,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_THT:LED_D5.0mm-4_RGB"
+		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
 			(at 177.8 95.25 0)
 			(effects
 				(font
@@ -2032,7 +1958,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
 			(at 62.865 87.63 0)
 			(effects
 				(font
@@ -2147,17 +2073,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 137.16 72.39 90)
+		(lib_id "Device:C_Polarized")
+		(at 137.16 72.39 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "36aaeff3-d21f-4085-8eb1-fc35a8ad73df")
+		(uuid "3b886509-3832-4294-958e-4e46aaff7baf")
 		(property "Reference" "C2"
-			(at 137.16 64.77 90)
+			(at 138.049 64.77 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2165,15 +2091,15 @@
 			)
 		)
 		(property "Value" "1u"
-			(at 137.16 67.31 90)
+			(at 138.049 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 140.97 71.4248 0)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm"
+			(at 133.35 73.3552 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2190,7 +2116,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "Polarized capacitor"
 			(at 137.16 72.39 0)
 			(effects
 				(font
@@ -2200,10 +2126,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "c58ed4c9-6c37-4463-a083-60bfaa8642ce")
+			(uuid "d99105b7-73fb-4506-b6c7-93d7bf161338")
 		)
 		(pin "1"
-			(uuid "69e044fa-27ee-4670-b924-55a1b2d21feb")
+			(uuid "f6e28004-dc5e-41d2-9393-9f43aae5e041")
 		)
 		(instances
 			(project "VC5_schematic"
@@ -2215,17 +2141,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 236.22 72.39 90)
+		(lib_id "Device:C_Polarized")
+		(at 236.22 72.39 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "38cda963-8c0d-4c64-8b52-7c60f4ae9f0b")
+		(uuid "4a73bc42-f3ab-49f0-bc95-518d436edb90")
 		(property "Reference" "C5"
-			(at 236.22 64.77 90)
+			(at 237.109 64.77 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2233,15 +2159,15 @@
 			)
 		)
 		(property "Value" "1u"
-			(at 236.22 67.31 90)
+			(at 237.109 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 240.03 71.4248 0)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm"
+			(at 232.41 73.3552 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2258,7 +2184,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "Polarized capacitor"
 			(at 236.22 72.39 0)
 			(effects
 				(font
@@ -2268,15 +2194,83 @@
 			)
 		)
 		(pin "2"
-			(uuid "173b2377-34af-4384-b76d-f9808847ed4d")
+			(uuid "09fb91a1-6da8-4bc6-8e46-0661b0b58060")
 		)
 		(pin "1"
-			(uuid "8ea41e4d-3985-45c8-bb47-db3675a4948f")
+			(uuid "549f3bb8-9939-4f07-828b-d176a04bd800")
 		)
 		(instances
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
 					(reference "C5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 104.14 72.39 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6bde3edb-650f-4d2e-a737-66ebbbb5cf37")
+		(property "Reference" "C1"
+			(at 105.029 64.77 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1u"
+			(at 105.029 67.31 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm"
+			(at 100.33 73.3552 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 104.14 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Polarized capacitor"
+			(at 104.14 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "f0630974-29e6-45fe-b949-32181abe9364")
+		)
+		(pin "1"
+			(uuid "79d363f0-fe47-4d3c-af25-1081dc909d31")
+		)
+		(instances
+			(project ""
+				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
+					(reference "C1")
 					(unit 1)
 				)
 			)
@@ -2308,7 +2302,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_THT:LED_D5.0mm-4_RGB"
+		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
 			(at 144.78 95.25 0)
 			(effects
 				(font
@@ -2384,7 +2378,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_THT:LED_D5.0mm-4_RGB"
+		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
 			(at 210.82 95.25 0)
 			(effects
 				(font
@@ -2460,7 +2454,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_THT:LED_D5.0mm-4_RGB"
+		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
 			(at 111.76 95.25 0)
 			(effects
 				(font
@@ -2511,6 +2505,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 203.2 72.39 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "acf9bafe-f982-44b4-84d2-39340ef574fd")
+		(property "Reference" "C4"
+			(at 204.089 64.77 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1u"
+			(at 204.089 67.31 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm"
+			(at 199.39 73.3552 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 203.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Polarized capacitor"
+			(at 203.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "6f92e6cd-dbc9-42c9-91ce-0d6ec68c1819")
+		)
+		(pin "1"
+			(uuid "3eadd7d1-6023-4a15-ad8a-c43079cdcc93")
+		)
+		(instances
+			(project "VC5_schematic"
+				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "LED:APA-106-F5")
 		(at 242.57 87.63 0)
 		(unit 1)
@@ -2536,7 +2598,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_THT:LED_D5.0mm-4_RGB"
+		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
 			(at 243.84 95.25 0)
 			(effects
 				(font
@@ -2614,7 +2676,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 88.392 76.2 90)
 			(effects
 				(font
@@ -2657,17 +2719,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 104.14 72.39 90)
+		(lib_id "Device:C_Polarized")
+		(at 170.18 72.39 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "d4ebe08b-bb00-42f3-b962-a243f8903224")
-		(property "Reference" "C1"
-			(at 104.14 64.77 90)
+		(uuid "d2cbf846-149e-4e56-926e-9536ff23a0c7")
+		(property "Reference" "C3"
+			(at 171.069 64.77 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2675,15 +2737,15 @@
 			)
 		)
 		(property "Value" "1u"
-			(at 104.14 67.31 90)
+			(at 171.069 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 107.95 71.4248 0)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm"
+			(at 166.37 73.3552 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2692,7 +2754,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 104.14 72.39 0)
+			(at 170.18 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2700,8 +2762,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 104.14 72.39 0)
+		(property "Description" "Polarized capacitor"
+			(at 170.18 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2710,15 +2772,15 @@
 			)
 		)
 		(pin "2"
-			(uuid "35d2f1c8-7d40-473d-9693-04ac4ce8a743")
+			(uuid "c7c589d1-3d32-4d90-b91c-617adb070562")
 		)
 		(pin "1"
-			(uuid "590a61ce-bf06-4054-9877-16b07a235ea0")
+			(uuid "91446ae6-9b31-46f3-8d87-48efcf3f7063")
 		)
 		(instances
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
-					(reference "C1")
+					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -2752,7 +2814,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 62.992 68.58 90)
 			(effects
 				(font
