@@ -25,20 +25,28 @@ endif()
 # ====================================================================================
 set(PICO_BOARD pico CACHE STRING "Board type")
 
+set(PICO_SDK_PATH ${CMAKE_CURRENT_LIST_DIR}/pico-sdk)
+
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
+
+#---FreeRTOS---
+set(FREERTOS_KERNEL_PATH  ${CMAKE_CURRENT_LIST_DIR}/FreeRTOS)
+
+# Select the native compile PORT, see FreeRTOS/freertos_kernel-src/portable/CMakLists.cmake
+set(FREERTOS_PORT "GCC_RP2040" CACHE STRING "" FORCE)
+#--------------
 
 project(VC5 C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Add executable. Default name is the project name, version 0.1
-
-add_executable(VC5 main.cpp )
+# Add executable. Default name is the project name, version 1.0
+add_executable(VC5 main.cpp)
 
 pico_set_program_name(VC5 "VC5")
-pico_set_program_version(VC5 "0.1")
+pico_set_program_version(VC5 "1.0")
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(VC5 1)
@@ -53,6 +61,17 @@ target_include_directories(VC5 PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
   ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts or any other standard includes, if required
 )
+
+
+#described here: https://github.com/raspberrypi/pico-sdk/issues/1659
+include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
+
+# add FreeRTOS to the main build
+target_link_libraries(
+    VC5 
+    FreeRTOS-Kernel-Heap4
+    )
+
 
 pico_add_extra_outputs(VC5)
 
