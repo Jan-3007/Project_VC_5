@@ -2269,7 +2269,7 @@
 			(uuid "6ec88ed0-ab7a-49d2-abf9-b047f0ee847a")
 		)
 		(instances
-			(project ""
+			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/3c41abc7-ef57-41e0-b304-d8965e1b18af"
 					(reference "U2")
 					(unit 1)

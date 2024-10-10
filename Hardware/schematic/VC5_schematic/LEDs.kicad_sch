@@ -1792,6 +1792,82 @@
 	)
 	(symbol
 		(lib_id "LED:APA-106-F5")
+		(at 242.57 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "042f43c3-07cb-4120-910c-4a031f2e4721")
+		(property "Reference" "D1"
+			(at 255.27 78.7714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "APA-106-F5"
+			(at 255.27 81.3114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
+			(at 243.84 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn.sparkfun.com/datasheets/Components/LED/COM-12877.pdf"
+			(at 245.11 97.155 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller, 5mm Package"
+			(at 242.57 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "2d68b144-011d-485e-bc1e-2954c17c4a05")
+		)
+		(pin "1"
+			(uuid "fbdc9155-4673-443b-8573-4122ad86dcb9")
+		)
+		(pin "4"
+			(uuid "3df1a575-7464-47f3-8047-5949f3d8c550")
+		)
+		(pin "2"
+			(uuid "9299403f-8e5b-44c7-8bea-8688a39861b9")
+		)
+		(instances
+			(project "VC5_schematic"
+				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:APA-106-F5")
 		(at 176.53 87.63 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2073,6 +2149,82 @@
 		)
 	)
 	(symbol
+		(lib_id "LED:APA-106-F5")
+		(at 143.51 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "380b1dc7-9e54-4273-9ddc-43867970496d")
+		(property "Reference" "D4"
+			(at 156.21 78.7714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "APA-106-F5"
+			(at 156.21 81.3114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
+			(at 144.78 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn.sparkfun.com/datasheets/Components/LED/COM-12877.pdf"
+			(at 146.05 97.155 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller, 5mm Package"
+			(at 143.51 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "815c67b9-6bb2-418e-ad5b-0eaf0f13d347")
+		)
+		(pin "1"
+			(uuid "3c7c3744-3f02-47d5-9f7e-26da99f7b597")
+		)
+		(pin "4"
+			(uuid "019b235f-d142-4d1b-b70b-03d1384b1eb7")
+		)
+		(pin "2"
+			(uuid "4cdf61cd-b426-4414-9630-50b2b9a4a1b9")
+		)
+		(instances
+			(project "VC5_schematic"
+				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Polarized")
 		(at 137.16 72.39 270)
 		(unit 1)
@@ -2268,85 +2420,9 @@
 			(uuid "79d363f0-fe47-4d3c-af25-1081dc909d31")
 		)
 		(instances
-			(project ""
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
-					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "LED:APA-106-F5")
-		(at 143.51 87.63 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "794f943c-5d23-405f-836a-2a835f8a29c5")
-		(property "Reference" "D2"
-			(at 156.21 78.7714 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "APA-106-F5"
-			(at 156.21 81.3114 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
-			(at 144.78 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://cdn.sparkfun.com/datasheets/Components/LED/COM-12877.pdf"
-			(at 146.05 97.155 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "RGB LED with integrated controller, 5mm Package"
-			(at 143.51 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "ff7cc4e4-a3ff-4bc4-ba63-19185b1cd6a1")
-		)
-		(pin "1"
-			(uuid "3fc567b8-ce3f-4ca1-8c54-7304a1c8eaf3")
-		)
-		(pin "4"
-			(uuid "50a8a245-f325-44aa-9679-9ab61e095fb4")
-		)
-		(pin "2"
-			(uuid "0baf2edf-a89e-47f9-b1da-053a80c5b30f")
-		)
-		(instances
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
-					(reference "D2")
+					(reference "C1")
 					(unit 1)
 				)
 			)
@@ -2361,8 +2437,8 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "7e533833-c8f6-4c75-8943-2c4952f28cbe")
-		(property "Reference" "D4"
+		(uuid "95350047-1355-4fbb-8a58-3f2d8797a928")
+		(property "Reference" "D2"
 			(at 222.25 78.7714 0)
 			(effects
 				(font
@@ -2408,97 +2484,21 @@
 			)
 		)
 		(pin "3"
-			(uuid "ad452425-dd73-4b4f-98e3-52f6846a0300")
+			(uuid "4ccf1908-7328-4bf2-a229-8e6e59fd765b")
 		)
 		(pin "1"
-			(uuid "c8f40440-0dd5-40a6-bbc2-9df401d5761f")
+			(uuid "0ffe6654-2f53-429f-b625-a1149882e371")
 		)
 		(pin "4"
-			(uuid "f834714a-a4a7-4957-bd19-e5e9bf96b2e5")
+			(uuid "d27cbc4b-3895-49f1-966f-aadfe3e3018b")
 		)
 		(pin "2"
-			(uuid "044e2f41-6d4f-496b-b7da-d8c38bc61595")
+			(uuid "28f867d2-aba5-4ae3-80d9-196db6958c2a")
 		)
 		(instances
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
-					(reference "D4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "LED:APA-106-F5")
-		(at 110.49 87.63 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a6275ae7-8de9-4caa-afc4-26f10cad3d19")
-		(property "Reference" "D1"
-			(at 123.19 78.7714 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "APA-106-F5"
-			(at 123.19 81.3114 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
-			(at 111.76 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://cdn.sparkfun.com/datasheets/Components/LED/COM-12877.pdf"
-			(at 113.03 97.155 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "RGB LED with integrated controller, 5mm Package"
-			(at 110.49 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "0d7168d9-971c-46d5-a357-af99b55fe325")
-		)
-		(pin "1"
-			(uuid "7f3a4911-500b-45b7-8775-1edf328ee249")
-		)
-		(pin "4"
-			(uuid "3be6e599-c94b-43e6-89ec-78e012bc4944")
-		)
-		(pin "2"
-			(uuid "cf2c6584-6bbc-4b4b-aefb-a4fdd2e5993a")
-		)
-		(instances
-			(project "VC5_schematic"
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
-					(reference "D1")
+					(reference "D2")
 					(unit 1)
 				)
 			)
@@ -2567,82 +2567,6 @@
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
 					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "LED:APA-106-F5")
-		(at 242.57 87.63 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c03a188d-bb0b-422c-b24e-7514341cb34b")
-		(property "Reference" "D5"
-			(at 255.27 78.7714 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "APA-106-F5"
-			(at 255.27 81.3114 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
-			(at 243.84 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://cdn.sparkfun.com/datasheets/Components/LED/COM-12877.pdf"
-			(at 245.11 97.155 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "RGB LED with integrated controller, 5mm Package"
-			(at 242.57 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "4f5ae4f9-42c0-48f3-b39b-7ef84a176950")
-		)
-		(pin "1"
-			(uuid "abc56938-ed56-4e4e-abb0-a71f360341fe")
-		)
-		(pin "4"
-			(uuid "4bd8043f-7eeb-409f-a375-949e0ce37474")
-		)
-		(pin "2"
-			(uuid "cc9de581-2e1f-43db-961e-d66ba2249b16")
-		)
-		(instances
-			(project "VC5_schematic"
-				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
-					(reference "D5")
 					(unit 1)
 				)
 			)
@@ -2851,6 +2775,82 @@
 			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
 					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:APA-106-F5")
+		(at 110.49 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e567b318-1116-48fc-9eaf-e14933d6704c")
+		(property "Reference" "D5"
+			(at 123.19 78.7714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "APA-106-F5"
+			(at 123.19 81.3114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "WS2812_LED_THT:LED_D5.0mm-4_RGB"
+			(at 111.76 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn.sparkfun.com/datasheets/Components/LED/COM-12877.pdf"
+			(at 113.03 97.155 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller, 5mm Package"
+			(at 110.49 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "bba2960d-6bf3-4033-bc5d-4b4215cd14ad")
+		)
+		(pin "1"
+			(uuid "99e0b14d-0df7-4fb0-9e5c-247eb0a14528")
+		)
+		(pin "4"
+			(uuid "60b3ae1f-a1bf-49bc-93f6-e5cc77bde4fc")
+		)
+		(pin "2"
+			(uuid "ebfa0098-e3f8-4210-ad31-5dcfc9f7245e")
+		)
+		(instances
+			(project "VC5_schematic"
+				(path "/236c86f4-0879-4356-88b2-65461f963bd6/235c9bb5-50e3-45da-927b-c1c14fe8aefa"
+					(reference "D5")
 					(unit 1)
 				)
 			)

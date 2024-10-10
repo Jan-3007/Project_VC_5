@@ -27,7 +27,7 @@
 			)
 		)
 	)
-	(property "Footprint" ""
+	(property "Footprint" "RPi_Pico_THT"
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
@@ -533,6 +533,17 @@
 		)
 		(layer "F.SilkS")
 		(uuid "54ed3ee1-891b-418e-ab9c-6a18747d7388")
+	)
+	(fp_rect
+		(start -3.5 -25.5)
+		(end 3.5 -19.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "a4951c77-4ea3-4bd3-93c5-6b9041f4dc7f")
 	)
 	(fp_line
 		(start -11 -26)
@@ -1417,7 +1428,7 @@
 		(remove_unused_layers no)
 		(uuid "0ba17a9b-d889-426c-b4fe-048bed6b6be8")
 	)
-	(model "${KIPRJMOD}/Pico_PinHeader_1x20_P2.54mm_Vertical.step"
+	(model "${KIPRJMOD}/PinSocket_1x20_P2.54mm_Vertical.step"
 		(offset
 			(xyz 9 24 0)
 		)
@@ -1428,7 +1439,7 @@
 			(xyz 0 0 0)
 		)
 	)
-	(model "${KIPRJMOD}/Pico_PinHeader_1x20_P2.54mm_Vertical.step"
+	(model "${KIPRJMOD}/PinSocket_1x20_P2.54mm_Vertical.step"
 		(offset
 			(xyz -9 24 0)
 		)
