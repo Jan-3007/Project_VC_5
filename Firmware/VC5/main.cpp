@@ -21,10 +21,20 @@ static void exampleTask( void * parameters )
     /* Unused parameters. */
     ( void ) parameters;
 
+<<<<<<< Updated upstream
     for( ; ; )
     {
         /* Example Task Code */
         vTaskDelay( 100 ); /* delay 100 ticks */
+=======
+    int count = 0;
+
+    for( ; ; )
+    {
+        /* Example Task Code */
+        printf("Hello World! %d", count++);
+        vTaskDelay( 1000 ); /* delay 100 ticks */
+>>>>>>> Stashed changes
     }
 }
 /*-----------------------------------------------------------*/

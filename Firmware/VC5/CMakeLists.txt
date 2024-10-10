@@ -74,4 +74,7 @@ target_link_libraries(
 
 
 pico_add_extra_outputs(VC5)
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
