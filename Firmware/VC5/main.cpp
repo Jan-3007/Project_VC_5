@@ -21,20 +21,13 @@ static void exampleTask( void * parameters )
     /* Unused parameters. */
     ( void ) parameters;
 
-<<<<<<< Updated upstream
-    for( ; ; )
-    {
-        /* Example Task Code */
-        vTaskDelay( 100 ); /* delay 100 ticks */
-=======
     int count = 0;
 
     for( ; ; )
     {
         /* Example Task Code */
-        printf("Hello World! %d", count++);
+        printf("Hello World! %d \n", count++);
         vTaskDelay( 1000 ); /* delay 100 ticks */
->>>>>>> Stashed changes
     }
 }
 /*-----------------------------------------------------------*/
@@ -43,6 +36,8 @@ int main( void )
 {
     static StaticTask_t exampleTaskTCB;
     static StackType_t exampleTaskStack[ configMINIMAL_STACK_SIZE ];
+
+    stdio_init_all();
 
     ( void ) printf( "Example FreeRTOS Project\n" );
 

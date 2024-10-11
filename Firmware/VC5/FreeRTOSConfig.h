@@ -72,11 +72,7 @@
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION         1
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
-<<<<<<< Updated upstream
-#define configTOTAL_HEAP_SIZE                   (128*1024)
-=======
 #define configTOTAL_HEAP_SIZE                   (4*1024)
->>>>>>> Stashed changes
 #define configAPPLICATION_ALLOCATED_HEAP        0
 
 /* Defines the kernel provided implementation of
@@ -118,11 +114,7 @@
 #if FREE_RTOS_KERNEL_SMP // set by the RP2040 SMP port of FreeRTOS
 /* SMP port only */
 #ifndef configNUMBER_OF_CORES
-<<<<<<< Updated upstream
-#define configNUMBER_OF_CORES                   2
-=======
 #define configNUMBER_OF_CORES                   1
->>>>>>> Stashed changes
 #endif
 #define configNUM_CORES                         configNUMBER_OF_CORES
 #define configTICK_CORE                         0
