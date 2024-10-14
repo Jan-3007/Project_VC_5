@@ -1,5 +1,12 @@
+
+
 #include <stdio.h>
 #include "pico/stdlib.h"
+
+
+#if (__NVIC_PRIO_BITS != 2)
+    #error "unexpected value for __NVIC_PRIO_BITS "
+#endif
 
 
 /* FreeRTOS includes. */
@@ -8,6 +15,19 @@
 #include <queue.h>
 #include <timers.h>
 #include <semphr.h>
+
+
+
+#ifdef __cplusplus
+extern "C"
+#endif
+void fatal_error(int reason)
+{
+    printf("FATAL ERROR: reason %d", reason);
+
+    while(true);
+}
+
 
 
 /*-----------------------------------------------------------*/
@@ -70,6 +90,8 @@ int main( void )
          * or pxCurrentTCB if pcTaskName has itself been corrupted. */
         ( void ) xTask;
         ( void ) pcTaskName;
+
+        fatal_error(0);
     }
 
 #endif /* #if ( configCHECK_FOR_STACK_OVERFLOW > 0 ) */
