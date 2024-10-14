@@ -25,10 +25,14 @@ endif()
 # ====================================================================================
 set(PICO_BOARD pico CACHE STRING "Board type")
 
-set(PICO_SDK_PATH ${CMAKE_CURRENT_LIST_DIR}/pico-sdk)
+# set fully de-optimized debug build, no optimization
+set(PICO_DEOPTIMIZED_DEBUG 1)
+
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
+set(PICO_SDK_PATH ${CMAKE_CURRENT_LIST_DIR}/pico-sdk)
 include(pico_sdk_import.cmake)
+
 
 #---FreeRTOS---
 set(FREERTOS_KERNEL_PATH  ${CMAKE_CURRENT_LIST_DIR}/FreeRTOS)
@@ -37,41 +41,54 @@ set(FREERTOS_KERNEL_PATH  ${CMAKE_CURRENT_LIST_DIR}/FreeRTOS)
 set(FREERTOS_PORT "GCC_RP2040" CACHE STRING "" FORCE)
 #--------------
 
+
+# project sets the ${PROJECT_NAME} variable as well
 project(VC5 C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Add executable. Default name is the project name, version 1.0
-add_executable(VC5 main.cpp)
+# Add main executable
+add_executable(${PROJECT_NAME})
 
-pico_set_program_name(VC5 "VC5")
-pico_set_program_version(VC5 "1.0")
+#  Default name is the project name, version 1.0
+pico_set_program_name(${PROJECT_NAME} "VC5")
+pico_set_program_version(${PROJECT_NAME} "1.0")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(VC5 1)
-pico_enable_stdio_usb(VC5 0)
+pico_enable_stdio_uart(${PROJECT_NAME} 1)
+pico_enable_stdio_usb(${PROJECT_NAME} 0)
+
 
 # Add the standard library to the build
-target_link_libraries(VC5
+target_link_libraries(${PROJECT_NAME}
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(VC5 PRIVATE
+target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
   ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts or any other standard includes, if required
 )
 
+# Add custom source files to the build
+target_sources(${PROJECT_NAME} PRIVATE
+    main.cpp
+    VC5_RP2040.cpp
+    )
 
-#described here: https://github.com/raspberrypi/pico-sdk/issues/1659
-include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
+# Add any user requested libraries
+target_link_libraries(${PROJECT_NAME}
+    hardware_i2c
+    )
+
 
 # add FreeRTOS to the main build
+include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
 target_link_libraries(
-    VC5 
+    ${PROJECT_NAME} 
     FreeRTOS-Kernel-Heap4
     )
 
 
-pico_add_extra_outputs(VC5)
+pico_add_extra_outputs(${PROJECT_NAME})
 

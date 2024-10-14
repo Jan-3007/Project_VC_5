@@ -1,13 +1,5 @@
-#include <stdio.h>
-#include "pico/stdlib.h"
+#include "global.h"
 
-
-/* FreeRTOS includes. */
-#include <FreeRTOS.h>
-#include <task.h>
-#include <queue.h>
-#include <timers.h>
-#include <semphr.h>
 
 
 /*-----------------------------------------------------------*/
@@ -34,12 +26,18 @@ static void exampleTask( void * parameters )
 
 int main( void )
 {
-    static StaticTask_t exampleTaskTCB;
-    static StackType_t exampleTaskStack[ configMINIMAL_STACK_SIZE ];
-
     stdio_init_all();
 
-    ( void ) printf( "Example FreeRTOS Project\n" );
+    ( void ) printf("VC 5: %s %s\n", __DATE__, __TIME__);
+
+
+
+
+
+
+
+    static StaticTask_t exampleTaskTCB;
+    static StackType_t exampleTaskStack[ configMINIMAL_STACK_SIZE ];
 
     ( void ) xTaskCreateStatic( exampleTask,
                                 "example",
