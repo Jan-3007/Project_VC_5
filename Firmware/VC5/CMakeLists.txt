@@ -37,8 +37,11 @@ include(pico_sdk_import.cmake)
 #---FreeRTOS---
 set(FREERTOS_KERNEL_PATH  ${CMAKE_CURRENT_LIST_DIR}/FreeRTOS)
 
+# Select the heap port.  values between 1-4 will pick a heap.
+set(FREERTOS_HEAP "3" CACHE STRING "" FORCE)
+
 # Select the native compile PORT, see FreeRTOS/freertos_kernel-src/portable/CMakLists.cmake
-set(FREERTOS_PORT "GCC_RP2040" CACHE STRING "" FORCE)
+set(FREERTOS_PORT "GCC_ARM_CM0" CACHE STRING "" FORCE)
 #--------------
 
 
@@ -62,7 +65,9 @@ pico_enable_stdio_usb(${PROJECT_NAME} 0)
 
 # Add the standard library to the build
 target_link_libraries(${PROJECT_NAME}
-        pico_stdlib)
+    pico_stdlib
+    cmsis_core
+    )
 
 # Add the standard include files to the build
 target_include_directories(${PROJECT_NAME} PRIVATE
@@ -73,6 +78,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 # Add custom source files to the build
 target_sources(${PROJECT_NAME} PRIVATE
     main.cpp
+    FreeRTOS_support.cpp
     VC5_RP2040.cpp
     )
 
@@ -82,13 +88,21 @@ target_link_libraries(${PROJECT_NAME}
     )
 
 
+# Add the freertos_config for FreeRTOS-Kernel
+add_library(freertos_config INTERFACE)
+
+target_include_directories(freertos_config INTERFACE
+    ${CMAKE_CURRENT_LIST_DIR}
+    )
+
 # add FreeRTOS to the main build
-include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
-target_link_libraries(
-    ${PROJECT_NAME} 
-    FreeRTOS-Kernel-Heap4
+add_subdirectory(${FREERTOS_KERNEL_PATH} FreeRTOS-Kernel)
+
+target_link_libraries(${PROJECT_NAME}
+    freertos_kernel
+    freertos_config
     )
 
 
-pico_add_extra_outputs(${PROJECT_NAME})
+pico_add_extra_outputs(VC5)
 

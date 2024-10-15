@@ -1,5 +1,28 @@
 #include "global.h"
+#include "RP2040.h"
 
+// before FreeRTOS
+// check consistency with __NVIC_PRIO_BITS given in FreeRTOSConfig.h
+#if (__NVIC_PRIO_BITS != 2)
+    #error unexpected value for __NVIC_PRIO_BITS
+#endif
+
+// end of includes
+#if LIB_PICO_MULTICORE
+    #error dont want to support multicore
+#endif
+
+
+
+#ifdef __cplusplus
+extern "C"
+#endif
+void fatal_error(int reason)
+{
+    printf("FATAL ERROR: reason %d", reason);
+
+    while(true);
+}
 
 
 /*-----------------------------------------------------------*/
@@ -68,6 +91,8 @@ int main( void )
          * or pxCurrentTCB if pcTaskName has itself been corrupted. */
         ( void ) xTask;
         ( void ) pcTaskName;
+
+        fatal_error(0);
     }
 
 #endif /* #if ( configCHECK_FOR_STACK_OVERFLOW > 0 ) */
