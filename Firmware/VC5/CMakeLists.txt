@@ -33,8 +33,11 @@ include(pico_sdk_import.cmake)
 #---FreeRTOS---
 set(FREERTOS_KERNEL_PATH  ${CMAKE_CURRENT_LIST_DIR}/FreeRTOS)
 
+# Select the heap port.  values between 1-4 will pick a heap.
+set(FREERTOS_HEAP "3" CACHE STRING "" FORCE)
+
 # Select the native compile PORT, see FreeRTOS/freertos_kernel-src/portable/CMakLists.cmake
-set(FREERTOS_PORT "GCC_RP2040" CACHE STRING "" FORCE)
+set(FREERTOS_PORT "GCC_ARM_CM0" CACHE STRING "" FORCE)
 #--------------
 
 project(VC5 C CXX ASM)
@@ -43,7 +46,10 @@ project(VC5 C CXX ASM)
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 1.0
-add_executable(VC5 main.cpp)
+add_executable(VC5 
+    main.cpp
+    FreeRTOS_support.cpp
+    )
 
 pico_set_program_name(VC5 "VC5")
 pico_set_program_version(VC5 "1.0")
@@ -54,7 +60,9 @@ pico_enable_stdio_usb(VC5 0)
 
 # Add the standard library to the build
 target_link_libraries(VC5
-        pico_stdlib)
+    pico_stdlib
+    cmsis_core
+    )
 
 # Add the standard include files to the build
 target_include_directories(VC5 PRIVATE
@@ -64,13 +72,25 @@ target_include_directories(VC5 PRIVATE
 
 
 #described here: https://github.com/raspberrypi/pico-sdk/issues/1659
-include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
+#include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
+
+# Add the freertos_config for FreeRTOS-Kernel
+add_library(freertos_config INTERFACE)
+
+target_include_directories(freertos_config INTERFACE
+    ${CMAKE_CURRENT_LIST_DIR}
+    )
 
 # add FreeRTOS to the main build
-target_link_libraries(
-    VC5 
-    FreeRTOS-Kernel-Heap4
+add_subdirectory(${FREERTOS_KERNEL_PATH} FreeRTOS-Kernel)
+
+target_link_libraries(VC5 
+    freertos_kernel
+    freertos_config
     )
+
+
+
 
 
 pico_add_extra_outputs(VC5)

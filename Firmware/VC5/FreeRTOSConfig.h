@@ -49,6 +49,8 @@
 /* Hardware description related definitions. **********************************/
 /******************************************************************************/
 
+extern uint32_t SystemCoreClock;
+
 /* In most cases, configCPU_CLOCK_HZ must be set to the frequency of the clock
  * that drives the peripheral used to generate the kernels periodic tick
  * interrupt. The default value is set to 20MHz and matches the QEMU demo
@@ -222,7 +224,7 @@
  * FreeRTOS/source/timers.c source file must be included in the build if
  * configUSE_TIMERS is set to 1.  Default to 0 if left undefined.  See
  * https://www.freertos.org/RTOS-software-timer.html. */
-#define configUSE_TIMERS                1
+#define configUSE_TIMERS                0
 
 /* configTIMER_TASK_PRIORITY sets the priority used by the timer task.  Only
  * used if configUSE_TIMERS is set to 1.  The timer task is a standard FreeRTOS
@@ -449,6 +451,8 @@ void fatal_error(int reason);
 /* FreeRTOS MPU specific definitions. *****************************************/
 /******************************************************************************/
 
+#define configENABLE_MPU                                            0
+
 /* If configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS is set to 1 then
  * the application writer can provide functions that execute in privileged mode.
  * See:
@@ -631,7 +635,9 @@ void fatal_error(int reason);
 #define INCLUDE_xTaskGetIdleTaskHandle         1
 #define INCLUDE_eTaskGetState                  1
 #define INCLUDE_xEventGroupSetBitFromISR       1
-#define INCLUDE_xTimerPendFunctionCall         1
+#if configUSE_TIMERS
+    #define INCLUDE_xTimerPendFunctionCall         1
+#endif
 #define INCLUDE_xTaskAbortDelay                1
 #define INCLUDE_xTaskGetHandle                 1
 #define INCLUDE_xTaskResumeFromISR             1
