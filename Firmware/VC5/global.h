@@ -5,10 +5,18 @@
 #include <stdio.h>
 
 
+
 // Pico SDK
 #include "pico/stdlib.h"
+#include "RP2040.h"
 #include <hardware/i2c.h>
 
+
+
+// check consistency with __NVIC_PRIO_BITS given in FreeRTOSConfig.h
+#if (__NVIC_PRIO_BITS != 2)
+    #error unexpected value for __NVIC_PRIO_BITS
+#endif
 
 // FreeRTOS
 #include <FreeRTOS.h>
@@ -17,8 +25,20 @@
 #include <timers.h>
 #include <semphr.h>
 
+#if LIB_PICO_MULTICORE
+    #error dont want to support multicore
+#endif
+
+
 
 // custom
 #include "config.h"
 
 
+
+
+
+#ifdef __cplusplus
+extern "C"
+#endif
+void fatal_error(int reason);

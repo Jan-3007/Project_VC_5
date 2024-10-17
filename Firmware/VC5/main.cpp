@@ -1,17 +1,4 @@
 #include "global.h"
-#include "RP2040.h"
-
-// before FreeRTOS
-// check consistency with __NVIC_PRIO_BITS given in FreeRTOSConfig.h
-#if (__NVIC_PRIO_BITS != 2)
-    #error unexpected value for __NVIC_PRIO_BITS
-#endif
-
-// end of includes
-#if LIB_PICO_MULTICORE
-    #error dont want to support multicore
-#endif
-
 
 
 #ifdef __cplusplus
@@ -52,9 +39,6 @@ int main( void )
     stdio_init_all();
 
     ( void ) printf("VC 5: %s %s\n", __DATE__, __TIME__);
-
-
-
 
 
 
