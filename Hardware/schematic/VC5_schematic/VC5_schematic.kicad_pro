@@ -513,7 +513,11 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
+<<<<<<< Updated upstream
       "step": "../../../../3D_model/VC5_3D_model_v6.step",
+=======
+      "step": "../../3D_model_new/VC5_3D_model_v7.step",
+>>>>>>> Stashed changes
       "svg": "",
       "vrml": ""
     },
