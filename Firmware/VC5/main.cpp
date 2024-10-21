@@ -40,7 +40,12 @@ int main( void )
 
     ( void ) printf("VC 5: %s %s\n", __DATE__, __TIME__);
 
+    //mcp.init();
 
+
+
+
+    
 
 
     static StaticTask_t exampleTaskTCB;

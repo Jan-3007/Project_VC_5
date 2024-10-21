@@ -1,12 +1,16 @@
 #pragma once
 
 
+//--------------------
 // C++
+//--------------------
 #include <stdio.h>
 
 
 
+//--------------------
 // Pico SDK
+//--------------------
 #include "pico/stdlib.h"
 #include "RP2040.h"
 #include <hardware/i2c.h>
@@ -18,7 +22,9 @@
     #error unexpected value for __NVIC_PRIO_BITS
 #endif
 
+//--------------------
 // FreeRTOS
+//--------------------
 #include <FreeRTOS.h>
 #include <task.h>
 #include <queue.h>
@@ -31,9 +37,12 @@
 
 
 
-// custom
+//--------------------
+// Custom
+//--------------------
 #include "config.h"
-
+#include "VC5_RP2040.h"
+#include "MCP23017.h"
 
 
 

@@ -93,6 +93,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     main.cpp
     FreeRTOS_support.cpp
     VC5_RP2040.cpp
+    MCP23017.cpp
     )
 
 # Add any user requested libraries
