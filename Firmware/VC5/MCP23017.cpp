@@ -1,5 +1,4 @@
-#include "global.h"
-#include "MCP23017.h"
+#include "VC5_global.h"
 
 
 // ctor
@@ -7,18 +6,18 @@ MCP23017::MCP23017()
 {}
 
 
-void MCP23017::init()
+void 
+MCP23017::init()
 {
     // enable weak pull-up resistors on each pin
     write_register16(0x0C, 0xFFFF);
-
-    enable_interrupt();
 
     configure_int_on_falling_edge();
 }
 
 
-uint16_t MCP23017::get_pin_state()
+uint16_t 
+MCP23017::get_pin_state()
 {
     uint16_t value;
     if(read_register16(0x12, value))
@@ -30,7 +29,8 @@ uint16_t MCP23017::get_pin_state()
 }
 
 
-bool MCP23017::write_register16(uint8_t reg_addr, uint16_t value)
+bool 
+MCP23017::write_register16(uint8_t reg_addr, uint16_t value)
 {
     // data[0] = reg_addr
     // data[1] = Port A
@@ -54,7 +54,8 @@ bool MCP23017::write_register16(uint8_t reg_addr, uint16_t value)
 
 
 // takes about 150 us to complete (@400kHz)
-bool MCP23017::read_register16(uint8_t reg_addr, uint16_t& value)
+bool 
+MCP23017::read_register16(uint8_t reg_addr, uint16_t& value)
 {
     bool success = true;
 
@@ -86,24 +87,21 @@ bool MCP23017::read_register16(uint8_t reg_addr, uint16_t& value)
 }
 
 
-void MCP23017::enable_interrupt()
+void 
+MCP23017::enable_interrupt()
 {
     // GPINTEN
     // enable interrupt-on-change feature on selected pins
-    write_register16(0x04, clk_pin_mask | button_pin_mask);
+    write_register16(0x04, clk_pin_mask_ | button_pin_mask_);
 }
 
 
-void MCP23017::configure_int_on_falling_edge()
+void 
+MCP23017::configure_int_on_falling_edge()
 {
-    // DEFVAL
-    // default comparison value, opposite value on associated pin will trigger the interrupt
-    // interrupt is low active
-    write_register16(0x06, 0xFFFF);
-
     // INTCON
-    // pin value will be compared against the associated bit in the DEFVAL register
-    write_register16(0x08, 0xFFFF);
+    // pin value will be compared against the previous state
+    write_register16(0x08, 0x0000);
 
     // enable IOCON.MIRROR
     // addresses of the registers of port A and B are set to sequential (BANK), refer to tables labelled with BANK = 0

@@ -1,11 +1,11 @@
-#include "global.h"
-#include "VC5_RP2040.h"
+#include "VC5_global.h"
 
 
 
 //--------------------
 // I²C
 //--------------------
+
 void 
 init_i2c()
 {
@@ -14,8 +14,8 @@ init_i2c()
     
     gpio_set_function(c_i2c_sda_pin, GPIO_FUNC_I2C);
     gpio_set_function(c_i2c_scl_pin, GPIO_FUNC_I2C);
-    gpio_pull_up(c_i2c_sda_pin);
-    gpio_pull_up(c_i2c_scl_pin);
+    //gpio_pull_up(c_i2c_sda_pin);
+    //gpio_pull_up(c_i2c_scl_pin);
     // For more examples of I2C use see https://github.com/raspberrypi/pico-examples/tree/master/i2c
 }
 

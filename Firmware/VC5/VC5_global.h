@@ -1,6 +1,7 @@
 #pragma once
 
 
+
 //--------------------
 // C++
 //--------------------
@@ -16,11 +17,11 @@
 #include <hardware/i2c.h>
 
 
-
-// check consistency with __NVIC_PRIO_BITS given in FreeRTOSConfig.h
-#if (__NVIC_PRIO_BITS != 2)
-    #error unexpected value for __NVIC_PRIO_BITS
+#if LIB_PICO_MULTICORE
+    #error dont want to support multicore
 #endif
+
+
 
 //--------------------
 // FreeRTOS
@@ -31,8 +32,10 @@
 #include <timers.h>
 #include <semphr.h>
 
-#if LIB_PICO_MULTICORE
-    #error dont want to support multicore
+
+// check consistency with __NVIC_PRIO_BITS given in FreeRTOSConfig.h
+#if (__NVIC_PRIO_BITS != 2)
+    #error unexpected value for __NVIC_PRIO_BITS
 #endif
 
 
@@ -40,9 +43,12 @@
 //--------------------
 // Custom
 //--------------------
-#include "config.h"
+#include "VC5_config.h"
+#include "FreeRTOS_support.h"
 #include "VC5_RP2040.h"
 #include "MCP23017.h"
+#include "rotary.h"
+#include "rotary_bank.h"  
 
 
 
@@ -51,3 +57,6 @@
 extern "C"
 #endif
 void fatal_error(int reason);
+
+
+
