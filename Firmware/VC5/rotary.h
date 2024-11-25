@@ -5,6 +5,11 @@
 class Rotary
 {
 protected:
+    SemaphoreHandle_t sem_rotary_value_ {NULL};
+    SemaphoreHandle_t sem_button_value_ {NULL};
+    StaticSemaphore_t sem_buffer_rotary_value_;
+    StaticSemaphore_t sem_buffer_button_value_;
+
     uint rotary_index_ {0};
     int rotary_value_ {0};
     int button_value_ {0};
@@ -22,8 +27,24 @@ public:
         : rotary_index_ {index}, clk_mask_ {clk}, data_mask_ {data}, button_mask_ {button}, reverse_cnt_dir_ {reverse}
         {}
 
+    void
+    init_semaphores();
+
     void 
     update(uint16_t pin_state);
+
+    void
+    set_rot_value(int value);
+
+    int
+    get_rot_value();
+
+    void
+    set_btn_value(int value);
+
+    int
+    get_btn_value();
+
 };
 
 

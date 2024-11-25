@@ -29,7 +29,10 @@ RotaryBank::RotaryBank()
 void 
 RotaryBank::init()
 {
-    mcp_.init();
+    for(Rotary& rot : rotary_)
+    {
+        rot.init_semaphores();
+    }
 
     create_task();
 }
@@ -55,8 +58,8 @@ RotaryBank::create_task()
         task_rotaries::c_stack_size_words,          // const uint32_t       ulStackDepth,
         this,                                       // void * const         pvParameters,
         task_rotaries::c_prio,                      // UBaseType_t          uxPriority,
-        task_stack_,                                 // StackType_t * const  puxStackBuffer,
-        &task_TCB_                                   // StaticTask_t * const pxTaskBuffer
+        task_stack_,                                // StackType_t * const  puxStackBuffer,
+        &task_TCB_                                  // StaticTask_t * const pxTaskBuffer
     );
 }
 
@@ -74,6 +77,8 @@ RotaryBank::task_entry(void* param)
 void 
 RotaryBank::task_startup()
 {
+    mcp_.init();
+
     gpio_set_dir(c_mcp_int_pin, false);
 
     // enable pull-up for the interrupt pin on the pico
@@ -100,7 +105,7 @@ RotaryBank::task()
         // set task to wait to be activated by notification
         uint32_t val = ulTaskNotifyTake(              
             pdTRUE,                             // reset notification value to 0
-            portMAX_DELAY                       // wait indefinitely, not timeout
+            portMAX_DELAY                       // wait indefinitely, no timeout
         );
 
         uint16_t current = mcp_.get_pin_state();
@@ -126,13 +131,40 @@ RotaryBank::task()
         }
 
         // pin state stable
-        
-        
-        // printf("Debounced pin state: 0x%04X\n", current);
+//        printf("Debounced pin state: 0x%04X\n", current);
 
         // update each rotary value based on rotation direction
         update_rotaries(current);
     }
+}
+
+
+int 
+RotaryBank::capture_rot_value(uint index)
+{
+    return rotary_[index].get_rot_value();
+}
+
+
+int RotaryBank::capture_btn_value(uint index)
+{
+    return rotary_[index].get_btn_value();
+}
+
+
+int
+capture_rotary_value(uint index)
+{
+    assert(index < c_num_rotaries);
+    return g_rotary_bank.capture_rot_value(index);
+}
+
+
+int
+capture_button_value(uint index)
+{
+    assert(index < c_num_rotaries);
+    return g_rotary_bank.capture_btn_value(index);
 }
 
 

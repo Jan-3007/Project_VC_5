@@ -71,6 +71,11 @@ pico_set_program_version(${PROJECT_NAME} "1.0")
 pico_enable_stdio_uart(${PROJECT_NAME} 1)
 pico_enable_stdio_usb(${PROJECT_NAME} 0)
 
+#
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    CFG_TUSB_OS=OPT_OS_FREERTOS
+)
+
 # Add the standard include files to the build
 target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
@@ -96,11 +101,16 @@ target_sources(${PROJECT_NAME} PRIVATE
     MCP23017.cpp
     rotary_bank.cpp
     rotary.cpp
+    usb_descriptors.cpp
+    usb_device.cpp
     )
 
 # Add any user requested libraries
 target_link_libraries(${PROJECT_NAME}
     hardware_i2c
+    pico_unique_id
+    tinyusb_device
+    tinyusb_board
     )
 #--------------------
 

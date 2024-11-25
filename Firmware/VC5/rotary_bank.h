@@ -36,6 +36,12 @@ public:
         vTaskNotifyGiveFromISR(task_handle_, NULL);
     }
 
+    int
+    capture_rot_value(uint index);
+
+    int
+    capture_btn_value(uint index);
+
 protected:
     void 
     create_task();
@@ -51,11 +57,17 @@ protected:
 
     void 
     update_rotaries(uint16_t current_state);
+
 };
 
 
 void 
 init_rotaries();
 
+int
+capture_rotary_value(uint index);
+
+int
+capture_button_value(uint index);
 
 

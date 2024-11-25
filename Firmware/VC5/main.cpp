@@ -24,7 +24,8 @@ int main()
     // init and task setup for the rotaries
     init_rotaries();
 
-
+    // init and task setup for USB
+    init_usb();
 
 
 

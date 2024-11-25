@@ -2,6 +2,16 @@
 
 
 void 
+Rotary::init_semaphores()
+{
+    sem_rotary_value_ = xSemaphoreCreateBinaryStatic(&sem_buffer_rotary_value_);
+    xSemaphoreGive(sem_rotary_value_);
+    sem_button_value_ = xSemaphoreCreateBinaryStatic(&sem_buffer_button_value_);
+    xSemaphoreGive(sem_button_value_);
+}
+
+
+void
 Rotary::update(uint16_t pin_state)
 {
     // true == High, false == Low
@@ -16,26 +26,27 @@ Rotary::update(uint16_t pin_state)
         {
             if(reverse_cnt_dir_)
             {
-                rotary_value_++;
+                set_rot_value(-1);
             }
             else
             {
-                rotary_value_--;
+                // take semaphore, block indefinitely
+                set_rot_value(1);
             }
         }
         else
         {
             if(reverse_cnt_dir_)
             {
-                rotary_value_--;
+                set_rot_value(1);
             }
             else
             {
-                rotary_value_++;
+                set_rot_value(-1);
             }
         }
-#if 1
-        printf("R %d: %d\n", rotary_index_, rotary_value_);
+#if 0
+        printf("R %d: %d\n", rotary_index_, get_rot_value());
 #endif
     }
     prev_clk_state_ = current_clk_state;
@@ -49,24 +60,95 @@ Rotary::update(uint16_t pin_state)
     if(prev_btn_state_ && !current_btn_state)
     {
         // button pressed
-        button_value_ = 1;
+        set_btn_value(1);
     }
 
     // detect release
     if(!prev_btn_state_ && current_btn_state)
     {
         // button released
-        button_value_ = -1;
+        set_btn_value(-1);
     }
     
     prev_btn_state_ = current_btn_state;
 
-#if 1
-    if(button_value_ != 0)
+#if 0
+    if(get_btn_value() != 0)
     {
-        printf("Rotary button %d: %d\n", rotary_index_, button_value_);
+        printf("B %d: %d\n", rotary_index_, get_btn_value());
         button_value_ = 0;
     }
 #endif
 }
 
+
+void 
+Rotary::set_rot_value(int value)
+{
+    // take semaphore, block indefinitely
+    if( xSemaphoreTake(sem_rotary_value_, portMAX_DELAY) == pdTRUE )
+    {
+        rotary_value_ += value;
+        xSemaphoreGive(sem_rotary_value_);
+    }
+    else
+    {
+        fatal_error(1);
+    }
+}
+
+
+int 
+Rotary::get_rot_value()
+{
+    int temp = 0;
+    // take semaphore, block indefinitely
+    if( xSemaphoreTake(sem_rotary_value_, portMAX_DELAY) == pdTRUE )
+    {
+        temp = rotary_value_;
+        rotary_value_ = 0;
+        xSemaphoreGive(sem_rotary_value_);
+    }
+    else
+    {
+        fatal_error(1);
+    }
+
+    return temp;
+}
+
+
+void 
+Rotary::set_btn_value(int value)
+{
+    // take semaphore, block indefinitely
+    if( xSemaphoreTake(sem_button_value_, portMAX_DELAY) == pdTRUE )
+    {
+        button_value_ = value;
+        xSemaphoreGive(sem_button_value_);
+    }
+    else
+    {
+        fatal_error(1);
+    }
+}
+
+
+int 
+Rotary::get_btn_value()
+{
+    int temp = 0;
+    // take semaphore, block indefinitely
+    if( xSemaphoreTake(sem_button_value_, portMAX_DELAY) == pdTRUE )
+    {
+        temp = button_value_;
+        button_value_ = 0;
+        xSemaphoreGive(sem_button_value_);
+    }
+    else
+    {
+        fatal_error(1);
+    }
+
+    return temp;
+}

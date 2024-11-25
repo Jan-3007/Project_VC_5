@@ -12,7 +12,7 @@ MCP23017::init()
     // enable weak pull-up resistors on each pin
     write_register16(0x0C, 0xFFFF);
 
-    configure_int_on_falling_edge();
+    configure_int();
 }
 
 
@@ -97,7 +97,7 @@ MCP23017::enable_interrupt()
 
 
 void 
-MCP23017::configure_int_on_falling_edge()
+MCP23017::configure_int()
 {
     // INTCON
     // pin value will be compared against the previous state

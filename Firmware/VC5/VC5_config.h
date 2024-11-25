@@ -46,6 +46,16 @@ namespace task_rotaries
     constexpr uint c_stack_size_words = c_stack_size_bytes / 4;
 }
 
+namespace task_usb
+{
+    const char name[] = "USB";
+    constexpr uint c_prio = configMAX_PRIORITIES - 2u;
+    constexpr uint c_stack_size_bytes = 4096;
+    constexpr uint c_stack_size_words = c_stack_size_bytes / 4;
+
+    constexpr uint c_usb_task_interval_ms = 10;
+}
+
 
 
 //-----------------------------------------------------------
@@ -73,3 +83,8 @@ constexpr uint c_num_rotaries = c_num_units;
 
 constexpr uint c_debounce_threshold = 2;
 constexpr uint c_debounce_delay_ms = 1;
+
+
+
+
+

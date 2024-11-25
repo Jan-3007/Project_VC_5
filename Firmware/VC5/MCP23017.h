@@ -4,7 +4,7 @@
 class MCP23017
 {
 protected:
-    static constexpr uint8_t slave_address = 0x40 >> 1;
+    static constexpr uint8_t slave_address = 0x27;
 
     // bitmask for rotary CLK pins
     static const uint16_t clk_pin_mask_ = 0
@@ -49,6 +49,6 @@ protected:
     read_register16(uint8_t reg_addr, uint16_t& value);
 
     void 
-    configure_int_on_falling_edge();
+    configure_int();
 };
 
