@@ -103,6 +103,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     rotary.cpp
     usb_descriptors.cpp
     usb_device.cpp
+    Mutex.cpp
     )
 
 # Add any user requested libraries

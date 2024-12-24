@@ -2,12 +2,9 @@
 
 
 void 
-Rotary::init_semaphores()
+Rotary::init()
 {
-    sem_rotary_value_ = xSemaphoreCreateBinaryStatic(&sem_buffer_rotary_value_);
-    xSemaphoreGive(sem_rotary_value_);
-    sem_button_value_ = xSemaphoreCreateBinaryStatic(&sem_buffer_button_value_);
-    xSemaphoreGive(sem_button_value_);
+    mutex_.create();
 }
 
 
@@ -30,7 +27,6 @@ Rotary::update(uint16_t pin_state)
             }
             else
             {
-                // take semaphore, block indefinitely
                 set_rot_value(1);
             }
         }
@@ -46,7 +42,7 @@ Rotary::update(uint16_t pin_state)
             }
         }
 #if 0
-        printf("R %d: %d\n", rotary_index_, get_rot_value());
+        printf("R %d: %d\n", rotary_index_, capture_rot_value());
 #endif
     }
     prev_clk_state_ = current_clk_state;
@@ -73,9 +69,9 @@ Rotary::update(uint16_t pin_state)
     prev_btn_state_ = current_btn_state;
 
 #if 0
-    if(get_btn_value() != 0)
+    if(capture_btn_value() != 0)
     {
-        printf("B %d: %d\n", rotary_index_, get_btn_value());
+        printf("B %d: %d\n", rotary_index_, capture_btn_value());
         button_value_ = 0;
     }
 #endif
@@ -85,34 +81,18 @@ Rotary::update(uint16_t pin_state)
 void 
 Rotary::set_rot_value(int value)
 {
-    // take semaphore, block indefinitely
-    if( xSemaphoreTake(sem_rotary_value_, portMAX_DELAY) == pdTRUE )
-    {
-        rotary_value_ += value;
-        xSemaphoreGive(sem_rotary_value_);
-    }
-    else
-    {
-        fatal_error(1);
-    }
+    ScopedMutex lock{mutex_};
+    rotary_value_ += value;
 }
 
 
 int 
-Rotary::get_rot_value()
+Rotary::capture_rot_value()
 {
-    int temp = 0;
-    // take semaphore, block indefinitely
-    if( xSemaphoreTake(sem_rotary_value_, portMAX_DELAY) == pdTRUE )
-    {
-        temp = rotary_value_;
-        rotary_value_ = 0;
-        xSemaphoreGive(sem_rotary_value_);
-    }
-    else
-    {
-        fatal_error(1);
-    }
+    ScopedMutex lock{mutex_};
+
+    int temp = rotary_value_;
+    rotary_value_ = 0;
 
     return temp;
 }
@@ -121,34 +101,18 @@ Rotary::get_rot_value()
 void 
 Rotary::set_btn_value(int value)
 {
-    // take semaphore, block indefinitely
-    if( xSemaphoreTake(sem_button_value_, portMAX_DELAY) == pdTRUE )
-    {
-        button_value_ = value;
-        xSemaphoreGive(sem_button_value_);
-    }
-    else
-    {
-        fatal_error(1);
-    }
+    ScopedMutex lock{mutex_};
+
+    button_value_ = value;
 }
 
 
 int 
-Rotary::get_btn_value()
+Rotary::capture_btn_value()
 {
-    int temp = 0;
-    // take semaphore, block indefinitely
-    if( xSemaphoreTake(sem_button_value_, portMAX_DELAY) == pdTRUE )
-    {
-        temp = button_value_;
-        button_value_ = 0;
-        xSemaphoreGive(sem_button_value_);
-    }
-    else
-    {
-        fatal_error(1);
-    }
+    ScopedMutex lock{mutex_};
 
+    int temp = button_value_;
+    button_value_ = 0;
     return temp;
 }

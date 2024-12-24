@@ -55,6 +55,7 @@
 //--------------------
 #include "VC5_config.h"
 #include "FreeRTOS_support.h"
+#include "Mutex.h"
 #include "VC5_RP2040.h"
 #include "MCP23017.h"
 #include "rotary.h"

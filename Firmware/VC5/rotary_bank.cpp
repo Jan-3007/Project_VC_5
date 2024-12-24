@@ -31,7 +31,7 @@ RotaryBank::init()
 {
     for(Rotary& rot : rotary_)
     {
-        rot.init_semaphores();
+        rot.init();
     }
 
     create_task();
@@ -142,13 +142,14 @@ RotaryBank::task()
 int 
 RotaryBank::capture_rot_value(uint index)
 {
-    return rotary_[index].get_rot_value();
+    return rotary_[index].capture_rot_value();
 }
 
 
-int RotaryBank::capture_btn_value(uint index)
+int 
+RotaryBank::capture_btn_value(uint index)
 {
-    return rotary_[index].get_btn_value();
+    return rotary_[index].capture_btn_value();
 }
 
 
