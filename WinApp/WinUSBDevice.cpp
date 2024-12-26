@@ -76,7 +76,7 @@ WinUSBDevice::is_valid() const
 WinError
 enumerate_devices(
 	const GUID& device_itf_guid, 
-	std::vector<std::wstring>& device_path_list
+	std::vector<std::wstring> &device_path_list
 	)
 {
 	WinError err = NO_ERROR;
