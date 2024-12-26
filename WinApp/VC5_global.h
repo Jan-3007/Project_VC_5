@@ -8,6 +8,10 @@
 #include <vector>
 
 
+// Microsoft
+#include <conio.h>
+
+
 // Windows
 // exclude GUI stuff to speed up compilation
 #define WIN32_LEAN_AND_MEAN	1
@@ -16,11 +20,9 @@
 #pragma comment(lib, "setupapi.lib")
 
 
-
 // WinUSB
 #include <winusb.h>
 #pragma comment(lib, "winusb.lib")
-
 
 
 // VC5

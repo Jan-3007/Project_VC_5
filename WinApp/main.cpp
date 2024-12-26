@@ -48,6 +48,48 @@ main()
 		return -1;
 	}
 
+	// step 5
+	err = interface2.set_pipe_transfer_timeout(EPNUM_VENDOR_2_INT_IN, 1000);
+	if (err != NO_ERROR)
+	{
+		return -1;
+	}
+
+	std::cout << std::format("Reading events ... press any key to exit.\n");
+
+
+	while (true)
+	{
+		Volctrl_EventMsg event_buffer;
+		size_t len_transferred = 0;
+
+		err = interface2.read_pipe_sync(EPNUM_VENDOR_2_INT_IN, &event_buffer, sizeof(event_buffer), len_transferred);
+		if (err != NO_ERROR)
+		{
+			return -1;
+		}
+
+		if (len_transferred != 0)
+		{
+			if (len_transferred == sizeof(Volctrl_EventMsg))
+			{
+				std::cout << std::format("Event received: Code = {}, Rot num = {}, value = {}\n",
+					event_buffer.event_code, event_buffer.rotary_num, event_buffer.value);
+			}
+			else
+			{
+				// unexpected length
+				std::cout << std::format("unexpected length = {}\n", len_transferred);
+			}
+		}
+
+		if (_kbhit())
+		{
+			_getch();
+			break;
+		}
+	}
+
 
 	return 0;
 }

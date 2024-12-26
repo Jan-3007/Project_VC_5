@@ -1,7 +1,5 @@
 #pragma once
 
-#include "VC5_global.h"
-
 
 
 class WinUSBInterface
@@ -38,5 +36,16 @@ public:
 	// free WinUSB interface handle, if valid
 	WinError
 	free();
+
+	// read the interface pipe
+	WinError
+	read_pipe_sync(uint8_t pipe_id, void* buffer, size_t buf_len, size_t& len_transferred);
+
+	WinError
+	set_pipe_policy(uint8_t pipe_id, uint32_t policy_type, void* val, uint32_t len);
+
+	WinError
+	set_pipe_transfer_timeout(uint8_t pipe_id, uint32_t millisecs);
+
 };
 

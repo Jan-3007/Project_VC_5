@@ -104,6 +104,7 @@ enumerate_devices(
 			if (err == ERROR_NO_MORE_ITEMS)
 			{
 				// end of list
+				err = NO_ERROR;
 			}
 			else
 			{
