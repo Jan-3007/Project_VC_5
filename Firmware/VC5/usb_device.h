@@ -45,7 +45,7 @@ protected:
     hid_task();
 
     void
-    init_alarm();
+    vendor_2_task();
 };
 
 

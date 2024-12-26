@@ -26,6 +26,8 @@
 #ifndef _TUSB_CONFIG_H_
 #define _TUSB_CONFIG_H_
 
+#include <assert.h>
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -105,11 +107,14 @@
 #define CFG_TUD_CDC               0
 #define CFG_TUD_MSC               0
 #define CFG_TUD_MIDI              0
-#define CFG_TUD_VENDOR            0
+#define CFG_TUD_VENDOR            2
 
-// HID buffer size should be sufficient to hold ID (if any) + Data
+// HID buffer size Should be sufficient to hold ID (if any) + Data
 #define CFG_TUD_HID_EP_BUFSIZE    16
 
+// for Vendor interfaces
+#define CFG_TUD_VENDOR_RX_BUFSIZE   64
+#define CFG_TUD_VENDOR_TX_BUFSIZE   64
 
 
 #ifdef __cplusplus

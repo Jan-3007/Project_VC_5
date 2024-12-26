@@ -24,8 +24,31 @@
  * THE SOFTWARE.
  */
 
+enum
+{
+    ITF_NUM_HID = 0,
+    ITF_NUM_VENDOR_1,
+    ITF_NUM_VENDOR_2,
+    ITF_NUM_TOTAL
+};
+
+// tud_vendor_n_write_available actually requires an index (0 based)
+#define ITF_INDEX_VENDOR_1  0
+#define ITF_INDEX_VENDOR_2  1
+
+
 
 enum
 {
   REPORT_ID_CONSUMER_CONTROL = 1
 };
+
+
+// for MS OS 2.0 desc
+enum
+{
+  VENDOR_REQUEST_MICROSOFT = 42
+};
+
+extern const uint8_t desc_ms_os_20[];
+

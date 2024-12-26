@@ -1,4 +1,5 @@
 #include "VC5_global.h"
+#include "usb_device.h"
 
 
 ReportState g_report;
@@ -58,7 +59,10 @@ USBDevice::task()
     {
         tud_task_ext(task_usb::c_usb_task_interval_ms, false);
 
-        hid_task();
+//        hid_task();
+
+        // task for vendor 2
+        vendor_2_task();
     }
 }
 
@@ -124,6 +128,61 @@ USBDevice::hid_task()
             else
             {
                 // button value has not changed
+            }
+        }
+    }
+}
+
+
+void USBDevice::vendor_2_task()
+{
+    // check if host has sent SET CONFIGURATION
+    if(!tud_vendor_n_mounted_in(ITF_INDEX_VENDOR_2))
+    {
+        return;
+    }
+
+    // tud_vendor_n_write_available actually requires an index (0 based)
+    if(CFG_TUD_VENDOR_TX_BUFSIZE == tud_vendor_n_write_available(ITF_INDEX_VENDOR_2))
+    {
+        // TX FiFo is empty
+        // check all rotaries
+        for(unsigned int i = 0; i < 5; i++)
+        {
+            // get value of rotary
+            int rot_value = capture_rotary_value(i);
+            if(rot_value != 0)
+            {
+                // create message to send
+                Volctrl_EventMsg msg;
+                msg.event_code = Volctrl_EventMsg::evt_rotary_turned;
+                msg.rotary_index = i;
+                msg.value = rot_value;
+                msg.reserved = 0;
+
+                // send message
+                tud_vendor_n_write(ITF_INDEX_VENDOR_2, &msg, sizeof(msg));
+                // for sending packages smaller than CFG_TUD_VENDOR_EPSIZE
+                tud_vendor_n_flush(ITF_INDEX_VENDOR_2);
+                break;
+            }
+
+            // get value of button
+            int btn_value = capture_button_value(i);
+            if(btn_value != 0)
+            {
+                // create message to send
+                Volctrl_EventMsg msg;
+                msg.event_code = Volctrl_EventMsg::evt_rotary_button;
+                msg.rotary_index = i;
+                msg.value = btn_value;
+                msg.reserved = 0;
+
+                // send message
+                tud_vendor_n_write(ITF_INDEX_VENDOR_2, &msg, sizeof(msg));
+                // for sending packages smaller than CFG_TUD_VENDOR_EPSIZE
+                tud_vendor_n_flush(ITF_INDEX_VENDOR_2);
+                break;
             }
         }
     }

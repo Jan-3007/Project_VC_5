@@ -39,7 +39,11 @@
         "raspberry-pi-pico.python3Path": "${HOME}/.pico-sdk/python/3.12.1/python.exe",
         "files.associations": {
             "system_error": "cpp",
-            "*.tcc": "cpp"
+            "*.tcc": "cpp",
+            "tusb_option.h": "c",
+            "vendor_device.h": "c",
+            "usbd.h": "c",
+            "tusb_common.h": "c"
         }
     }
 }

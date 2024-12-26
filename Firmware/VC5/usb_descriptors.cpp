@@ -26,9 +26,21 @@
 #include "VC5_global.h"
 
 
-#define USB_VID   0x1234
-#define USB_PID   0x1234
-#define USB_BCD   0x0200
+#define DEVICE_BCD   0x0100     //firmware version
+
+
+// string descriptors
+enum
+{
+    STR_IDX_MANUFACTURER = 1,
+    STR_IDX_PRODUCT,
+    STR_IDX_SERIAL_NUMBER,
+    STR_IDX_VENDOR_IAD,
+    STR_IDX_VENDOR_1_INTERFACE,
+    STR_IDX_VENDOR_2_INTERFACE,
+    STR_IDX_HID_INTERFACE,
+};
+
 
 //--------------------------------------------------------------------+
 // Device Descriptors
@@ -37,19 +49,20 @@ const tusb_desc_device_t desc_device =
 {
   .bLength            = sizeof(tusb_desc_device_t),
   .bDescriptorType    = TUSB_DESC_DEVICE,
-  .bcdUSB             = USB_BCD,
+  .bcdUSB             = 0x0210, // at least 2.1 for BOS
+
   .bDeviceClass       = 0x00,
   .bDeviceSubClass    = 0x00,
   .bDeviceProtocol    = 0x00,
   .bMaxPacketSize0    = CFG_TUD_ENDPOINT0_SIZE,
 
-  .idVendor           = USB_VID,
-  .idProduct          = USB_PID,
-  .bcdDevice          = 0x0100,
+  .idVendor           = VOLCTRL_VID,
+  .idProduct          = VOLCTRL_PID,
+  .bcdDevice          = DEVICE_BCD,
 
-  .iManufacturer      = 0x01,
-  .iProduct           = 0x02,
-  .iSerialNumber      = 0x03,
+  .iManufacturer      = STR_IDX_MANUFACTURER,
+  .iProduct           = STR_IDX_PRODUCT,
+  .iSerialNumber      = STR_IDX_SERIAL_NUMBER,
 
   .bNumConfigurations = 0x01
 };
@@ -81,27 +94,49 @@ const uint8_t* tud_hid_descriptor_report_cb(uint8_t instance)
   return desc_hid_report;
 }
 
+
 //--------------------------------------------------------------------+
 // Configuration Descriptor
 //--------------------------------------------------------------------+
 
-enum
-{
-  ITF_NUM_HID = 0,
-  ITF_NUM_TOTAL
-};
+#define HID_INTERRUPT_EP_INTERVAL       4   // ms
 
-#define  CONFIG_TOTAL_LEN  (TUD_CONFIG_DESC_LEN + TUD_HID_DESC_LEN)
+#define VENDOR_BULK_EP_SIZE             64  // bytes
+#define VENDOR_INTERRUPT_EP_SIZE        4   // bytes
+#define VENDOR_INTERRUPT_EP_INTERVAL    4   // ms
+#define VENDOR_IAD_LEN                     8
+#define VENDOR_1_DESC_LEN                 (9 + 7 + 7)
+#define VENDOR_2_DESC_LEN                 (9 + 7)
 
-#define EPNUM_HID   0x81
+
+#define  CONFIG_TOTAL_LEN  (TUD_CONFIG_DESC_LEN + TUD_HID_DESC_LEN + VENDOR_IAD_LEN + VENDOR_1_DESC_LEN + VENDOR_2_DESC_LEN)
 
 const uint8_t desc_configuration[] =
 {
-  // Config number, interface count, string index, total length, attribute, power in mA
-  TUD_CONFIG_DESCRIPTOR(1, ITF_NUM_TOTAL, 0, CONFIG_TOTAL_LEN, TUSB_DESC_CONFIG_ATT_REMOTE_WAKEUP, 100),
+    // Config number, interface count, string index, total length, attribute, power in mA
+    TUD_CONFIG_DESCRIPTOR(1, ITF_NUM_TOTAL, 0, CONFIG_TOTAL_LEN, 0, 100),
 
-  // Interface number, string index, protocol, report descriptor len, EP In address, size & polling interval
-  TUD_HID_DESCRIPTOR(ITF_NUM_HID, 0, HID_ITF_PROTOCOL_NONE, sizeof(desc_hid_report), EPNUM_HID, CFG_TUD_HID_EP_BUFSIZE, 4)
+    // HID interface
+    // Interface number, string index, protocol, report descriptor len, EP In address, size & polling interval
+    TUD_HID_DESCRIPTOR(ITF_NUM_HID, STR_IDX_HID_INTERFACE, HID_ITF_PROTOCOL_NONE, sizeof(desc_hid_report), EPNUM_HID_INT_IN, CFG_TUD_HID_EP_BUFSIZE, HID_INTERRUPT_EP_INTERVAL),
+
+
+    /* Interface Association */
+    8, TUSB_DESC_INTERFACE_ASSOCIATION, ITF_NUM_VENDOR_1, 2, TUSB_CLASS_VENDOR_SPECIFIC, 0x00, 0x00, STR_IDX_VENDOR_IAD,
+
+    // Vendor specific interface 1
+    /* Interface */
+    9, TUSB_DESC_INTERFACE, ITF_NUM_VENDOR_1, 0, 2, TUSB_CLASS_VENDOR_SPECIFIC, 0x00, 0x00, STR_IDX_VENDOR_1_INTERFACE,
+    /* Endpoint Bulk Out, for command messages */ 
+    7, TUSB_DESC_ENDPOINT, EPNUM_VENDOR_1_BULK_OUT, TUSB_XFER_BULK, U16_TO_U8S_LE(VENDOR_BULK_EP_SIZE), 0,
+    /* Endpoint Bulk In, for response messages */
+    7, TUSB_DESC_ENDPOINT, EPNUM_VENDOR_1_BULK_IN, TUSB_XFER_BULK, U16_TO_U8S_LE(VENDOR_BULK_EP_SIZE), 0,
+
+    // Vendor specific interface 2
+    /* Interface */
+    9, TUSB_DESC_INTERFACE, ITF_NUM_VENDOR_2, 0, 1, TUSB_CLASS_VENDOR_SPECIFIC, 0x00, 0x00, STR_IDX_VENDOR_2_INTERFACE,
+    /* Endpoint Interrupt In, for event messages */
+    7, TUSB_DESC_ENDPOINT, EPNUM_VENDOR_2_INT_IN, TUSB_XFER_INTERRUPT, U16_TO_U8S_LE(VENDOR_INTERRUPT_EP_SIZE), VENDOR_INTERRUPT_EP_INTERVAL,
 };
 
 
@@ -116,61 +151,155 @@ const uint8_t* tud_descriptor_configuration_cb(uint8_t index)
   return desc_configuration;
 }
 
+
+//--------------------------------------------------------------------+
+// BOS Descriptor
+//--------------------------------------------------------------------+
+
+/* Microsoft OS 2.0 registry property descriptor
+Per MS requirements https://msdn.microsoft.com/en-us/library/windows/hardware/hh450799(v=vs.85).aspx
+device should create DeviceInterfaceGUIDs. It can be done by driver and
+in case of real PnP solution device should expose MS "Microsoft OS 2.0
+registry property descriptor". Such descriptor can insert any record
+into Windows registry per device/configuration/interface. In our case it
+will insert "DeviceInterfaceGUIDs" multistring property.
+
+GUID is freshly generated and should be OK to use.
+
+https://developers.google.com/web/fundamentals/native-hardware/build-for-webusb/
+(Section Microsoft OS compatibility descriptors)
+*/
+
+#define BOS_TOTAL_LEN      (TUD_BOS_DESC_LEN + TUD_BOS_MICROSOFT_OS_DESC_LEN)
+
+#define MS_OS_20_DESC_LEN  0xB2
+
+// BOS Descriptor is required for MS OS 2.0
+const uint8_t desc_bos[] =
+{
+  // total length, number of device caps
+  TUD_BOS_DESCRIPTOR(BOS_TOTAL_LEN, 1),
+
+  // Microsoft OS 2.0 descriptor
+  TUD_BOS_MS_OS_20_DESCRIPTOR(MS_OS_20_DESC_LEN, VENDOR_REQUEST_MICROSOFT)
+};
+
+const uint8_t* tud_descriptor_bos_cb(void)
+{
+  return desc_bos;
+}
+
+
+//--------------------------------------------------------------------+
+// MS OS 2.0 descriptor
+//--------------------------------------------------------------------+
+
+const uint8_t desc_ms_os_20[] =
+{
+    // Set header: length, type, windows version, total length
+    U16_TO_U8S_LE(0x000A), U16_TO_U8S_LE(MS_OS_20_SET_HEADER_DESCRIPTOR), U32_TO_U8S_LE(0x06030000), U16_TO_U8S_LE(MS_OS_20_DESC_LEN),
+
+    // Configuration subset header: length, type, configuration index, reserved, configuration total length
+    U16_TO_U8S_LE(0x0008), U16_TO_U8S_LE(MS_OS_20_SUBSET_HEADER_CONFIGURATION), 0, 0, U16_TO_U8S_LE(MS_OS_20_DESC_LEN - 0x0A),
+
+    // Function Subset header: length, type, first interface, reserved, subset length
+    U16_TO_U8S_LE(0x0008), U16_TO_U8S_LE(MS_OS_20_SUBSET_HEADER_FUNCTION), ITF_NUM_VENDOR_1, 0, U16_TO_U8S_LE(MS_OS_20_DESC_LEN - 0x0A - 0x08),
+
+    // MS OS 2.0 Compatible ID descriptor: length, type, compatible ID, sub compatible ID
+    U16_TO_U8S_LE(0x0014), U16_TO_U8S_LE(MS_OS_20_FEATURE_COMPATBLE_ID), 'W', 'I', 'N', 'U', 'S', 'B', 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // sub-compatible
+
+    // MS OS 2.0 Registry property descriptor: length, type
+    U16_TO_U8S_LE(MS_OS_20_DESC_LEN-0x0A-0x08-0x08-0x14), U16_TO_U8S_LE(MS_OS_20_FEATURE_REG_PROPERTY),
+    U16_TO_U8S_LE(0x0007), U16_TO_U8S_LE(0x002A), // wPropertyDataType, wPropertyNameLength and PropertyName "DeviceInterfaceGUIDs\0" in UTF-16
+    'D', 0x00, 'e', 0x00, 'v', 0x00, 'i', 0x00, 'c', 0x00, 'e', 0x00, 'I', 0x00, 'n', 0x00, 't', 0x00, 'e', 0x00,
+    'r', 0x00, 'f', 0x00, 'a', 0x00, 'c', 0x00, 'e', 0x00, 'G', 0x00, 'U', 0x00, 'I', 0x00, 'D', 0x00, 's', 0x00, 0x00, 0x00,
+    U16_TO_U8S_LE(0x0050), // wPropertyDataLength
+    //bPropertyData: VOLCTRL_WINUSB_INTERFACE_GUID_STR == {EC03545C-4179-4324-B2B2-24E4A976F2E7}
+    '{', 0x00, 'E', 0x00, 'C', 0x00, '0', 0x00, '3', 0x00, '5', 0x00, '4', 0x00, '5', 0x00, 'C', 0x00, '-', 0x00,
+    '4', 0x00, '1', 0x00, '7', 0x00, '9', 0x00, '-', 0x00, '4', 0x00, '3', 0x00, '2', 0x00, '4', 0x00, '-', 0x00,
+    'B', 0x00, '2', 0x00, 'B', 0x00, '2', 0x00, '-', 0x00, '2', 0x00, '4', 0x00, 'E', 0x00, '4', 0x00, 'A', 0x00,
+    '9', 0x00, '7', 0x00, '6', 0x00, 'F', 0x00, '2', 0x00, 'E', 0x00, '7', 0x00, '}', 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
+static_assert(sizeof(desc_ms_os_20) == MS_OS_20_DESC_LEN, "Incorrect size");
+
+
+
 //--------------------------------------------------------------------+
 // String Descriptors
 //--------------------------------------------------------------------+
-
-// buffer to hold flash ID
-char serial[2 * PICO_UNIQUE_BOARD_ID_SIZE_BYTES + 1];
-
-// array of pointer to string descriptors
-const char* string_desc_arr [] =
-{
-  (const char[]) { 0x09, 0x04 }, // 0: is supported language is English (0x0409)
-  "Custom",                      // 1: Manufacturer
-  "VC5",                         // 2: Product
-  serial,                        // 3: Serials, uses the flash ID
-};
-
-static uint16_t _desc_str[32];
 
 // Invoked when received GET STRING DESCRIPTOR request
 // Application return pointer to descriptor, whose contents must exist long enough for transfer to complete
 extern "C"
 const uint16_t* tud_descriptor_string_cb(uint8_t index, uint16_t langid)
 {
-  (void) langid;
+    (void) langid;
 
-  uint8_t chr_count;
+    // buffer that holds the final string descriptor
+    constexpr unsigned int desc_str_max_len = 32;
+    static uint16_t _desc_str[desc_str_max_len];
+    // buffer to hold flash ID
+    static char _serial_str[2 * PICO_UNIQUE_BOARD_ID_SIZE_BYTES + 1];
 
-  if ( index == 0)
-  {
-    memcpy(&_desc_str[1], string_desc_arr[0], 2);
-    chr_count = 1;
-  }else
-  {
-    // Note: the 0xEE index string is a Microsoft OS 1.0 Descriptors.
-    // https://docs.microsoft.com/en-us/windows-hardware/drivers/usbcon/microsoft-defined-usb-descriptors
 
-    if (index == 3) pico_get_unique_board_id_string(serial, sizeof(serial));
-    
-    if ( !(index < sizeof(string_desc_arr)/sizeof(string_desc_arr[0])) ) return NULL;
+    const char* str;
 
-    const char* str = string_desc_arr[index];
 
-    // Cap at max char
-    chr_count = strlen(str);
-    if ( chr_count > 31 ) chr_count = 31;
+    switch(index)
+    {
+        // langid
+        case 0:
+            _desc_str[0] = (TUSB_DESC_STRING << 8 ) | (2 + 2);
+            _desc_str[1] = 0x0409;   // English US
+            return _desc_str;
+
+        case STR_IDX_SERIAL_NUMBER:
+            pico_get_unique_board_id_string(_serial_str, sizeof(_serial_str));
+            str = _serial_str;
+            break;
+
+        case STR_IDX_MANUFACTURER:
+            str = "Custom";
+            break;
+
+        case STR_IDX_PRODUCT:
+        case STR_IDX_VENDOR_IAD:
+            str = "Volume Controller";
+            break;
+            
+        case STR_IDX_VENDOR_1_INTERFACE:
+            str = "Command Interface";
+            break;
+
+        case STR_IDX_VENDOR_2_INTERFACE:
+            str = "Event Interface";
+            break;
+
+        case STR_IDX_HID_INTERFACE:
+            str = "HID Consumer Control";
+            break;
+
+        default:
+            // unknown index
+            return NULL;
+    } // switch
+
+    unsigned int chr_count = strlen(str);
 
     // Convert ASCII string into UTF-16
-    for(uint8_t i=0; i<chr_count; i++)
+    unsigned int i = 0;
+    for(; i < chr_count && i < (desc_str_max_len - 1); i++)
     {
-      _desc_str[1+i] = str[i];
+        // convert char to wchar
+        _desc_str[i + 1] = str[i];
     }
-  }
 
-  // first byte is length (including header), second byte is string type
-  _desc_str[0] = (TUSB_DESC_STRING << 8 ) | (2*chr_count + 2);
+    // first byte is length (including header), second byte is string type
+    _desc_str[0] = (TUSB_DESC_STRING << 8 ) | (2 + 2 * i);
 
-  return _desc_str;
+    return _desc_str;
 }
+
+
