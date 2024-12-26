@@ -4,6 +4,7 @@
 // C++
 #include <format>
 #include <iostream>
+#include <string>
 
 
 // Windows
@@ -24,4 +25,5 @@
 // VC5
 #include "WinUtils.h"
 #include "usb_protocol.h"
+#include "WinUSBDevice.h"
 #include "WinUSBInterface.h"

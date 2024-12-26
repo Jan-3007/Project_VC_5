@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="WinUSBDevice.cpp" />
     <ClCompile Include="WinUSBInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VC5_global.h" />
+    <ClInclude Include="WinUSBDevice.h" />
     <ClInclude Include="WinUSBInterface.h" />
     <ClInclude Include="WinUtils.h" />
   </ItemGroup>
