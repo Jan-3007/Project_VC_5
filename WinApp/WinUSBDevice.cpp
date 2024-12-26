@@ -21,12 +21,12 @@ WinUSBDevice::open(const WCHAR* device_path)
 {
 	if (is_valid())
 	{
-		std::cout << std::format("{}: device handle exists", __func__);
+		std::cout << std::format("{}: device handle exists\n", __func__);
 		return ERROR_INTERNAL_ERROR;
 	}
 
 	// open the device
-	device_handle_ = CreateFileW(
+	device_handle_ = ::CreateFileW(
 		device_path,						//	LPCWSTR               lpFileName,
 		GENERIC_READ | GENERIC_WRITE,		//	DWORD                 dwDesiredAccess,
 		FILE_SHARE_READ | FILE_SHARE_WRITE,	//	DWORD                 dwShareMode,
@@ -39,7 +39,7 @@ WinUSBDevice::open(const WCHAR* device_path)
 	if (device_handle_ == INVALID_HANDLE_VALUE)
 	{
 		WinError err = ::GetLastError();
-		std::cout << std::format("CreateFileW failed, err = {}", err);
+		std::cout << std::format("CreateFileW failed, err = {}\n", err);
 		return err;
 	}
 	return NO_ERROR;
@@ -52,11 +52,13 @@ WinUSBDevice::close()
 	WinError err = NO_ERROR;
 	if (is_valid())
 	{
-		BOOL succ = ::CloseHandle(device_handle_);
+		BOOL succ = ::CloseHandle(
+			device_handle_			// [in] HANDLE hObject
+			);
 		if (!succ)
 		{
 			err = ::GetLastError();
-			std::cout << std::format("CloseHandle failed, err = {}", err);
+			std::cout << std::format("CloseHandle failed, err = {}\n", err);
 		}
 		device_handle_ = INVALID_HANDLE_VALUE;
 	}
@@ -82,11 +84,16 @@ enumerate_devices(
 	WinError err = NO_ERROR;
 
 	// get device info list
-	HDEVINFO device_info = ::SetupDiGetClassDevsW(&device_itf_guid, NULL, NULL, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
+	HDEVINFO device_info = ::SetupDiGetClassDevsW(
+		&device_itf_guid,							// [in, optional] const GUID*	ClassGuid,
+		NULL,										// [in, optional] PCWSTR		Enumerator,
+		NULL,										// [in, optional] HWND			hwndParent,
+		DIGCF_PRESENT | DIGCF_DEVICEINTERFACE		// [in]           DWORD			Flags
+		);
 	if (device_info == INVALID_HANDLE_VALUE)
 	{
 		err = ::GetLastError();
-		std::cout << std::format("SetupDiGetClassDevsW failed, err = {}", err);
+		std::cout << std::format("SetupDiGetClassDevsW failed, err = {}\n", err);
 		return err;
 	}
 
@@ -97,7 +104,13 @@ enumerate_devices(
 		ZeroMemory(&data, sizeof(data));
 		data.cbSize = sizeof(data);
 
-		BOOL succ = ::SetupDiEnumDeviceInterfaces(device_info, nullptr, &device_itf_guid, index, &data);
+		BOOL succ = ::SetupDiEnumDeviceInterfaces(
+			device_info, 				//   [in]           HDEVINFO                  DeviceInfoSet,
+			nullptr, 					//   [in, optional] PSP_DEVINFO_DATA          DeviceInfoData,
+			&device_itf_guid, 			//   [in]           const GUID                *InterfaceClassGuid,
+			index, 						//   [in]           DWORD                     MemberIndex,
+			&data						//   [out]          PSP_DEVICE_INTERFACE_DATA DeviceInterfaceData
+		);
 		if (!succ)
 		{
 			err = ::GetLastError();
@@ -109,7 +122,7 @@ enumerate_devices(
 			else
 			{
 				// true error
-				std::cout << std::format("SetupDiEnumDeviceInterfaces failed, err = {}", err);
+				std::cout << std::format("SetupDiEnumDeviceInterfaces failed, err = {}\n", err);
 			}
 			break;
 		}
@@ -131,7 +144,7 @@ enumerate_devices(
 		if (!succ)
 		{
 			err = ::GetLastError();
-			std::cout << std::format("SetupDiGetDeviceInterfaceDetailW failed, err = {}", err);
+			std::cout << std::format("SetupDiGetDeviceInterfaceDetailW failed, err = {}\n", err);
 			break;
 		}
 
@@ -141,6 +154,8 @@ enumerate_devices(
 
 
 	// destroy must always be executed
-	::SetupDiDestroyDeviceInfoList(device_info);
+	::SetupDiDestroyDeviceInfoList(
+		device_info						// [in] HDEVINFO DeviceInfoSet
+		);
 	return err;
 }

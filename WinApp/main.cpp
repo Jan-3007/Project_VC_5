@@ -49,7 +49,7 @@ main()
 	}
 
 	// step 5
-	err = interface2.set_pipe_transfer_timeout(EPNUM_VENDOR_2_INT_IN, 1000);
+	err = interface2.set_pipe_transfer_timeout(EPNUM_VENDOR_2_INT_IN, 100);
 	if (err != NO_ERROR)
 	{
 		return -1;
@@ -88,6 +88,8 @@ main()
 			_getch();
 			break;
 		}
+
+		Sleep(100);
 	}
 
 

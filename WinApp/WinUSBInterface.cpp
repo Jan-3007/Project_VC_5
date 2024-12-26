@@ -28,16 +28,19 @@ WinUSBInterface::init(HANDLE device_handle)
 {
 	if (is_valid())
 	{
-		std::cout << std::format("{}: interface handle exists", __func__);
+		std::cout << std::format("{}: interface handle exists\n", __func__);
 		return ERROR_INTERNAL_ERROR;
 	}
 
 	WinError err = NO_ERROR;
-	BOOL succ = ::WinUsb_Initialize(device_handle, &itf_handle_);
+	BOOL succ = ::WinUsb_Initialize(
+		device_handle,				//   [in]  HANDLE                   DeviceHandle,
+		&itf_handle_				//   [out] PWINUSB_INTERFACE_HANDLE InterfaceHandle
+	);
 	if (!succ)
 	{
 		err = ::GetLastError();
-		std::cout << std::format("WinUsb_Initialize failed, err = {}", err);
+		std::cout << std::format("WinUsb_Initialize failed, err = {}\n", err);
 	}
 	return err;
 }
@@ -48,16 +51,20 @@ WinUSBInterface::get_associated_interface(WINUSB_INTERFACE_HANDLE itf_handle, ui
 {
 	if (is_valid())
 	{
-		std::cout << std::format("{}: interface handle exists", __func__);
+		std::cout << std::format("{}: interface handle exists\n", __func__);
 		return ERROR_INTERNAL_ERROR;
 	}
 
 	WinError err = NO_ERROR;
-	BOOL succ = ::WinUsb_GetAssociatedInterface(itf_handle, itf_index, &itf_handle_);
+	BOOL succ = ::WinUsb_GetAssociatedInterface(
+		itf_handle, 								//   [in]  WINUSB_INTERFACE_HANDLE  InterfaceHandle,
+		itf_index, 									//   [in]  UCHAR                    AssociatedInterfaceIndex,
+		&itf_handle_								//   [out] PWINUSB_INTERFACE_HANDLE AssociatedInterfaceHandle
+	);
 	if (!succ)
 	{
 		err = ::GetLastError();
-		std::cout << std::format("WinUsb_GetAssociatedInterface failed, err = {}", err);
+		std::cout << std::format("WinUsb_GetAssociatedInterface failed, err = {}\n", err);
 	}
 	return err;
 
@@ -70,11 +77,13 @@ WinUSBInterface::free()
 	WinError err = NO_ERROR;
 	if (is_valid())
 	{
-		BOOL succ = ::WinUsb_Free(itf_handle_);
+		BOOL succ = ::WinUsb_Free(
+			itf_handle_					//   [in] WINUSB_INTERFACE_HANDLE InterfaceHandle
+			);
 		if (!succ)
 		{
 			err = ::GetLastError();
-			std::cout << std::format("WinUsb_Free failed, err = {}", err);
+			std::cout << std::format("WinUsb_Free failed, err = {}\n", err);
 		}
 		itf_handle_ = INVALID_HANDLE_VALUE;
 	}
@@ -98,11 +107,11 @@ WinUSBInterface::set_pipe_policy(uint8_t pipe_id, uint32_t policy_type, void* va
 		policy_type,			//		[in] ULONG                   PolicyType,
 		len,					//		[in] ULONG                   ValueLength,
 		val						//		[in] PVOID                   Value
-	);
+		);
 	if (!succ)
 	{
 		WinError err = ::GetLastError();
-		std::cout << std::format("WinUsb_SetPipePolicy failed, err = {}", err);
+		std::cout << std::format("WinUsb_SetPipePolicy failed, err = {}\n", err);
 		return err;
 	}
 
@@ -117,13 +126,13 @@ WinUSBInterface::read_pipe_sync(uint8_t pipe_id, void* buffer, size_t buf_len, s
 	ULONG b_count = 0;
 
 	BOOL succ = ::WinUsb_ReadPipe(
-		itf_handle_,					//	[in] WINUSB_INTERFACE_HANDLE InterfaceHandle,
+		itf_handle_,					//	[in]			WINUSB_INTERFACE_HANDLE InterfaceHandle,
 		pipe_id,						//	[in]            UCHAR                   PipeID,
 		static_cast<UCHAR*>(buffer),	//	[out]           PUCHAR                  Buffer,
 		static_cast<ULONG>(buf_len),	//	[in]            ULONG                   BufferLength,
 		&b_count,						//	[out, optional] PULONG                  LengthTransferred,
 		nullptr							//	[in, optional]  LPOVERLAPPED            Overlapped
-	);
+		);
 	if (!succ)
 	{
 		WinError err = ::GetLastError();
@@ -134,7 +143,7 @@ WinUSBInterface::read_pipe_sync(uint8_t pipe_id, void* buffer, size_t buf_len, s
 		}
 		else
 		{
-			std::cout << std::format("WinUsb_ReadPipe failed, err = {}", err);
+			std::cout << std::format("WinUsb_ReadPipe failed, err = {}\n", err);
 			return err;
 		}
 	}

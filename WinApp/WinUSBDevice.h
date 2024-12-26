@@ -20,9 +20,9 @@ public:
 	// get interface handle
 	HANDLE
 	get_device_handle() const
-	{
-		return device_handle_;
-	}
+		{
+			return device_handle_;
+		}
 
 	// open device handle
 	WinError
@@ -35,5 +35,8 @@ public:
 };
 
 WinError
-enumerate_devices(const GUID& device_itf_guid, std::vector<std::wstring>& device_path_list);
+enumerate_devices(
+	const GUID& device_itf_guid, 
+	std::vector<std::wstring>& device_path_list
+	);
 
