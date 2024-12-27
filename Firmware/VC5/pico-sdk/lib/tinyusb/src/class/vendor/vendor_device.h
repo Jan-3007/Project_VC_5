@@ -41,6 +41,8 @@
 // Application API (Multiple Interfaces)
 //--------------------------------------------------------------------+
 bool     tud_vendor_n_mounted         (uint8_t itf);
+// fix by Jan, for in only itf
+bool     tud_vendor_n_mounted_in      (uint8_t itf);
 
 uint32_t tud_vendor_n_available       (uint8_t itf);
 uint32_t tud_vendor_n_read            (uint8_t itf, void* buffer, uint32_t bufsize);

@@ -938,7 +938,7 @@ static bool process_set_config(uint8_t rhport, uint8_t cfg_num)
           uint8_t const itf_num = desc_itf->bInterfaceNumber+i;
 
           // Interface number must not be used already
-          TU_ASSERT(DRVID_INVALID == _usbd_dev.itf2drv[itf_num]);
+// fix by Jan          TU_ASSERT(DRVID_INVALID == _usbd_dev.itf2drv[itf_num]);
           _usbd_dev.itf2drv[itf_num] = drv_id;
         }
 
@@ -1156,7 +1156,7 @@ bool usbd_open_edpt_pair(uint8_t rhport, uint8_t const* p_desc, uint8_t ep_count
   {
     tusb_desc_endpoint_t const * desc_ep = (tusb_desc_endpoint_t const *) p_desc;
 
-    TU_ASSERT(TUSB_DESC_ENDPOINT == desc_ep->bDescriptorType && xfer_type == desc_ep->bmAttributes.xfer);
+// fix by Jan    TU_ASSERT(TUSB_DESC_ENDPOINT == desc_ep->bDescriptorType && xfer_type == desc_ep->bmAttributes.xfer);
     TU_ASSERT(usbd_edpt_open(rhport, desc_ep));
 
     if ( tu_edpt_dir(desc_ep->bEndpointAddress) == TUSB_DIR_IN )

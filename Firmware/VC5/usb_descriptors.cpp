@@ -184,6 +184,7 @@ const uint8_t desc_bos[] =
   TUD_BOS_MS_OS_20_DESCRIPTOR(MS_OS_20_DESC_LEN, VENDOR_REQUEST_MICROSOFT)
 };
 
+extern "C"
 const uint8_t* tud_descriptor_bos_cb(void)
 {
   return desc_bos;

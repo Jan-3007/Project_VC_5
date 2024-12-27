@@ -66,16 +66,26 @@ CFG_TUSB_MEM_SECTION static vendord_interface_t _vendord_itf[CFG_TUD_VENDOR];
 
 bool tud_vendor_n_mounted (uint8_t itf)
 {
+  assert(itf < CFG_TUD_VENDOR);      // fix by Jan
   return _vendord_itf[itf].ep_in && _vendord_itf[itf].ep_out;
+}
+
+// fix by Jan, for in only itf
+bool tud_vendor_n_mounted_in (uint8_t itf)
+{
+  assert(itf < CFG_TUD_VENDOR);
+  return _vendord_itf[itf].ep_in;
 }
 
 uint32_t tud_vendor_n_available (uint8_t itf)
 {
+  assert(itf < CFG_TUD_VENDOR);      // fix by Jan
   return tu_fifo_count(&_vendord_itf[itf].rx_ff);
 }
 
 bool tud_vendor_n_peek(uint8_t itf, uint8_t* u8)
 {
+  assert(itf < CFG_TUD_VENDOR);      // fix by Jan
   return tu_fifo_peek(&_vendord_itf[itf].rx_ff, u8);
 }
 
@@ -99,6 +109,7 @@ static void _prep_out_transaction (vendord_interface_t* p_itf)
 
 uint32_t tud_vendor_n_read (uint8_t itf, void* buffer, uint32_t bufsize)
 {
+  assert(itf < CFG_TUD_VENDOR);      // fix by Jan
   vendord_interface_t* p_itf = &_vendord_itf[itf];
   uint32_t num_read = tu_fifo_read_n(&p_itf->rx_ff, buffer, (uint16_t) bufsize);
   _prep_out_transaction(p_itf);
@@ -107,6 +118,7 @@ uint32_t tud_vendor_n_read (uint8_t itf, void* buffer, uint32_t bufsize)
 
 void tud_vendor_n_read_flush (uint8_t itf)
 {
+  assert(itf < CFG_TUD_VENDOR);      // fix by Jan
   vendord_interface_t* p_itf = &_vendord_itf[itf];
   tu_fifo_clear(&p_itf->rx_ff);
   _prep_out_transaction(p_itf);
@@ -132,6 +144,7 @@ static uint16_t maybe_transmit(vendord_interface_t* p_itf)
 
 uint32_t tud_vendor_n_write (uint8_t itf, void const* buffer, uint32_t bufsize)
 {
+  assert(itf < CFG_TUD_VENDOR);      // fix by Jan
   vendord_interface_t* p_itf = &_vendord_itf[itf];
   uint16_t ret = tu_fifo_write_n(&p_itf->tx_ff, buffer, (uint16_t) bufsize);
   if (tu_fifo_count(&p_itf->tx_ff) >= CFG_TUD_VENDOR_EPSIZE) {
@@ -142,6 +155,7 @@ uint32_t tud_vendor_n_write (uint8_t itf, void const* buffer, uint32_t bufsize)
 
 uint32_t tud_vendor_n_flush (uint8_t itf)
 {
+  assert(itf < CFG_TUD_VENDOR);      // fix by Jan
   vendord_interface_t* p_itf = &_vendord_itf[itf];
   uint32_t ret = maybe_transmit(p_itf);
 
@@ -150,6 +164,7 @@ uint32_t tud_vendor_n_flush (uint8_t itf)
 
 uint32_t tud_vendor_n_write_available (uint8_t itf)
 {
+  assert(itf < CFG_TUD_VENDOR);      // fix by Jan
   return tu_fifo_remaining(&_vendord_itf[itf].tx_ff);
 }
 

@@ -1,5 +1,5 @@
 #include "VC5_global.h"
-#include "usb_device.h"
+
 
 
 ReportState g_report;
@@ -22,15 +22,7 @@ USBDevice::USBDevice()
 void
 USBDevice::init()
 {
-    tud_init(BOARD_DEVICE_RHPORT_NUM);
-
-    create_task();
-}
-
-
-void 
-USBDevice::create_task()
-{
+    // create USB task
     task_handle_ = xTaskCreateStatic(                                                    
         task_entry,                                 // TaskFunction_t       pxTaskCode,
         task_usb::name,                             // const char * const   pcName,
@@ -55,6 +47,9 @@ USBDevice::task_entry(void* param)
 void 
 USBDevice::task()
 {
+    tusb_init();
+//    tud_init(BOARD_DEVICE_RHPORT_NUM);
+
     while(true)
     {
         tud_task_ext(task_usb::c_usb_task_interval_ms, false);
@@ -147,7 +142,7 @@ void USBDevice::vendor_2_task()
     {
         // TX FiFo is empty
         // check all rotaries
-        for(unsigned int i = 0; i < 5; i++)
+        for(uint i = 0; i < 5; i++)
         {
             // get value of rotary
             int rot_value = capture_rotary_value(i);
@@ -230,4 +225,48 @@ void tud_hid_report_complete_cb(uint8_t instance, uint8_t const* report, uint16_
     (void) instance;
     (void) report;
     (void) len;
+}
+
+
+
+//--------------------------------------------------------------------+
+// for MS OS 2.0 desc
+//--------------------------------------------------------------------+
+
+// Invoked when a control transfer occurred
+// Driver response accordingly to the request and the transfer stage (setup/data/ack)
+// return false to stall control endpoint (e.g unsupported request)
+extern "C"
+bool tud_vendor_control_xfer_cb(uint8_t rhport, uint8_t stage, tusb_control_request_t const * request)
+{
+    // nothing to with DATA & ACK stage
+    if (stage != CONTROL_STAGE_SETUP) return true;
+
+    switch (request->bmRequestType_bit.type)
+    {
+        case TUSB_REQ_TYPE_VENDOR:
+            switch (request->bRequest)
+            {
+                case VENDOR_REQUEST_MICROSOFT:
+                    if ( request->wIndex == 7 )       // 0x07 for MS_OS_20_DESCIPTOR_INDEX
+                    {
+                        // Get Microsoft OS 2.0 compatible descriptor
+                        uint16_t total_len;
+                        memcpy(&total_len, desc_ms_os_20 + 8, 2);
+
+                        return tud_control_xfer(rhport, request, const_cast<uint8_t*>(desc_ms_os_20), total_len);
+                    }
+                    break;
+
+                default: 
+                    break;
+            }
+            break;
+
+        default: 
+            break;
+    }
+
+  // stall unknown request
+  return false;
 }

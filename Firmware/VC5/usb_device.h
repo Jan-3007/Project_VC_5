@@ -32,9 +32,6 @@ public:
     }
 
 protected:
-    void
-    create_task();
-
     static void 
     task_entry(void* param);
 
