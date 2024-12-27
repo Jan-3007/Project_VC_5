@@ -26,7 +26,7 @@
 #include "VC5_global.h"
 
 
-#define DEVICE_BCD   0x0100     //firmware version
+#define VC5_DEVICE_BCD   0x0100     //firmware version
 
 
 // string descriptors
@@ -55,9 +55,9 @@ const tusb_desc_device_t desc_device =
   .bDeviceProtocol    = 0x00,
   .bMaxPacketSize0    = CFG_TUD_ENDPOINT0_SIZE,
 
-  .idVendor           = VC5_VID,
-  .idProduct          = VC5_PID,
-  .bcdDevice          = DEVICE_BCD,
+  .idVendor           = VC5_USB_VID,
+  .idProduct          = VC5_USB_PID,
+  .bcdDevice          = VC5_DEVICE_BCD,
 
   .iManufacturer      = STR_IDX_MANUFACTURER,
   .iProduct           = STR_IDX_PRODUCT,
@@ -143,10 +143,10 @@ https://developers.google.com/web/fundamentals/native-hardware/build-for-webusb/
 (Section Microsoft OS compatibility descriptors)
 */
 
-#define BOS_TOTAL_LEN      (TUD_BOS_DESC_LEN + TUD_BOS_MICROSOFT_OS_DESC_LEN)
+#define BOS_TOTAL_LEN               (TUD_BOS_DESC_LEN + TUD_BOS_MICROSOFT_OS_DESC_LEN)
 
-#define MS_OS_20_DESC_LEN  0xB2
-#define MS_OS_20_DESCIPTOR_INDEX 7
+#define MS_OS_20_DESC_LEN           0xB2
+#define MS_OS_20_DESCIPTOR_INDEX    7
 
 // BOS Descriptor is required for MS OS 2.0
 static const uint8_t desc_bos[] =
@@ -190,7 +190,7 @@ static const uint8_t desc_ms_os_20[] =
     'D', 0x00, 'e', 0x00, 'v', 0x00, 'i', 0x00, 'c', 0x00, 'e', 0x00, 'I', 0x00, 'n', 0x00, 't', 0x00, 'e', 0x00,
     'r', 0x00, 'f', 0x00, 'a', 0x00, 'c', 0x00, 'e', 0x00, 'G', 0x00, 'U', 0x00, 'I', 0x00, 'D', 0x00, 's', 0x00, 0x00, 0x00,
     U16_TO_U8S_LE(0x0050), // wPropertyDataLength
-    //bPropertyData: VOLCTRL_WINUSB_INTERFACE_GUID_STR == {EC03545C-4179-4324-B2B2-24E4A976F2E7}
+    //bPropertyData: VC5_WINUSB_INTERFACE_GUID_STR == {EC03545C-4179-4324-B2B2-24E4A976F2E7}
     '{', 0x00, 'E', 0x00, 'C', 0x00, '0', 0x00, '3', 0x00, '5', 0x00, '4', 0x00, '5', 0x00, 'C', 0x00, '-', 0x00,
     '4', 0x00, '1', 0x00, '7', 0x00, '9', 0x00, '-', 0x00, '4', 0x00, '3', 0x00, '2', 0x00, '4', 0x00, '-', 0x00,
     'B', 0x00, '2', 0x00, 'B', 0x00, '2', 0x00, '-', 0x00, '2', 0x00, '4', 0x00, 'E', 0x00, '4', 0x00, 'A', 0x00,

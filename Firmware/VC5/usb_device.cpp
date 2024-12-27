@@ -2,7 +2,6 @@
 
 
 
-ReportState g_report;
 USBDevice g_usb_device;
 
 
@@ -48,13 +47,12 @@ void
 USBDevice::task()
 {
     tusb_init();
-//    tud_init(BOARD_DEVICE_RHPORT_NUM);
 
     while(true)
     {
         tud_task_ext(task_usb::c_usb_task_interval_ms, false);
 
-        // task for vendor 2
+        // task for vendor 2, event interface
         vendor_2_task();
     }
 }
@@ -63,7 +61,7 @@ USBDevice::task()
 void USBDevice::vendor_2_task()
 {
     // check if host has sent SET CONFIGURATION
-    if(!tud_vendor_n_mounted_in(ITF_INDEX_VENDOR_2))
+    if(!tud_vendor_n_mounted_IN(ITF_INDEX_VENDOR_2))
     {
         return;
     }
@@ -80,8 +78,8 @@ void USBDevice::vendor_2_task()
             if(rot_value != 0)
             {
                 // create message to send
-                Volctrl_EventMsg msg;
-                msg.event_code = Volctrl_EventMsg::evt_rotary_turned;
+                VC5_EventMsg msg;
+                msg.event_code = VC5_EventMsg::evt_rotary_turned;
                 msg.rotary_index = i;
                 msg.value = rot_value;
                 msg.reserved = 0;
@@ -98,8 +96,8 @@ void USBDevice::vendor_2_task()
             if(btn_value != 0)
             {
                 // create message to send
-                Volctrl_EventMsg msg;
-                msg.event_code = Volctrl_EventMsg::evt_rotary_button;
+                VC5_EventMsg msg;
+                msg.event_code = VC5_EventMsg::evt_rotary_button;
                 msg.rotary_index = i;
                 msg.value = btn_value;
                 msg.reserved = 0;

@@ -70,8 +70,8 @@ bool tud_vendor_n_mounted (uint8_t itf)
   return _vendord_itf[itf].ep_in && _vendord_itf[itf].ep_out;
 }
 
-// fix by Jan, for in only itf
-bool tud_vendor_n_mounted_in (uint8_t itf)
+// fix by Jan, for IN only itf
+bool tud_vendor_n_mounted_IN (uint8_t itf)
 {
   assert(itf < CFG_TUD_VENDOR);
   return _vendord_itf[itf].ep_in;

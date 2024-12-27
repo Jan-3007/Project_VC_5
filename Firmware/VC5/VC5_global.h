@@ -61,7 +61,7 @@
 #include "MCP23017.h"
 #include "rotary.h"
 #include "rotary_bank.h" 
-#include "usb_protocol.h"
+#include "VC5_usb_protocol.h"
 #include "usb_device.h"
 
 
