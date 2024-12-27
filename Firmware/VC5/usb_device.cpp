@@ -54,77 +54,8 @@ USBDevice::task()
     {
         tud_task_ext(task_usb::c_usb_task_interval_ms, false);
 
-//        hid_task();
-
         // task for vendor 2
         vendor_2_task();
-    }
-}
-
-
-void 
-USBDevice::hid_task()
-{
-    if(!tud_hid_ready())
-    {
-        return;
-    }
-
-    if(g_report.key_sent)
-    {
-        // send key release event
-        uint16_t empty_key = 0;
-        tud_hid_report(REPORT_ID_CONSUMER_CONTROL, &empty_key, 2);
-
-        g_report.key_sent = false;
-    }
-    else
-    {
-        // check all rotaries for a value change
-        for(uint rot_index = 0; rot_index < c_num_rotaries; rot_index++)
-        {
-            // get value of the rotary
-            int rot_value = capture_rotary_value(rot_index);
-
-            if(rot_value > 0)
-            {
-                // send increment
-                uint16_t volume_up = HID_USAGE_CONSUMER_VOLUME_INCREMENT;
-                tud_hid_report(REPORT_ID_CONSUMER_CONTROL, &volume_up, 2);
-
-                g_report.key_sent = true;
-            }
-            else if(rot_value < 0)
-            {
-                // send decrement
-                uint16_t volume_down = HID_USAGE_CONSUMER_VOLUME_DECREMENT;
-                tud_hid_report(REPORT_ID_CONSUMER_CONTROL, &volume_down, 2);
-
-                g_report.key_sent = true;
-            }
-            else
-            {
-                // rotary value has not changed
-            }
-
-            
-            // get value of rotary button
-            int btn_value = capture_button_value(rot_index);
-
-            // on button released
-            if(btn_value < 0)
-            {
-                // send mute
-                uint16_t mute = HID_USAGE_CONSUMER_MUTE;
-                tud_hid_report(REPORT_ID_CONSUMER_CONTROL, &mute, 2);
-
-                g_report.key_sent = true;
-            }
-            else
-            {
-                // button value has not changed
-            }
-        }
     }
 }
 
@@ -184,54 +115,6 @@ void USBDevice::vendor_2_task()
 }
 
 
-// Invoked when received SET_REPORT control request or
-// received data on OUT endpoint ( Report ID = 0, Type = 0 )
-extern "C"
-void tud_hid_set_report_cb(uint8_t instance, uint8_t report_id, hid_report_type_t report_type, uint8_t const* buffer, uint16_t bufsize)
-{
-    (void) instance;
-    (void) report_id;
-    (void) report_type;
-    (void) buffer;
-    (void) bufsize;
-}
-
-
-// Invoked when received GET_REPORT control request
-// Application must fill buffer report's content and return its length.
-// Return zero will cause the stack to STALL request
-extern "C"
-uint16_t tud_hid_get_report_cb(uint8_t instance, uint8_t report_id, hid_report_type_t report_type, uint8_t* buffer, uint16_t reqlen)
-{
-  // TODO not Implemented
-    (void) instance;
-    (void) report_id;
-    (void) report_type;
-    (void) buffer;
-    (void) reqlen;
-
-//    usb_isr_callback();
-
-    return 0;
-}
-
-
-// Invoked when sent REPORT successfully to host
-// Application can use this to send the next report
-// Note: For composite reports, report[0] is report ID
-extern "C"
-void tud_hid_report_complete_cb(uint8_t instance, uint8_t const* report, uint16_t len)
-{
-    (void) instance;
-    (void) report;
-    (void) len;
-}
-
-
-
-//--------------------------------------------------------------------+
-// for MS OS 2.0 desc
-//--------------------------------------------------------------------+
 
 // Invoked when a control transfer occurred
 // Driver response accordingly to the request and the transfer stage (setup/data/ack)
@@ -242,31 +125,25 @@ bool tud_vendor_control_xfer_cb(uint8_t rhport, uint8_t stage, tusb_control_requ
     // nothing to with DATA & ACK stage
     if (stage != CONTROL_STAGE_SETUP) return true;
 
-    switch (request->bmRequestType_bit.type)
+    if(request->bmRequestType_bit.type == TUSB_REQ_TYPE_VENDOR && request->bmRequestType_bit.recipient == TUSB_REQ_RCPT_DEVICE)
     {
-        case TUSB_REQ_TYPE_VENDOR:
+        if(request->bmRequestType_bit.direction == TUSB_DIR_IN)
+        {
+            // Vendor request device IN
             switch (request->bRequest)
             {
                 case VENDOR_REQUEST_MICROSOFT:
-                    if ( request->wIndex == 7 )       // 0x07 for MS_OS_20_DESCIPTOR_INDEX
-                    {
-                        // Get Microsoft OS 2.0 compatible descriptor
-                        uint16_t total_len;
-                        memcpy(&total_len, desc_ms_os_20 + 8, 2);
-
-                        return tud_control_xfer(rhport, request, const_cast<uint8_t*>(desc_ms_os_20), total_len);
-                    }
-                    break;
-
+                    return get_ms_os_desc_request(rhport, request);
                 default: 
                     break;
             }
-            break;
-
-        default: 
-            break;
+        }
+        else
+        {
+            // Vendor request device OUT
+        }
     }
 
-  // stall unknown request
-  return false;
+    // stall unknown request
+    return false;
 }

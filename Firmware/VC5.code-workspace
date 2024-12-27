@@ -44,6 +44,7 @@
             "vendor_device.h": "c",
             "usbd.h": "c",
             "tusb_common.h": "c"
-        }
+        },
+        "cortex-debug.variableUseNaturalFormat": false
     }
 }

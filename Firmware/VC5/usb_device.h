@@ -1,15 +1,6 @@
 #pragma once
 
 
-// for HID device
-struct ReportState 
-{
-    bool key_sent {false};
-};
-
-
-
-
 class USBDevice
 {
 protected:
@@ -37,9 +28,6 @@ protected:
 
     void 
     task();
-
-    void
-    hid_task();
 
     void
     vendor_2_task();

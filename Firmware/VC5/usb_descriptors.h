@@ -26,8 +26,7 @@
 
 enum
 {
-    ITF_NUM_HID = 0,
-    ITF_NUM_VENDOR_1,
+    ITF_NUM_VENDOR_1 = 0,
     ITF_NUM_VENDOR_2,
     ITF_NUM_TOTAL
 };
@@ -38,11 +37,6 @@ enum
 
 
 
-enum
-{
-  REPORT_ID_CONSUMER_CONTROL = 1
-};
-
 
 // for MS OS 2.0 desc
 enum
@@ -50,5 +44,7 @@ enum
   VENDOR_REQUEST_MICROSOFT = 42
 };
 
-extern const uint8_t desc_ms_os_20[];
+
+bool 
+get_ms_os_desc_request(uint8_t rhport, const tusb_control_request_t* request);
 

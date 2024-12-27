@@ -38,7 +38,6 @@ enum
     STR_IDX_VENDOR_IAD,
     STR_IDX_VENDOR_1_INTERFACE,
     STR_IDX_VENDOR_2_INTERFACE,
-    STR_IDX_HID_INTERFACE,
 };
 
 
@@ -56,8 +55,8 @@ const tusb_desc_device_t desc_device =
   .bDeviceProtocol    = 0x00,
   .bMaxPacketSize0    = CFG_TUD_ENDPOINT0_SIZE,
 
-  .idVendor           = VOLCTRL_VID,
-  .idProduct          = VOLCTRL_PID,
+  .idVendor           = VC5_VID,
+  .idProduct          = VC5_PID,
   .bcdDevice          = DEVICE_BCD,
 
   .iManufacturer      = STR_IDX_MANUFACTURER,
@@ -75,51 +74,25 @@ const uint8_t* tud_descriptor_device_cb()
   return (uint8_t const*) &desc_device;
 }
 
-//--------------------------------------------------------------------+
-// HID Report Descriptor
-//--------------------------------------------------------------------+
-
-const uint8_t desc_hid_report[] =
-{
-  TUD_HID_REPORT_DESC_CONSUMER( HID_REPORT_ID(REPORT_ID_CONSUMER_CONTROL ))
-};
-
-// Invoked when received GET HID REPORT DESCRIPTOR
-// Application return pointer to descriptor
-// Descriptor contents must exist long enough for transfer to complete
-extern "C"
-const uint8_t* tud_hid_descriptor_report_cb(uint8_t instance)
-{
-  (void) instance;
-  return desc_hid_report;
-}
-
 
 //--------------------------------------------------------------------+
 // Configuration Descriptor
 //--------------------------------------------------------------------+
 
-#define HID_INTERRUPT_EP_INTERVAL       4   // ms
-
-#define VENDOR_BULK_EP_SIZE             64  // bytes
-#define VENDOR_INTERRUPT_EP_SIZE        4   // bytes
-#define VENDOR_INTERRUPT_EP_INTERVAL    4   // ms
-#define VENDOR_IAD_LEN                     8
-#define VENDOR_1_DESC_LEN                 (9 + 7 + 7)
-#define VENDOR_2_DESC_LEN                 (9 + 7)
+#define VENDOR_BULK_EP_SIZE                 64  // bytes
+#define VENDOR_INTERRUPT_EP_SIZE            4   // bytes
+#define VENDOR_INTERRUPT_EP_INTERVAL        4   // ms
+#define VENDOR_IAD_LEN                      8
+#define VENDOR_1_DESC_LEN                   (9 + 7 + 7)
+#define VENDOR_2_DESC_LEN                   (9 + 7)
 
 
-#define  CONFIG_TOTAL_LEN  (TUD_CONFIG_DESC_LEN + TUD_HID_DESC_LEN + VENDOR_IAD_LEN + VENDOR_1_DESC_LEN + VENDOR_2_DESC_LEN)
+#define  CONFIG_TOTAL_LEN  (TUD_CONFIG_DESC_LEN + VENDOR_IAD_LEN + VENDOR_1_DESC_LEN + VENDOR_2_DESC_LEN)
 
 const uint8_t desc_configuration[] =
 {
     // Config number, interface count, string index, total length, attribute, power in mA
     TUD_CONFIG_DESCRIPTOR(1, ITF_NUM_TOTAL, 0, CONFIG_TOTAL_LEN, 0, 100),
-
-    // HID interface
-    // Interface number, string index, protocol, report descriptor len, EP In address, size & polling interval
-    TUD_HID_DESCRIPTOR(ITF_NUM_HID, STR_IDX_HID_INTERFACE, HID_ITF_PROTOCOL_NONE, sizeof(desc_hid_report), EPNUM_HID_INT_IN, CFG_TUD_HID_EP_BUFSIZE, HID_INTERRUPT_EP_INTERVAL),
-
 
     /* Interface Association */
     8, TUSB_DESC_INTERFACE_ASSOCIATION, ITF_NUM_VENDOR_1, 2, TUSB_CLASS_VENDOR_SPECIFIC, 0x00, 0x00, STR_IDX_VENDOR_IAD,
@@ -173,9 +146,10 @@ https://developers.google.com/web/fundamentals/native-hardware/build-for-webusb/
 #define BOS_TOTAL_LEN      (TUD_BOS_DESC_LEN + TUD_BOS_MICROSOFT_OS_DESC_LEN)
 
 #define MS_OS_20_DESC_LEN  0xB2
+#define MS_OS_20_DESCIPTOR_INDEX 7
 
 // BOS Descriptor is required for MS OS 2.0
-const uint8_t desc_bos[] =
+static const uint8_t desc_bos[] =
 {
   // total length, number of device caps
   TUD_BOS_DESCRIPTOR(BOS_TOTAL_LEN, 1),
@@ -195,7 +169,7 @@ const uint8_t* tud_descriptor_bos_cb(void)
 // MS OS 2.0 descriptor
 //--------------------------------------------------------------------+
 
-const uint8_t desc_ms_os_20[] =
+static const uint8_t desc_ms_os_20[] =
 {
     // Set header: length, type, windows version, total length
     U16_TO_U8S_LE(0x000A), U16_TO_U8S_LE(MS_OS_20_SET_HEADER_DESCRIPTOR), U32_TO_U8S_LE(0x06030000), U16_TO_U8S_LE(MS_OS_20_DESC_LEN),
@@ -225,6 +199,18 @@ const uint8_t desc_ms_os_20[] =
 
 static_assert(sizeof(desc_ms_os_20) == MS_OS_20_DESC_LEN, "Incorrect size");
 
+bool 
+get_ms_os_desc_request(uint8_t rhport, const tusb_control_request_t* request)
+{
+    if (request->wIndex == MS_OS_20_DESCIPTOR_INDEX)
+    {
+        // Get Microsoft OS 2.0 compatible descriptor
+        uint16_t total_len = desc_ms_os_20[8] + (static_cast<uint16_t>(desc_ms_os_20[9]) << 8);
+
+        return tud_control_xfer(rhport, request, const_cast<uint8_t*>(desc_ms_os_20), total_len);
+    }
+    return false;
+}
 
 
 //--------------------------------------------------------------------+
@@ -267,7 +253,7 @@ const uint16_t* tud_descriptor_string_cb(uint8_t index, uint16_t langid)
 
         case STR_IDX_PRODUCT:
         case STR_IDX_VENDOR_IAD:
-            str = "Volume Controller";
+            str = "VC5";
             break;
             
         case STR_IDX_VENDOR_1_INTERFACE:
@@ -276,10 +262,6 @@ const uint16_t* tud_descriptor_string_cb(uint8_t index, uint16_t langid)
 
         case STR_IDX_VENDOR_2_INTERFACE:
             str = "Event Interface";
-            break;
-
-        case STR_IDX_HID_INTERFACE:
-            str = "HID Consumer Control";
             break;
 
         default:

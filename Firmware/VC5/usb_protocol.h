@@ -19,8 +19,8 @@
 //
 // VID/PID of devices that support this protocol
 //
-#define VOLCTRL_VID   0x152A    // Thesycon
-#define VOLCTRL_PID   0x0301    // Volume Controller
+#define VC5_VID   0x152A    // Thesycon
+#define VC5_PID   0x0301    // Volume Controller
 
 //
 // Device interface GUIDs used on Windows to enumerate the sub-devices
@@ -31,12 +31,10 @@
 //
 // Endpoint addresses of each interface
 //
-#define EPNUM_HID_INT_IN        0x81
+#define EPNUM_VENDOR_1_BULK_OUT   0x01
+#define EPNUM_VENDOR_1_BULK_IN    0x81
 
-#define EPNUM_VENDOR_1_BULK_OUT   0x02
-#define EPNUM_VENDOR_1_BULK_IN    0x82
-
-#define EPNUM_VENDOR_2_INT_IN     0x83
+#define EPNUM_VENDOR_2_INT_IN     0x82
 
 //
 // get protocol version
