@@ -31,6 +31,10 @@ protected:
 
     void
     vendor_2_task();
+
+    bool
+    send_event_message(uint8_t event_code, uint8_t index, int8_t value);
+
 };
 
 

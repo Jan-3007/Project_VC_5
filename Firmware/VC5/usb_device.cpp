@@ -60,58 +60,63 @@ USBDevice::task()
 
 void USBDevice::vendor_2_task()
 {
+    // check all rotaries
+    for(uint i = 0; i < 5; i++)
+    {
+        // get value of rotary
+        int rot_value = capture_rotary_value(i);
+        if(rot_value != 0)
+        {
+            printf("rot msg\n");
+            send_event_message(VC5_EventMsg::evt_rotary_turned, i, rot_value);
+
+            break;
+        }
+
+        // get value of button
+        int btn_value = capture_button_value(i);
+        if(btn_value != 0)
+        {
+            printf("btn msg\n");
+            send_event_message(VC5_EventMsg::evt_rotary_button, i, btn_value);
+
+            break;
+        }
+    }
+}
+
+
+bool
+USBDevice::send_event_message(uint8_t event_code, uint8_t index, int8_t value)
+{
     // check if host has sent SET CONFIGURATION
     if(!tud_vendor_n_mounted_IN(ITF_INDEX_VENDOR_2))
     {
-        return;
+        return false;
     }
 
     // tud_vendor_n_write_available actually requires an index (0 based)
     if(CFG_TUD_VENDOR_TX_BUFSIZE == tud_vendor_n_write_available(ITF_INDEX_VENDOR_2))
     {
         // TX FiFo is empty
-        // check all rotaries
-        for(uint i = 0; i < 5; i++)
-        {
-            // get value of rotary
-            int rot_value = capture_rotary_value(i);
-            if(rot_value != 0)
-            {
-                // create message to send
-                VC5_EventMsg msg;
-                msg.event_code = VC5_EventMsg::evt_rotary_turned;
-                msg.rotary_index = i;
-                msg.value = rot_value;
-                msg.reserved = 0;
+        // create message to send
+        VC5_EventMsg msg;
+        msg.event_code = event_code;
+        msg.rotary_index = index;
+        msg.value = value;
+        msg.reserved = 0;
 
-                // send message
-                tud_vendor_n_write(ITF_INDEX_VENDOR_2, &msg, sizeof(msg));
-                // for sending packages smaller than CFG_TUD_VENDOR_EPSIZE
-                tud_vendor_n_flush(ITF_INDEX_VENDOR_2);
-                break;
-            }
+        // send message
+        tud_vendor_n_write(ITF_INDEX_VENDOR_2, &msg, sizeof(msg));
+        // for sending packages smaller than CFG_TUD_VENDOR_EPSIZE
+        tud_vendor_n_flush(ITF_INDEX_VENDOR_2);
+        printf("sent\n");
 
-            // get value of button
-            int btn_value = capture_button_value(i);
-            if(btn_value != 0)
-            {
-                // create message to send
-                VC5_EventMsg msg;
-                msg.event_code = VC5_EventMsg::evt_rotary_button;
-                msg.rotary_index = i;
-                msg.value = btn_value;
-                msg.reserved = 0;
-
-                // send message
-                tud_vendor_n_write(ITF_INDEX_VENDOR_2, &msg, sizeof(msg));
-                // for sending packages smaller than CFG_TUD_VENDOR_EPSIZE
-                tud_vendor_n_flush(ITF_INDEX_VENDOR_2);
-                break;
-            }
-        }
+        return true;
     }
-}
 
+    return false;
+}
 
 
 // Invoked when a control transfer occurred

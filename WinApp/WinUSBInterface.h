@@ -37,6 +37,12 @@ public:
 	WinError
 	free();
 
+	WinError
+	flush_pipe(uint8_t pipe_id);
+
+	WinError
+	reset_pipe(uint8_t pipe_id);
+
 	// read the interface pipe
 	WinError
 	read_pipe_sync(uint8_t pipe_id, void* buffer, size_t buf_len, size_t& len_transferred);

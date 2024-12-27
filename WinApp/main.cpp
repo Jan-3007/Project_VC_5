@@ -9,7 +9,7 @@ main()
 {
 	WinError err;
 
-	GUID device_itf_guid = VOLCTRL_WINUSB_INTERFACE_GUID_INIT;
+	GUID device_itf_guid = VC5_WINUSB_INTERFACE_GUID_INIT;
 
 	// step 1
 	std::vector<std::wstring> device_path_list;
@@ -42,7 +42,7 @@ main()
 
 	// step 4
 	WinUSBInterface interface2;
-	err = interface2.get_associated_interface(interface1.get_itf_handle(), 1);
+	err = interface2.get_associated_interface(interface1.get_itf_handle(), 0);
 	if (err != NO_ERROR)
 	{
 		return -1;
@@ -55,12 +55,18 @@ main()
 		return -1;
 	}
 
+	err = interface2.reset_pipe(EPNUM_VENDOR_2_INT_IN);
+	if (err != NO_ERROR)
+	{
+		return -1;
+	}
+
 	std::cout << std::format("Reading events ... press any key to exit.\n");
 
 
 	while (true)
 	{
-		Volctrl_EventMsg event_buffer;
+		VC5_EventMsg event_buffer;
 		size_t len_transferred = 0;
 
 		err = interface2.read_pipe_sync(EPNUM_VENDOR_2_INT_IN, &event_buffer, sizeof(event_buffer), len_transferred);
@@ -71,10 +77,10 @@ main()
 
 		if (len_transferred != 0)
 		{
-			if (len_transferred == sizeof(Volctrl_EventMsg))
+			if (len_transferred == sizeof(VC5_EventMsg))
 			{
 				std::cout << std::format("Event received: Code = {}, Rot num = {}, value = {}\n",
-					event_buffer.event_code, event_buffer.rotary_num, event_buffer.value);
+					event_buffer.event_code, event_buffer.rotary_index, event_buffer.value);
 			}
 			else
 			{

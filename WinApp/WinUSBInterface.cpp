@@ -91,6 +91,42 @@ WinUSBInterface::free()
 }
 
 
+WinError 
+WinUSBInterface::flush_pipe(uint8_t pipe_id)
+{
+	BOOL succ = ::WinUsb_FlushPipe(
+		itf_handle_,				// [in] WINUSB_INTERFACE_HANDLE InterfaceHandle,
+		pipe_id						// [in] UCHAR                   PipeID
+		);
+	if (!succ)
+	{
+		WinError err = ::GetLastError();
+		std::cout << std::format("WinUsb_FlushPipe failed, err = {}\n", err);
+		return err;
+	}
+
+	return NO_ERROR;
+}
+
+
+WinError
+WinUSBInterface::reset_pipe(uint8_t pipe_id)
+{
+	BOOL succ = ::WinUsb_ResetPipe(
+		itf_handle_,				// [in] WINUSB_INTERFACE_HANDLE InterfaceHandle,
+		pipe_id						// [in] UCHAR                   PipeID
+		);
+	if (!succ)
+	{
+		WinError err = ::GetLastError();
+		std::cout << std::format("WinUsb_ResetPipe failed, err = {}\n", err);
+		return err;
+	}
+
+	return NO_ERROR;
+}
+
+
 WinError
 WinUSBInterface::set_pipe_transfer_timeout(uint8_t pipe_id, uint32_t millisecs)
 {
