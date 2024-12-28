@@ -70,6 +70,41 @@ struct VC5_EventMsg
 };
 
 
+//
+// Command and response message header
+//
+struct VC5_MsgHeader
+{
+    // max total message length
+    static constexpr uint8_t max_cmd_length = 64;
+    static constexpr uint8_t max_rsp_length = 64;
+
+    // message code
+    static constexpr uint8_t rsp_done = 0xd0;           // no data
+
+    // message status
+    static constexpr uint8_t st_success = 0x00;
+    static constexpr uint8_t st_error = 0x01;
+    static constexpr uint8_t st_invalid_cmd = 0x02;
+    static constexpr uint8_t st_invalid_param = 0x03;
+    static constexpr uint8_t st_invalid_length = 0x04;
+
+    // total message size in bytes, including the size of this header
+    uint32_t message_length;
+
+    // operation code
+    uint8_t message_code;
+
+    // unique message identifier for command/response message pairs
+    uint8_t unique_id;
+
+    // status code, valid for RESPONSE messages only, otherwise zero
+    uint8_t message_status;
+
+    // padding
+    uint8_t reserved;
+};
+
 
 // restore packing
 #pragma pack(pop)

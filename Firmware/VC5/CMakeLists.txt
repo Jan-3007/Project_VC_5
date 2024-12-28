@@ -104,6 +104,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     usb_descriptors.cpp
     usb_device.cpp
     Mutex.cpp
+    usb_cmd_processor.cpp
     )
 
 # Add any user requested libraries

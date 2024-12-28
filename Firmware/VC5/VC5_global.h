@@ -7,6 +7,7 @@
 //--------------------
 #include <stdio.h>
 #include <cassert>
+#include <array>
 
 
 
@@ -62,6 +63,7 @@
 #include "rotary.h"
 #include "rotary_bank.h" 
 #include "VC5_usb_protocol.h"
+#include "usb_cmd_processor.h"
 #include "usb_device.h"
 
 

@@ -16,12 +16,6 @@ public:
     void
     init();
 
-    void 
-    notify_task()
-    {
-        vTaskNotifyGiveFromISR(task_handle_, NULL);
-    }
-
 protected:
     static void 
     task_entry(void* param);

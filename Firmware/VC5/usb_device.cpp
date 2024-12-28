@@ -52,6 +52,9 @@ USBDevice::task()
     {
         tud_task_ext(task_usb::c_usb_task_interval_ms, false);
 
+        // task for processing messages and sending a response
+        vendor_1_task();
+
         // task for vendor 2, event interface
         vendor_2_task();
     }
