@@ -106,6 +106,7 @@ USBDevice::send_event_message(uint8_t event_code, uint8_t index, int8_t value)
         msg.value = value;
         msg.reserved = 0;
 
+        static_assert(sizeof(msg) == VENDOR_INTERRUPT_EP_SIZE, "wrong msg size");
         // send message
         tud_vendor_n_write(ITF_INDEX_VENDOR_2, &msg, sizeof(msg));
         // for sending packages smaller than CFG_TUD_VENDOR_EPSIZE

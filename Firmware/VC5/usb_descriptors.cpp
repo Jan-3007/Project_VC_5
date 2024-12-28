@@ -79,8 +79,6 @@ const uint8_t* tud_descriptor_device_cb()
 // Configuration Descriptor
 //--------------------------------------------------------------------+
 
-#define VENDOR_BULK_EP_SIZE                 64  // bytes
-#define VENDOR_INTERRUPT_EP_SIZE            4   // bytes
 #define VENDOR_INTERRUPT_EP_INTERVAL        4   // ms
 #define VENDOR_IAD_LEN                      8
 #define VENDOR_1_DESC_LEN                   (9 + 7 + 7)

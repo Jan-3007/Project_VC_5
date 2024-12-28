@@ -6,7 +6,7 @@
 // VC 5 - General
 //-----------------------------------------------------------
 
-constexpr uint c_num_units = 5;         // 1 unit = 1 rotary + 1 display + 1 LED
+constexpr uint32_t c_num_units = 5;         // 1 unit = 1 rotary + 1 display + 1 LED
 
 
 
@@ -14,10 +14,10 @@ constexpr uint c_num_units = 5;         // 1 unit = 1 rotary + 1 display + 1 LED
 // Raspberry Pi Pico - Pins
 //-----------------------------------------------------------
 
-constexpr uint c_i2c_sda_pin = 6;
-constexpr uint c_i2c_scl_pin = 7;
+constexpr uint32_t c_i2c_sda_pin = 6;
+constexpr uint32_t c_i2c_scl_pin = 7;
 
-constexpr uint c_mcp_int_pin = 3;
+constexpr uint32_t c_mcp_int_pin = 3;
 
 
 
@@ -27,7 +27,7 @@ constexpr uint c_mcp_int_pin = 3;
 
 #define I2C_PORT i2c1
 // freq = 400 kHz
-constexpr int c_i2c_freq_hz = 400 * 1000;
+constexpr int32_t c_i2c_freq_hz = 400 * 1000;
 
 
 
@@ -41,19 +41,19 @@ constexpr int c_i2c_freq_hz = 400 * 1000;
 namespace task_rotaries
 {
     const char name[] = "ROT";
-    constexpr uint c_prio = configMAX_PRIORITIES - 1u;
-    constexpr uint c_stack_size_bytes = 1024;
-    constexpr uint c_stack_size_words = c_stack_size_bytes / 4;
+    constexpr uint32_t c_prio = configMAX_PRIORITIES - 1u;
+    constexpr uint32_t c_stack_size_bytes = 1024;
+    constexpr uint32_t c_stack_size_words = c_stack_size_bytes / 4;
 }
 
 namespace task_usb
 {
     const char name[] = "USB";
-    constexpr uint c_prio = configMAX_PRIORITIES - 2u;
-    constexpr uint c_stack_size_bytes = 4096;
-    constexpr uint c_stack_size_words = c_stack_size_bytes / 4;
+    constexpr uint32_t c_prio = configMAX_PRIORITIES - 2u;
+    constexpr uint32_t c_stack_size_bytes = 4096;
+    constexpr uint32_t c_stack_size_words = c_stack_size_bytes / 4;
 
-    constexpr uint c_usb_task_interval_ms = 10;
+    constexpr uint32_t c_usb_task_interval_ms = 10;
 }
 
 
@@ -78,11 +78,11 @@ constexpr rotary_pins_mask rot_3 {(1u << 10), (1u << 9), (1u << 14)};
 constexpr rotary_pins_mask rot_4 {(1u << 12), (1u << 11), (1u << 13)};
 
 
-constexpr uint c_num_rotaries = c_num_units;
+constexpr uint32_t c_num_rotaries = c_num_units;
 
 
-constexpr uint c_debounce_threshold = 2;
-constexpr uint c_debounce_delay_ms = 1;
+constexpr uint32_t c_debounce_threshold = 2;
+constexpr uint32_t c_debounce_delay_ms = 1;
 
 
 

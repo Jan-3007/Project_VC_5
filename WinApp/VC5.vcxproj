@@ -20,10 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VC5Application.cpp" />
+    <ClCompile Include="VC5Unit.cpp" />
     <ClCompile Include="WinUSBDevice.cpp" />
     <ClCompile Include="WinUSBInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="VC5Application.h" />
+    <ClInclude Include="VC5Unit.h" />
+    <ClInclude Include="VC5_app_config.h" />
     <ClInclude Include="VC5_global.h" />
     <ClInclude Include="WinUSBDevice.h" />
     <ClInclude Include="WinUSBInterface.h" />

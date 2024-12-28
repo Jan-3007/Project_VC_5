@@ -3,3 +3,5 @@
 
 using WinError = DWORD;
 
+using uint = unsigned int;
+

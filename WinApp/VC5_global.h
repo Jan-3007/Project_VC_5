@@ -27,6 +27,9 @@
 
 // VC5
 #include "WinUtils.h"
+#include "VC5_app_config.h"
 #include "VC5_usb_protocol.h"
 #include "WinUSBDevice.h"
 #include "WinUSBInterface.h"
+#include "VC5Unit.h"
+#include "VC5Application.h"

@@ -36,6 +36,10 @@ enum
 #define ITF_INDEX_VENDOR_2  1
 
 
+// max packet size for endpoints
+#define VENDOR_BULK_EP_SIZE                 64  // bytes
+#define VENDOR_INTERRUPT_EP_SIZE            4   // bytes
+
 
 
 // for MS OS 2.0 desc
