@@ -128,6 +128,13 @@ WinUSBInterface::reset_pipe(uint8_t pipe_id)
 
 
 WinError
+WinUSBInterface::set_pipe_autoclear_stall(uint8_t pipe_id, uint8_t val)
+{
+	return set_pipe_policy(pipe_id, AUTO_CLEAR_STALL, &val, sizeof(val));
+}
+
+
+WinError
 WinUSBInterface::set_pipe_transfer_timeout(uint8_t pipe_id, uint32_t millisecs)
 {
 	return set_pipe_policy(pipe_id, PIPE_TRANSFER_TIMEOUT, &millisecs, sizeof(millisecs));

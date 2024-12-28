@@ -48,6 +48,9 @@ public:
 	read_pipe_sync(uint8_t pipe_id, void* buffer, size_t buf_len, size_t& len_transferred);
 
 	WinError
+	set_pipe_autoclear_stall(uint8_t pipe_id, uint8_t val);
+
+	WinError
 	set_pipe_policy(uint8_t pipe_id, uint32_t policy_type, void* val, uint32_t len);
 
 	WinError

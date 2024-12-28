@@ -48,13 +48,26 @@ main()
 		return -1;
 	}
 
-	// step 5
+	// step 5: configure pipe policies
+	err = interface1.set_pipe_autoclear_stall(EPNUM_VENDOR_1_BULK_IN, TRUE);
+	if (err != NO_ERROR)
+	{
+		return -1;
+	}
+
+	err = interface2.set_pipe_autoclear_stall(EPNUM_VENDOR_2_INT_IN, TRUE);
+	if (err != NO_ERROR)
+	{
+		return -1;
+	}
+
 	err = interface2.set_pipe_transfer_timeout(EPNUM_VENDOR_2_INT_IN, 100);
 	if (err != NO_ERROR)
 	{
 		return -1;
 	}
 
+	// remove any old data from device pipe fifo
 	err = interface2.reset_pipe(EPNUM_VENDOR_2_INT_IN);
 	if (err != NO_ERROR)
 	{
