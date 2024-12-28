@@ -61,20 +61,9 @@ VC5Application::init_WinUSB()
 WinError 
 VC5Application::init_pipe_policies()
 {
-/*
-	WinError err = interface1_.set_pipe_autoclear_stall(EPNUM_VENDOR_1_BULK_IN, TRUE);
-	if (err != NO_ERROR)
-	{
-		return err;
-	}
+	WinError err;
 
-	err = interface2_.set_pipe_autoclear_stall(EPNUM_VENDOR_2_INT_IN, TRUE);
-	if (err != NO_ERROR)
-	{
-		return err;
-	}
-*/
-	WinError err = interface2_.set_pipe_transfer_timeout(EPNUM_VENDOR_2_INT_IN, 100);
+	err = interface2_.set_pipe_transfer_timeout(EPNUM_VENDOR_2_INT_IN, 100);
 	if (err != NO_ERROR)
 	{
 		return err;
@@ -189,12 +178,16 @@ VC5Application::update_volume()
 	// increase or decrease volume
 	unit.change_volume(event_buffer_.value);
 
-	// update mute after volume change
-	unit.update_mute();
+	if(c_clear_mute_on_change)
+	{
+		// update mute after volume change
+		unit.update_mute();
+
+		//WinError err = update_led();
+	}
 
 	std::cout << std::format("{}: rot = {}, new volume = {}, mute = {}\n", __func__, event_buffer_.rotary_index, unit.get_volume(), unit.is_mute());
 
-//	WinError err = update_led();
 //	WinError err = update_display();
 
 	return NO_ERROR;
