@@ -1,7 +1,14 @@
 #include "VC5_global.h"
+#include "usb_cmd_processor.h"
 
 
 USBCmdProcessor g_USB_cmd_processor;
+
+
+// ctor
+USBCmdProcessor::USBCmdProcessor()
+{
+}
 
 
 void
@@ -46,6 +53,30 @@ USBCmdProcessor::process_cmd(uint32_t len)
     uint8_t status = VC5_MsgHeader::st_error;
     switch(header->message_code)
     {
+        case VC5_MsgHeader::cmd_set_led:
+            {
+                // set LED colors
+                if(header->message_length != (sizeof(VC5_MsgHeader) + sizeof(VC5_SetLed)))
+                {
+                    printf("%s: cmd_set_led: invalid message_length = %u\n", __func__, header->message_length);
+                    status = VC5_MsgHeader::st_invalid_length;
+                    break;
+                }
+
+                const VC5_SetLed* data = reinterpret_cast<VC5_SetLed*>(cmd_buffer_.data() + sizeof(VC5_MsgHeader));
+                bool succ = set_single_led(data->led_index, data->r, data->g, data->b);
+                if(succ)
+                {
+                    status = VC5_MsgHeader::st_success;
+                }
+                else
+                {
+                    printf("%s: cmd_set_led: invalid led_index = %u\n", __func__, data->led_index);
+                    status = VC5_MsgHeader::st_invalid_param;
+                }
+            }
+            break;
+
         default:
             status = VC5_MsgHeader::st_invalid_cmd;
             break;

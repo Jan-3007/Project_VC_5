@@ -18,6 +18,8 @@
 #include "RP2040.h"
 #include "hardware/i2c.h"
 #include "pico/unique_id.h"
+#include "hardware/pio.h"
+#include "hardware/clocks.h"
 
 
 #if LIB_PICO_MULTICORE
@@ -63,6 +65,8 @@
 #include "rotary.h"
 #include "rotary_bank.h" 
 #include "VC5_usb_protocol.h"
+#include "led_WS2812_pio_init.h"
+#include "led_WS2812.h"
 #include "usb_cmd_processor.h"
 #include "usb_device.h"
 

@@ -19,6 +19,8 @@ constexpr uint32_t c_i2c_scl_pin = 7;
 
 constexpr uint32_t c_mcp_int_pin = 3;
 
+constexpr uint32_t c_led_pin = 20;
+
 
 
 //-----------------------------------------------------------
@@ -69,6 +71,7 @@ struct rotary_pins_mask
     uint16_t button_mask {0};
 };
 
+//
 // rotary masks
 //                               clk,       data,      button
 constexpr rotary_pins_mask rot_0 {(1u << 1), (1u << 0), (1u << 2)};
@@ -86,5 +89,14 @@ constexpr uint32_t c_debounce_delay_ms = 1;
 
 
 
+//-----------------------------------------------------------
+// WS2812 LEDs
+//-----------------------------------------------------------
 
+constexpr uint32_t c_num_leds = c_num_units;
+
+// RGB, 8 bit for each color 
+constexpr uint32_t c_color_bit_depth = 8;
+constexpr uint32_t c_num_colors_per_led = 3;
+constexpr uint32_t c_bytes_per_led = (c_color_bit_depth * c_num_colors_per_led) / 8;
 

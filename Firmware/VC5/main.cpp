@@ -24,6 +24,9 @@ int main()
     // init and task setup for the rotaries
     init_rotaries();
 
+    // init PIO for LEDs
+    init_led_chain();
+
     // init and task setup for USB
     init_usb();
 

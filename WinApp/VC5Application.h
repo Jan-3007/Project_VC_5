@@ -14,6 +14,12 @@ protected:
 	// for event data transmission
 	VC5_EventMsg event_buffer_{0};
 
+	// for bulk data transmission
+	uint8_t unique_id_ {0};
+	std::array<uint8_t, VC5_MsgHeader::max_cmd_length> cmd_buffer_ { 0 };
+	std::array<uint8_t, VC5_MsgHeader::max_rsp_length> rsp_buffer_ { 0 };
+
+
 	// VC5 units
 	VC5Unit VC5_units_[c_num_units]
 		{
@@ -44,5 +50,18 @@ protected:
 
 	WinError
 	update_volume();
+
+	// led index 0..4
+	WinError
+	update_led(VC5Unit& unit);
+
+	void
+	build_msg_set_color(uint8_t led_index, ColorTemplate color);
+
+	WinError
+	transmit_and_check(uint msg_size);
+
+	WinError
+	process_rsp(size_t len_transferred);
 };
 

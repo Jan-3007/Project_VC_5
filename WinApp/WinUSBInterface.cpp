@@ -127,6 +127,45 @@ WinUSBInterface::reset_pipe(uint8_t pipe_id)
 }
 
 
+WinError 
+WinUSBInterface::write_pipe_sync(uint8_t pipe_id, void* buffer, size_t buf_len, size_t* len_transferred)
+{
+	ULONG b_count = 0;
+
+	BOOL succ = ::WinUsb_WritePipe(
+		itf_handle_,					//	[in]            WINUSB_INTERFACE_HANDLE InterfaceHandle,
+		pipe_id,						//	[in]            UCHAR                   PipeID,
+		static_cast<UCHAR*>(buffer),	//	[out]           PUCHAR                  Buffer,
+		static_cast<ULONG>(buf_len),	//	[in]            ULONG                   BufferLength,
+		&b_count,						//	[out, optional] PULONG                  LengthTransferred,
+		nullptr							//	[in, optional]  LPOVERLAPPED            Overlapped
+		);
+
+	if (!succ)
+	{
+		WinError err = ::GetLastError();
+		if (err == ERROR_SEM_TIMEOUT)
+		{
+			// Timeout, not an error
+			b_count = 0;
+		}
+		else
+		{
+			std::cout << std::format("WinUsb_WritePipe failed, err = {}\n", err);
+			return err;
+		}
+	}
+
+	if (len_transferred != nullptr)
+	{
+		*len_transferred = b_count;
+	}
+
+	return NO_ERROR;
+}
+
+
+
 WinError
 WinUSBInterface::set_pipe_autoclear_stall(uint8_t pipe_id, uint8_t val)
 {

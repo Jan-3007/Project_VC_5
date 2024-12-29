@@ -81,6 +81,8 @@ struct VC5_MsgHeader
 
     // message code
     static constexpr uint8_t rsp_done = 0xd0;           // no data
+    static constexpr uint8_t cmd_set_led = 0xc0;        // data: VC5_SetLed
+
 
     // message status
     static constexpr uint8_t st_success = 0x00;
@@ -104,6 +106,21 @@ struct VC5_MsgHeader
     // padding
     uint8_t reserved;
 };
+
+
+struct VC5_SetLed
+{
+    // led_index 0..4
+    uint8_t led_index;
+
+    // colors 0..255
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+};
+
+
+
 
 
 // restore packing

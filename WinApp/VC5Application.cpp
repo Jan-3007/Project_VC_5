@@ -164,15 +164,15 @@ VC5Application::toggle_mute()
 
 	std::cout << std::format("{}: rot = {}, volume = {}, mute = {}\n", __func__, event_buffer_.rotary_index, unit.get_volume(), unit.is_mute());
 
-//	WinError err = update_led();
-
-	return NO_ERROR;
+	return update_led(unit);
 }
 
 
 WinError 
 VC5Application::update_volume()
 {
+	WinError err = NO_ERROR;
+
 	VC5Unit& unit = VC5_units_[event_buffer_.rotary_index];
 
 	// increase or decrease volume
@@ -183,12 +183,129 @@ VC5Application::update_volume()
 		// update mute after volume change
 		unit.update_mute();
 
-		//WinError err = update_led();
+		err = update_led(unit);
+		if (err != NO_ERROR)
+		{
+			return err;
+		}
 	}
 
 	std::cout << std::format("{}: rot = {}, new volume = {}, mute = {}\n", __func__, event_buffer_.rotary_index, unit.get_volume(), unit.is_mute());
 
-//	WinError err = update_display();
+//	err = update_display();
+
+	return err;
+}
+
+
+WinError 
+VC5Application::update_led(VC5Unit& unit)
+{
+	build_msg_set_color(unit.get_led_index(), unit.get_led_color());
+
+	uint msg_size = sizeof(VC5_MsgHeader) + sizeof(VC5_SetLed);
+	return transmit_and_check(msg_size);
+}
+
+
+void
+VC5Application::build_msg_set_color(uint8_t led_index, ColorTemplate color)
+{
+	unique_id_++;
+
+	VC5_MsgHeader* header = reinterpret_cast<VC5_MsgHeader*>(cmd_buffer_.data());
+	header->message_length = sizeof(VC5_MsgHeader) + sizeof(VC5_SetLed);
+	header->message_code = VC5_MsgHeader::cmd_set_led;
+	header->unique_id = unique_id_;
+	header->message_status = 0;
+	header->reserved = 0;
+
+	VC5_SetLed* data = reinterpret_cast<VC5_SetLed*>(cmd_buffer_.data() + sizeof(VC5_MsgHeader));
+	data->led_index = led_index;
+	data->r = color.r;
+	data->g = color.g;
+	data->b = color.b;
+}
+
+
+WinError 
+VC5Application::transmit_and_check(uint msg_size)
+{
+	// write pipe
+	WinError err = interface1_.write_pipe_sync(EPNUM_VENDOR_1_BULK_OUT, cmd_buffer_.data(), msg_size);
+	if (err != NO_ERROR)
+	{
+		return err;
+	}
+
+	// read pipe
+	size_t len_transferred = 0;
+	err = interface1_.read_pipe_sync(EPNUM_VENDOR_1_BULK_IN, rsp_buffer_.data(), sizeof(rsp_buffer_), len_transferred);
+	if (err != NO_ERROR)
+	{
+		return err;
+	}
+
+	if (len_transferred == 0)
+	{
+		// read timed out
+		std::cout << std::format("Read response time out.");
+		return ERROR_TIMEOUT;
+	}
+
+	// process response
+	err = process_rsp(len_transferred);
+	if (err != NO_ERROR)
+	{
+		return err;
+	}
+
+	return err;
+}
+
+
+WinError 
+VC5Application::process_rsp(size_t len_transferred)
+{
+	// response always contains only the MsgHeader
+	if (len_transferred != sizeof(VC5_MsgHeader))
+	{
+		// unexpected length
+		std::cout << std::format("Vendor 1: unexpected length = {}\n", len_transferred);
+		return ERROR_ERRORS_ENCOUNTERED;
+	}
+
+	const VC5_MsgHeader* rsp = reinterpret_cast<VC5_MsgHeader*> (rsp_buffer_.data());
+
+	if (rsp->message_length != sizeof(VC5_MsgHeader))
+	{
+		// unexpected rsp length
+		std::cout << std::format("Vendor 1: unexpected rsp length = {}\n", rsp->message_length);
+		return ERROR_ERRORS_ENCOUNTERED;
+	}
+	if (rsp->message_code != VC5_MsgHeader::rsp_done)
+	{
+		// unexpected msg
+		std::cout << std::format("Vendor 1: expected a response, got {} instead\n", rsp->message_code);
+		return ERROR_ERRORS_ENCOUNTERED;
+	}
+	if (rsp->unique_id != unique_id_)
+	{
+		// unexpected unique_id
+		std::cout << std::format("Vendor 1: unexpected unique_id, got {}\n", rsp->unique_id);
+		return ERROR_ERRORS_ENCOUNTERED;
+	}
+	if (rsp->message_status != VC5_MsgHeader::st_success)
+	{
+		// unexpected error
+		std::cout << std::format("Vendor 1: VC5 returned an error = {}\n", rsp->message_status);
+		return ERROR_ERRORS_ENCOUNTERED;
+	}
+
+	// success
+	std::cout << std::format("Vendor 1: command executed successfully\n");
 
 	return NO_ERROR;
 }
+
+

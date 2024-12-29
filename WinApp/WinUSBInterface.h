@@ -47,6 +47,10 @@ public:
 	WinError
 	read_pipe_sync(uint8_t pipe_id, void* buffer, size_t buf_len, size_t& len_transferred);
 
+	// write to the interface pipe
+	WinError 
+	write_pipe_sync(uint8_t pipe_id, void* buffer, size_t buf_len, size_t* len_transferred = nullptr);
+
 	WinError
 	set_pipe_autoclear_stall(uint8_t pipe_id, uint8_t val);
 

@@ -5,7 +5,10 @@
 class VC5Unit
 {
 protected:
+	// LED
 	uint8_t led_index_;
+	ColorTemplate led_color_ {color::black};
+
 	uint8_t display_index_;
 
 	// current state
@@ -28,13 +31,23 @@ public:
 	set_mute(bool val)
 		{
 			mute_ = val;
+			if(val)
+			{
+				// mute active
+				led_color_ = mute_on;
+			}
+			else
+			{
+				// mute inactive
+				led_color_ = mute_off;
+			}
 		}
 
 	uint
 	get_volume()
-	{
-		return volume_;
-	}
+		{
+			return volume_;
+		}
 	
 	void
 	change_volume(int8_t val)
@@ -56,15 +69,28 @@ public:
 
 	void
 	update_mute()
-	{
-		if (volume_ == 0)
 		{
-			mute_ = true;
+			if (volume_ == 0)
+			{
+				set_mute(true);
+			}
+			else
+			{
+				set_mute(false);
+			}
 		}
-		else
+
+	uint8_t
+	get_led_index()
 		{
-			mute_ = false;
+			return led_index_;
 		}
-	}
+
+	ColorTemplate
+	get_led_color()
+		{
+			return led_color_;
+		}
+
 };
 
