@@ -24,7 +24,7 @@ WinUSBInterface::is_valid() const
 
 
 WinError
-WinUSBInterface::init(HANDLE device_handle)
+WinUSBInterface::init(const HANDLE device_handle)
 {
 	if (is_valid())
 	{
@@ -47,7 +47,7 @@ WinUSBInterface::init(HANDLE device_handle)
 
 
 WinError
-WinUSBInterface::get_associated_interface(WINUSB_INTERFACE_HANDLE itf_handle, uint8_t itf_index)
+WinUSBInterface::get_associated_interface(const WINUSB_INTERFACE_HANDLE itf_handle, uint8_t itf_index)
 {
 	if (is_valid())
 	{

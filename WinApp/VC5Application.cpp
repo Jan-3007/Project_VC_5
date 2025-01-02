@@ -59,6 +59,49 @@ VC5Application::init_WinUSB()
 
 
 WinError 
+VC5Application::init_led()
+{
+	WinError err;
+	for (uint8_t i = 0; i < c_num_leds; i++)
+	{
+		err = update_led(VC5_units_[i]);
+		if (err != NO_ERROR)
+		{
+			return err;
+		}
+	}
+	return err;
+}
+
+
+WinError 
+VC5Application::init_displays()
+{
+	WinError err = NO_ERROR;
+	for (int i = 0; i < c_num_displays; i++)
+	{
+		err = clear_display(i);
+		if (err != NO_ERROR)
+		{
+			// unexpected error
+			std::cout << std::format("{}: could not clear display\n", __func__);
+			break;
+		}
+		
+		err = update_display(VC5_units_[i]);
+		if (err != NO_ERROR)
+		{
+			// unexpected error
+			std::cout << std::format("{}: could not update display\n", __func__);
+			break;
+		}
+	}
+
+	return err;
+}
+
+
+WinError 
 VC5Application::init_pipe_policies()
 {
 	WinError err;
@@ -192,14 +235,14 @@ VC5Application::update_volume()
 
 	std::cout << std::format("{}: rot = {}, new volume = {}, mute = {}\n", __func__, event_buffer_.rotary_index, unit.get_volume(), unit.is_mute());
 
-//	err = update_display();
+	err = update_display(unit);
 
 	return err;
 }
 
 
 WinError 
-VC5Application::update_led(VC5Unit& unit)
+VC5Application::update_led(const VC5Unit& unit)
 {
 	build_msg_set_color(unit.get_led_index(), unit.get_led_color());
 
@@ -208,8 +251,87 @@ VC5Application::update_led(VC5Unit& unit)
 }
 
 
+WinError 
+VC5Application::update_display(const VC5Unit& unit)
+{
+	WinError err;
+
+	// print app name on the display
+	std::wstring name = unit.get_name();
+
+	char disp_name[VC5_PrintString::max_character];
+	std::fill(disp_name, disp_name + VC5_PrintString::max_character, ' ');
+
+	// the char array is length limited to fit in one line of the display
+	int name_size = 0;
+	if (name.size() <= std::size(disp_name))
+	{
+		name_size = static_cast<int>(name.size());
+	} 
+	else
+	{
+		name_size = static_cast<int>(std::size(disp_name));
+	}
+
+	// convert wstring to char array
+	err = convert_wstring_to_char(name, name_size, disp_name, std::size(disp_name));
+	if (err != NO_ERROR)
+	{
+		return err;
+	}
+
+	// the string needs to be zero-terminated
+	disp_name[VC5_PrintString::max_character - 1] = '\0';
+
+	err = print_string_on_display(unit.get_display_index(), disp_name, disp_lines::name_line_num, disp_lines::name_padding_left);
+	if (err != NO_ERROR)
+	{
+		return err;
+	}
+
+	// print volume value on the display
+	err = print_vol_value(unit);
+
+	return err;
+
+}
+
+
+WinError 
+VC5Application::clear_display(uint display_index)
+{
+	unique_id_++;
+
+	VC5_MsgHeader* header = reinterpret_cast<VC5_MsgHeader*>(cmd_buffer_.data());
+	header->message_length = sizeof(VC5_MsgHeader) + sizeof(VC5_ClearDisplay);
+	header->message_code = VC5_MsgHeader::cmd_clear_display;
+	header->unique_id = unique_id_;
+	header->message_status = 0;
+	header->reserved = 0;
+
+	VC5_ClearDisplay* data = reinterpret_cast<VC5_ClearDisplay*>(cmd_buffer_.data() + sizeof(VC5_MsgHeader));
+	data->display_index = display_index;
+
+	unsigned int msg_size = sizeof(VC5_MsgHeader) + sizeof(VC5_ClearDisplay);
+	return transmit_and_check(msg_size);
+}
+
+
+WinError
+VC5Application::print_string_on_display(uint8_t display_index, const char* string, uint8_t padding_top, uint8_t padding_left)
+{
+	WinError err = build_msg_print_string(display_index, string, padding_top, padding_left);
+	if (err != NO_ERROR)
+	{
+		return err;
+	}
+	unsigned int msg_size = sizeof(VC5_MsgHeader) + sizeof(VC5_PrintString);
+	return transmit_and_check(msg_size);
+}
+
+
 void
-VC5Application::build_msg_set_color(uint8_t led_index, ColorTemplate color)
+VC5Application::build_msg_set_color(const uint8_t led_index, const ColorTemplate& color)
 {
 	unique_id_++;
 
@@ -225,6 +347,35 @@ VC5Application::build_msg_set_color(uint8_t led_index, ColorTemplate color)
 	data->r = color.r;
 	data->g = color.g;
 	data->b = color.b;
+}
+
+
+WinError
+VC5Application::build_msg_print_string(uint8_t display_index, const char* string, uint8_t padding_top, uint8_t padding_left)
+{
+	unique_id_++;
+
+	// total message size for Font12 is 30 bytes
+	VC5_MsgHeader* header = reinterpret_cast<VC5_MsgHeader*>(cmd_buffer_.data());
+	header->message_length = sizeof(VC5_MsgHeader) + sizeof(VC5_PrintString);
+	header->message_code = VC5_MsgHeader::cmd_print_string;
+	header->unique_id = unique_id_;
+	header->message_status = 0;
+	header->reserved = 0;
+
+	VC5_PrintString* data = reinterpret_cast<VC5_PrintString*>(cmd_buffer_.data() + sizeof(VC5_MsgHeader));
+	data->display_index = display_index;
+	data->padding_top_px = padding_top;
+	data->padding_left_px = padding_left;
+	errno_t succ = strcpy_s(data->string, VC5_PrintString::max_character, string);
+	if (succ)
+	{
+		// unexpected error
+		std::cout << std::format("{}: could not create msg\n", __func__);
+		return ERROR_ERRORS_ENCOUNTERED;
+	}
+
+	return NO_ERROR;
 }
 
 
@@ -306,6 +457,35 @@ VC5Application::process_rsp(size_t len_transferred)
 	std::cout << std::format("Vendor 1: command executed successfully\n");
 
 	return NO_ERROR;
+}
+
+
+WinError 
+VC5Application::print_vol_value(const VC5Unit& unit)
+{
+	using namespace std::string_literals;
+
+	unsigned int volume = unit.get_volume();
+
+	// convert int to string
+	std::string s = std::to_string(volume) + " %"s;
+
+	// resize string and move \0 to the end, "100 %" = 5 characters + \0
+	s.resize(6, ' ');
+	char& back = s.back();
+	back = '\0';
+
+	// copy the new string into a char[] buffer
+	char string[VC5_PrintString::max_character];
+	errno_t succ = strcpy_s(string, (VC5_PrintString::max_character), s.c_str());
+	if (succ)
+	{
+		// strcpy_s failed
+		std::cout << std::format("{}: strcpy_s failed\n", __func__);
+		return ERROR_ERRORS_ENCOUNTERED;
+	}
+
+	return print_string_on_display(unit.get_display_index(), string, disp_lines::volume_line_num, disp_lines::volume_padding_left);
 }
 
 

@@ -20,7 +20,6 @@ protected:
 
     void
     send_rsp_done(uint8_t unique_id, uint8_t status);
-
 };
 
 void

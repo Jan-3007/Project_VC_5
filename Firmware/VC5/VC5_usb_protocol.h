@@ -82,7 +82,8 @@ struct VC5_MsgHeader
     // message code
     static constexpr uint8_t rsp_done = 0xd0;           // no data
     static constexpr uint8_t cmd_set_led = 0xc0;        // data: VC5_SetLed
-
+    static constexpr uint8_t cmd_clear_display = 0xa0;   // data: VC5_ClearDisplay
+    static constexpr uint8_t cmd_print_string = 0xa1;   // data: VC5_PrintString
 
     // message status
     static constexpr uint8_t st_success = 0x00;
@@ -120,6 +121,40 @@ struct VC5_SetLed
 };
 
 
+struct VC5_ClearDisplay
+{
+    // display_index 0..4
+    uint8_t display_index;
+};
+
+
+// can be used for the padding_top_px parameter
+enum LinesFont12
+{
+    LINE_0 = 0,
+    LINE_1 = 13,
+    LINE_2 = 27,
+    LINE_3 = 40,
+    LINE_4 = 53
+};
+
+
+// for Font12 only
+struct VC5_PrintString
+{
+    static constexpr uint8_t max_character = 10;
+    // display_index 0..4
+    uint8_t display_index;
+
+    // padding_top_px 0..52 in pixel
+    uint8_t padding_top_px;
+
+    // padding_left_px 0..128 in pixel
+    uint8_t padding_left_px;
+    
+    // max character count per line: 9 characters + null-termination
+    char string[max_character];
+};
 
 
 

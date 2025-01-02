@@ -20,6 +20,7 @@
 #include "pico/unique_id.h"
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
+#include "hardware/spi.h"
 
 
 #if LIB_PICO_MULTICORE
@@ -53,6 +54,15 @@
 #include "usb_descriptors.h"
 
 
+//--------------------
+// Waveshare
+//--------------------
+extern "C"
+{
+#include "paint/GUI/GUI_Paint.h"
+}
+
+
 
 //--------------------
 // Custom
@@ -61,12 +71,19 @@
 #include "FreeRTOS_support.h"
 #include "Mutex.h"
 #include "VC5_RP2040.h"
+#include "VC5_usb_protocol.h"
+
 #include "MCP23017.h"
 #include "rotary.h"
 #include "rotary_bank.h" 
-#include "VC5_usb_protocol.h"
+
 #include "led_WS2812_pio_init.h"
 #include "led_WS2812.h"
+
+#include "display_driver_itf.h"
+#include "SH1106_disp_driver.h"
+#include "VC5_display_row.h"
+
 #include "usb_cmd_processor.h"
 #include "usb_device.h"
 

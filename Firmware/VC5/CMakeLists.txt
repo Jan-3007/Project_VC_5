@@ -52,6 +52,14 @@ set(FREERTOS_PORT "GCC_ARM_CM0" CACHE STRING "" FORCE)
 
 
 #--------------------
+# Waveshare
+#--------------------
+# include Paint lib by Waveshare
+include(${CMAKE_CURRENT_LIST_DIR}/paint/paint.cmake)
+#--------------------
+
+
+#--------------------
 # Project setup
 #--------------------
 # project sets the ${PROJECT_NAME} variable as well
@@ -112,6 +120,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     Mutex.cpp
     usb_cmd_processor.cpp
     led_WS2812.cpp
+    SH1106_disp_driver.cpp
+    VC5_display_row.cpp
     )
 
 # Add any user requested libraries
@@ -123,6 +133,8 @@ target_link_libraries(${PROJECT_NAME}
     hardware_pio
     hardware_clocks
     hardware_timer
+    hardware_spi
+    paint_lib
     )
 #--------------------
 

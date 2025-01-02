@@ -26,12 +26,11 @@ public:
 
 	// initialise WinUSB, get an interface handle
 	WinError
-	init(HANDLE device_handle);
+	init(const HANDLE device_handle);
 
 	// get associated interface
-	// alternative to init!!!
 	WinError
-	get_associated_interface(WINUSB_INTERFACE_HANDLE itf_handle, uint8_t itf_index);
+	get_associated_interface(const WINUSB_INTERFACE_HANDLE itf_handle, uint8_t itf_index);
 
 	// free WinUSB interface handle, if valid
 	WinError

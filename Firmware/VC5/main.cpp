@@ -20,12 +20,16 @@ int main()
     printf("VC 5: %s %s\n", __DATE__, __TIME__);
 
     init_i2c();
+    init_spi();
 
     // init and task setup for the rotaries
     init_rotaries();
 
     // init PIO for LEDs
     init_led_chain();
+
+    // init displays
+    init_displays();
 
     // init and task setup for USB
     init_usb();
