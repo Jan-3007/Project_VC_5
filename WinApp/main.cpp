@@ -7,9 +7,13 @@
 int
 main()
 {
+	WinError err = NO_ERROR;
+
 	VC5Application app;
 
-	WinError err = app.init_WinUSB();
+	err = app.init_WinUSB();
+	err = app.init_led();
+	err = app.init_displays();
 
 
 	std::cout << std::format("Reading events ... press any key to exit.\n");

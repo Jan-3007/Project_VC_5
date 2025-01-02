@@ -24,7 +24,7 @@ protected:
 
 
 public:
-    //ctor
+    // ctor
     MCP23017();
     
     // Initialise MCP23017

@@ -1,7 +1,14 @@
 #include "VC5_global.h"
+#include "usb_cmd_processor.h"
 
 
 USBCmdProcessor g_USB_cmd_processor;
+
+
+// ctor
+USBCmdProcessor::USBCmdProcessor()
+{
+}
 
 
 void
@@ -46,6 +53,71 @@ USBCmdProcessor::process_cmd(uint32_t len)
     uint8_t status = VC5_MsgHeader::st_error;
     switch(header->message_code)
     {
+        // LED cmd
+        case VC5_MsgHeader::cmd_set_led:
+            {
+                // set LED color
+                if(header->message_length != (sizeof(VC5_MsgHeader) + sizeof(VC5_SetLed)))
+                {
+                    printf("%s: cmd_set_led: invalid message_length = %u\n", __func__, header->message_length);
+                    status = VC5_MsgHeader::st_invalid_length;
+                    break;
+                }
+
+                const VC5_SetLed* data = reinterpret_cast<VC5_SetLed*>(cmd_buffer_.data() + sizeof(VC5_MsgHeader));
+                bool succ = set_single_led(data->led_index, data->r, data->g, data->b);
+                if(succ)
+                {
+                    status = VC5_MsgHeader::st_success;
+                }
+                else
+                {
+                    printf("%s: cmd_set_led: invalid led_index = %u\n", __func__, data->led_index);
+                    status = VC5_MsgHeader::st_invalid_param;
+                }
+            }
+            break;
+
+        // print on display cmd
+        case VC5_MsgHeader::cmd_print_string:
+            {
+                if(header->message_length != (sizeof(VC5_MsgHeader) + sizeof(VC5_PrintString)))
+                {
+                    printf("%s: cmd_print_string: invalid message_length = %u\n", __func__, header->message_length);
+                    status = VC5_MsgHeader::st_invalid_length;
+                    break;
+                }
+
+                const VC5_PrintString* data = reinterpret_cast<VC5_PrintString*>(cmd_buffer_.data() + sizeof(VC5_MsgHeader));
+                bool succ = print_on_screen(data->display_index, data->padding_top_px, data->padding_left_px, data->string, c_display_font);
+                if(succ)
+                {
+                    status = VC5_MsgHeader::st_success;
+                }
+                else
+                {
+                    printf("%s: cmd_print_string: error while sending data = %u\n", __func__, data->display_index);
+                    status = VC5_MsgHeader::st_error;
+                }
+            }
+            break;
+
+        // clear display cmd
+        case VC5_MsgHeader::cmd_clear_display:
+            {
+                if(header->message_length != (sizeof(VC5_MsgHeader) + sizeof(VC5_ClearDisplay)))
+                {
+                    printf("%s: cmd_clear_display: invalid message_length = %u\n", __func__, header->message_length);
+                    status = VC5_MsgHeader::st_invalid_length;
+                    break;
+                }
+
+                const VC5_ClearDisplay* data = reinterpret_cast<VC5_ClearDisplay*>((cmd_buffer_.data() + sizeof(VC5_MsgHeader)));
+                clear_display(data->display_index);
+                status = VC5_MsgHeader::st_success;
+            }
+            break;
+
         default:
             status = VC5_MsgHeader::st_invalid_cmd;
             break;

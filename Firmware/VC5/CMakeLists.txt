@@ -52,6 +52,14 @@ set(FREERTOS_PORT "GCC_ARM_CM0" CACHE STRING "" FORCE)
 
 
 #--------------------
+# Waveshare
+#--------------------
+# include Paint lib by Waveshare
+include(${CMAKE_CURRENT_LIST_DIR}/paint/paint.cmake)
+#--------------------
+
+
+#--------------------
 # Project setup
 #--------------------
 # project sets the ${PROJECT_NAME} variable as well
@@ -71,10 +79,16 @@ pico_set_program_version(${PROJECT_NAME} "1.0")
 pico_enable_stdio_uart(${PROJECT_NAME} 1)
 pico_enable_stdio_usb(${PROJECT_NAME} 0)
 
-#
+# use FreeRTOS as OS
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     CFG_TUSB_OS=OPT_OS_FREERTOS
 )
+
+# needed for using a PIO
+pico_generate_pio_header(
+    ${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/led_WS2812.pio
+    OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}
+    )
 
 # Add the standard include files to the build
 target_include_directories(${PROJECT_NAME} PRIVATE
@@ -105,6 +119,9 @@ target_sources(${PROJECT_NAME} PRIVATE
     usb_device.cpp
     Mutex.cpp
     usb_cmd_processor.cpp
+    led_WS2812.cpp
+    SH1106_disp_driver.cpp
+    VC5_display_row.cpp
     )
 
 # Add any user requested libraries
@@ -113,6 +130,11 @@ target_link_libraries(${PROJECT_NAME}
     pico_unique_id
     tinyusb_device
     tinyusb_board
+    hardware_pio
+    hardware_clocks
+    hardware_timer
+    hardware_spi
+    paint_lib
     )
 #--------------------
 

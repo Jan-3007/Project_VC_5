@@ -21,11 +21,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="VC5Application.cpp" />
-    <ClCompile Include="VC5Unit.cpp" />
     <ClCompile Include="WinUSBDevice.cpp" />
     <ClCompile Include="WinUSBInterface.cpp" />
+    <ClCompile Include="WinUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColorTemplate.h" />
     <ClInclude Include="VC5Application.h" />
     <ClInclude Include="VC5Unit.h" />
     <ClInclude Include="VC5_app_config.h" />
