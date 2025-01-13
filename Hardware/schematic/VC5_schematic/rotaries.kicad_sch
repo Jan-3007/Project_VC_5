@@ -2648,7 +2648,7 @@
 			(uuid "cd28f050-c2ae-43f5-a968-88ba73558b8e")
 		)
 		(instances
-			(project ""
+			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/94053ad0-2266-446d-9c80-6f87cfd390a9"
 					(reference "U7")
 					(unit 1)
@@ -2804,7 +2804,7 @@
 			(uuid "f1c40a78-ae86-41e5-b00c-1053c9e1c928")
 		)
 		(instances
-			(project ""
+			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/94053ad0-2266-446d-9c80-6f87cfd390a9"
 					(reference "VR1")
 					(unit 1)
@@ -2936,7 +2936,7 @@
 			(uuid "ee95d48c-7f4b-4aa8-a255-507fd2f65e8a")
 		)
 		(instances
-			(project ""
+			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6/94053ad0-2266-446d-9c80-6f87cfd390a9"
 					(reference "#PWR020")
 					(unit 1)

@@ -27,7 +27,7 @@
 			)
 		)
 	)
-	(property "Footprint" ""
+	(property "Footprint" "MCP23017_IO_expander"
 		(at 4.064 -5.588 0)
 		(unlocked yes)
 		(layer "F.Fab")
@@ -672,7 +672,7 @@
 		(remove_unused_layers no)
 		(uuid "1ac78eec-9d34-487f-a840-192cf5393e21")
 	)
-	(model "${KIPRJMOD}/MCP23017_PinHeader_1x10_P2.54mm_Vertical.step"
+	(model "${KIPRJMOD}/PinSocket_1x10_P2.54mm_Vertical.step"
 		(offset
 			(xyz -8.5 11.5 0)
 		)
@@ -683,9 +683,9 @@
 			(xyz 0 0 0)
 		)
 	)
-	(model "${KIPRJMOD}/MCP23017_PinHeader_2x10_P2.54mm_Vertical.step"
+	(model "${KIPRJMOD}/PinSocket_2x10_P2.54mm_Vertical.step"
 		(offset
-			(xyz 7.5 11.5 0)
+			(xyz 10 11.5 0)
 		)
 		(scale
 			(xyz 1 1 1)

@@ -2219,7 +2219,7 @@
 			(uuid "c461557b-0045-4f9b-9d5c-31e47bf84cdb")
 		)
 		(instances
-			(project ""
+			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
 					(reference "J2")
 					(unit 1)
@@ -2726,7 +2726,7 @@
 			(uuid "d0f36ace-db99-4837-9a6e-15e703622553")
 		)
 		(instances
-			(project ""
+			(project "VC5_schematic"
 				(path "/236c86f4-0879-4356-88b2-65461f963bd6"
 					(reference "U1")
 					(unit 1)
