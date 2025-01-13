@@ -70,7 +70,6 @@ void USBDevice::vendor_2_task()
         int rot_value = capture_rotary_value(i);
         if(rot_value != 0)
         {
-            printf("rot msg\n");
             send_event_message(VC5_EventMsg::evt_rotary_turned, i, rot_value);
 
             break;
@@ -80,7 +79,6 @@ void USBDevice::vendor_2_task()
         int btn_value = capture_button_value(i);
         if(btn_value != 0)
         {
-            printf("btn msg\n");
             send_event_message(VC5_EventMsg::evt_rotary_button, i, btn_value);
 
             break;
@@ -114,7 +112,6 @@ USBDevice::send_event_message(uint8_t event_code, uint8_t index, int8_t value)
         tud_vendor_n_write(ITF_INDEX_VENDOR_2, &msg, sizeof(msg));
         // for sending packages smaller than CFG_TUD_VENDOR_EPSIZE
         tud_vendor_n_flush(ITF_INDEX_VENDOR_2);
-        printf("sent\n");
 
         return true;
     }

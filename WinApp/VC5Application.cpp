@@ -454,7 +454,7 @@ VC5Application::process_rsp(size_t len_transferred)
 	}
 
 	// success
-	std::cout << std::format("Vendor 1: command executed successfully\n");
+	//std::cout << std::format("Vendor 1: command executed successfully\n");
 
 	return NO_ERROR;
 }
