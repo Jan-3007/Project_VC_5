@@ -12,7 +12,7 @@ build/
 .vs/
 
 # Visual Studio Code cache/options directory
-.vscode/
+#.vscode/
 
 
 # Pico Pio project specific, auto generated
