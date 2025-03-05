@@ -4,10 +4,10 @@ Note: This project is the base for my upcoming project VC 5 and won't be updated
 
 
 ## General description
-The aim of this project is to create an external device, which allows the user to adjust a variety of settings (depending on the PC application) on a host PC. 
+The aim of this project is to create an external device, which allows the user to adjust a variety of settings (e.g. volume, display brightness, settings within a program, ...) on a host PC. 
 
 ## Hardware
-The user has a number of rotaries as input (number set to 5 within the config file of this project) and LED's and displays to show any kind of status.
+A number of rotaries are available as input (number set to 5 within the config file of this project) and LED's and displays to show any kind of status.
 The schematic for the device can be found at _Harware/schematic_.
 
 ## Software
