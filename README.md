@@ -14,7 +14,7 @@ The schematic for the device can be found at _Harware/schematic_.
 The software consists of two parts.
 
 ### 1. Firmware
-The firmware is written for the Raspberry Pi RP2040. It communicates via USB with the host PC. The firmware only transmits data from the rotaries to the host PC and executes commands from the host PC. These commands can for example set the color of the LED and control the content shown on the displays.
+The firmware is written for the Raspberry Pi RP2040. It communicates via USB with the host PC. The firmware only transmits data from the rotaries to the host PC and executes commands from the host PC. These commands can for example set the color of the LED and change the content shown on the displays.
 
 
 ### 2. PC application
